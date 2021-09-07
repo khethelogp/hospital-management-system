@@ -1,15 +1,15 @@
 import React from 'react';
 import { Navbar } from '../components';
 
-function Products() {
+function Patients() {
     return (
         <>
             <Navbar />
-            <div className="products">
-                <h1>Products</h1>
+            <div className="patients">
+                <h1>Patients</h1>
             </div>
         </>
     )
 }
 
-export default Products
+export default Patients

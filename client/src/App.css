@@ -14,13 +14,21 @@ body {
 }
 
 .home,
-.reports,
-.products {
+.patients,
+.doctors,
+.dashboard {
   display: flex;
   height: 90vh;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  flex-direction: column;
+}
+
+.errorMsg {
+  color: red;
+  font-size: 1rem;
+  margin: 0 16px;
 }
 
 /* Auth Errors */

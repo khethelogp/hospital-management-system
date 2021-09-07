@@ -8,13 +8,13 @@ import Axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const Login = () => {
+
+const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,passwordError }) => {
+    
     const  classes = useStyles();
 
     const [loginStatus, setLoginStatus] = useState('');
-    const [isLoggedOn, setIsLoggedOn] = useState(false);
 
-    
     const initialValues = {
         email: '',
         password: '',
@@ -26,7 +26,7 @@ const Login = () => {
         password: Yup.string().required('Required')
     })
 
-    const onSubmit = (values, props) => {
+    const handleSubmit = (values, props) => {
         console.log(values)
         setTimeout(() => {
             props.resetForm()
@@ -36,20 +36,18 @@ const Login = () => {
         
         Axios.post("http://localhost:3001/login", {
             email: values.email,
-            password: values.password 
+            password: values.password
         }).then((response) => {
             if (response.data.message){
                 setLoginStatus(response.data.message)
             } else {
-                setIsLoggedOn(true)
-                console.log(isLoggedOn);
                 setLoginStatus(response.data[0].firstName)
             }
         })
-    }
 
-    const toLink = () => {
-        return isLoggedOn ? '/home' : '/'; 
+        setFireEmail(values.email);
+        setFirePassword(values.password); 
+
     }
 
     return (
@@ -64,7 +62,7 @@ const Login = () => {
                         Sign in
                     </Typography>
                     
-                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
                         {(props) => (
                             <Form autoComplete="off">
                                 <Field 
@@ -81,6 +79,7 @@ const Login = () => {
                                     autoFocus
                                     helperText={<ErrorMessage name="email" />}
                                 />
+                                <p className="errorMsg">{emailError}</p>
                                 <Field
                                     as={TextField}
                                     variant="outlined"
@@ -95,6 +94,7 @@ const Login = () => {
                                     autoComplete="current-password"
                                     helperText={<ErrorMessage name="password" />}
                                 />
+                                <p className="errorMsg">{passwordError}</p>
                                 <Field
                                     as={FormControlLabel} 
                                     name="remember"
@@ -109,17 +109,18 @@ const Login = () => {
                                     color="primary"
                                     className={classes.submit}
                                     disabled={props.isSubmitting}
+                                    onClick={handleLogin}
                                 >
                                     {props.isSubmitting? "Loading" : "Sign In" }  
                                 </Button>
                                         
                                 <Grid container>
-                                    <Grid iten xs>
+                                    <Grid item>
                                         <Link href="#" variant="body2">
-                                            Forgot password?
+                                            {`Forgot password ? `}
                                         </Link>
                                     </Grid>
-                                    <Grid item>
+                                    <Grid item xs>
                                         <Link component={RouterLink} to="/signup" variant="body2">
                                             {"Don't have an account? Sign Up"}
                                         </Link>

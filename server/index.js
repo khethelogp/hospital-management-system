@@ -11,7 +11,7 @@ const db = mysql.createConnection({
     user: "root",
     host: "localhost",
     password: "password",
-    database: "loginsystem",
+    database: "hms",
 });
 
 app.post('/signup', (req, res) => {

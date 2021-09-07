@@ -1,13 +1,19 @@
 import React, { useState }  from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
+import * as BiIcons from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
-import './Navbar.css';
-import { IconContext } from 'react-icons'
+import { IconContext } from 'react-icons';
 
-function Navbar() {
+import './Navbar.css';
+
+// TODO implement popup when login out 
+
+function Navbar(props) {
+    const { handleLogout } = props;
     const [sidebar, setSidebar] = useState(false)
+    // const [openPopup, setOpenPopup] = useState(false);
 
     const showSidebar = () => setSidebar(!sidebar)
 
@@ -18,6 +24,11 @@ function Navbar() {
                 <Link to="#" className='menu-bars'>
                     <FaIcons.FaBars onClick={showSidebar}/> 
                 </Link>
+                <Link to="#" className='logout' title="Logout">
+                    <BiIcons.BiExit 
+                        onClick={handleLogout}
+                    /> 
+                </Link>
             </div>
             <nav className={sidebar ? 'nav-menu active ' : 'nav-menu' }>
                 <ul className='nav-menu-items' onClick={showSidebar}>
@@ -26,6 +37,10 @@ function Navbar() {
                             <AiIcons.AiOutlineClose />
                         </Link>
                     </li>
+                    <div className="loggedInAs">
+                        <p>Logged in as: </p>
+                        <h3>username</h3>
+                    </div>
                     {/* maps all sidebar links */}
                     {SidebarData.map((item, index) => {
                         return (
@@ -39,7 +54,7 @@ function Navbar() {
                     })}                
                 </ul>
             </nav>
-            </IconContext.Provider>   
+            </IconContext.Provider>  
         </>
     )
 }

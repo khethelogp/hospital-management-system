@@ -9,7 +9,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Popup from '../../Popup/Popup';
 
-const Signup = () => {
+const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passwordError }) => {
+
     const  classes = useStyles();
 
     /* const [firstNameReg, setFirstNameReg] = useState('');
@@ -46,6 +47,8 @@ const Signup = () => {
 
         setSignEmail(values.email);
         setSignPassword(values.password);
+        setFireEmail(values.email);
+        setFirePassword(values.password);
 
         Axios.post("http://localhost:3001/signup", {
             firstName: values.firstName,
@@ -70,7 +73,12 @@ const Signup = () => {
                         Sign up
                     </Typography>
 
-                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema} autoComplete="off">
+                    <Formik 
+                        initialValues={initialValues} 
+                        onSubmit={onSubmit} 
+                        validationSchema={validationSchema} 
+                        autoComplete="off"
+                    >
                         {(props) => (
                             <Form>
                                 <Grid container spacing={2}>
@@ -114,6 +122,7 @@ const Signup = () => {
                                     helperText={<ErrorMessage name="email"/>}
                                 />
                                 </Grid>
+                                <p className="errorMsg">{emailError}</p>
                                 <Grid item xs={12}>
                                 <Field
                                     as={TextField}
@@ -128,6 +137,7 @@ const Signup = () => {
                                     helperText={<ErrorMessage name="password"/>}
                                 />
                                 </Grid>
+                                <p className="errorMsg">{passwordError}</p>
                                 <Grid item xs={12}>
                                 <Field
                                     as={TextField}
@@ -150,13 +160,13 @@ const Signup = () => {
                                 color="primary"
                                 className={classes.submit}
                                 disabled={props.isSubmitting}
-                                onClick={() => setOpenPopup(true)}
+                                onClick={handleSignup}
                             >
                                 {props.isSubmitting ? 'Loading...': 'Sign Up' }
                             </Button>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
-                                <Link component={RouterLink} to="/" variant="body2">
+                                <Link component={RouterLink} to="/login" variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                                 </Grid>

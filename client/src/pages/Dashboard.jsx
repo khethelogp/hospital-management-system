@@ -4,7 +4,10 @@ import Home from './Home'
 const Dashboard = ({handleLogout}) => {
     return (
         <>
-            <Home handleLogout={handleLogout} />         
+            <Home handleLogout={handleLogout} />
+
+            
+
         </>
     )
 }

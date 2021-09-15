@@ -16,7 +16,8 @@ body {
 .home,
 .patients,
 .doctors,
-.dashboard {
+.dashboard,
+.admin {
   display: flex;
   height: 90vh;
   align-items: center;

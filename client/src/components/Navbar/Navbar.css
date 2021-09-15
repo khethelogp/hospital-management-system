@@ -4,11 +4,12 @@
 
 .navbar {
   background-color: #060b26;
-  height: 80px;
+  height: 5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
 .menu-bars {
@@ -33,6 +34,7 @@
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index: 1000;
 }
 
 .nav-menu.active {

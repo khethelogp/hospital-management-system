@@ -6,9 +6,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import {Helmet} from "react-helmet";
 import Home from './pages/Home';
-import Patients from './pages/Patients';
-import Doctors from './pages/Doctors';
+import Patients from './pages/patients/Patients';
+import Doctors from './pages/doctors/Doctors';
 import Dashboard from './pages/Dashboard';
+import Admin from './pages/admin/Admin';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -105,6 +106,7 @@ const App = () => {
         console.log(user);
     },[user])
 
+    // TODO add theme and theme provider
     return (
         <div className="App">       
             <Helmet>
@@ -150,6 +152,7 @@ const App = () => {
                         />
                     </Route>
                     <Route path='/home' component={Home} />
+                    <Route path='/admin' component={Admin} />
                     <Route path='/patients' component={Patients}/>
                     <Route path='/doctors' component={Doctors}/>
                     <Route path='/dashboard' component={Dashboard}/>

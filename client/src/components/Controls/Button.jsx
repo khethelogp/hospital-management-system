@@ -8,9 +8,8 @@ const useStyles = makeStyles(theme => ({
     },
     label: {
         textTransform: 'none',
-        textAlign: 'center',
-        
-    }
+        textAlign: 'center',    
+    },
 }))
 
 export default function Button(props) {
@@ -19,14 +18,16 @@ export default function Button(props) {
     const classes = useStyles();
 
     return (
-        <MuiButton
-            variant={variant || "contained"}
-            size={size || "large"}
-            color={color || "primary"}
-            onClick={onClick}
-            {...other}
-            classes={{ root: classes.root, label: classes.label }}>
-            {text}
-        </MuiButton>
+        <div className={classes.button}>
+            <MuiButton
+                variant={variant || "contained"}
+                size={size || "large"}
+                color={color || "primary"}
+                onClick={onClick}
+                {...other}
+                classes={{ root: classes.root, label: classes.label }}>
+                {text}
+            </MuiButton>
+        </div>
     )
 }

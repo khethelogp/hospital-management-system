@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import UserForm from './UserForm';
 import { Navbar } from '../../components';
-import { Paper, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import { Paper, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Container, Button } from '@material-ui/core';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import useTable from '../../components/Controls/useTable';
 import * as userService from '../../services/userService';
@@ -97,65 +97,74 @@ const Admin = ({}) => {
                 icon={<VerifiedUser fontSize="large" />}
             />
 
+            <div className={classes.container}>
             <Paper className={classes.pageContent} >
-                <Toolbar>
-                    <Controls.Input
-                        label="Search User"
-                        className={classes.searchInput}
-                        sm={12}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch} 
-                    />
-                    <Controls.Button 
-                        text="New"
-                        variant="outlined"
-                        startIcon={<Add /> }
-                        sm={12}
-                        className={classes.newButton}
-                        onClick={() => {setRecordForEdit(null); setOpenPopup(true);}}
-                    />
-                </Toolbar>
-                <TblContainer>
-                    <TblHead />
-                    <TableBody>
-                        {
-                            recordsAfterPagingAndSorting().map(item =>
-                            (<TableRow key={item.id}>
-                                <TableCell>{item.fullName}</TableCell>
-                                <TableCell>{item.email}</TableCell>
-                                <TableCell>{item.mobile}</TableCell>
-                                <TableCell>{item.department}</TableCell>
-                                <TableCell>
-                                    <Controls.ActionButton
-                                        color="primary"
-                                        onClick={() => {openInPopup(item)}}
-                                    >
-                                        <EditOutlined fontSize="small" />
-                                    </Controls.ActionButton>
-                                    <Controls.ActionButton
-                                        color="secondary"
-                                        onClick={() => {
-                                            setConfirmDialog({
-                                                isOpen: true,
-                                                title: 'Are you sure to delete this record ?',
-                                                subTitle: "You can't undo this action",
-                                                onConfirm:  () => {onDelete(item.id)}
-                                            })
-                                        }}
-                                    >
-                                        <Close fontSize="small"/>
-                                    </Controls.ActionButton>
-                                </TableCell>
-                            </TableRow>))
-                        }
-                    </TableBody>
-                </TblContainer>
-                <TblPagination />
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} >
+                    <Toolbar sx={{display: 'flex', flexDirection: 'column'}}>
+                        <Controls.Input
+                            label="Search User"
+                            className={classes.searchInput}
+                            sm={12}
+                            InputProps={{
+                                startAdornment: (<InputAdornment position="start">
+                                    <Search />
+                                </InputAdornment>)
+                            }}
+                            onChange={handleSearch} 
+                        />
+                        <Controls.Button 
+                            text="New"
+                            variant="outlined"
+                            startIcon={<Add /> }
+                            sm={12}
+                            className={classes.newButton}
+                            onClick={() => {setRecordForEdit(null); setOpenPopup(true);}}
+                        />
+                    </Toolbar>
+                </Container>
+                
+                <Container maxWidth="md" sx={{ mt: 4, mb: 4 }} >
+                    <TblContainer>
+                        <TblHead />
+                        <TableBody>
+                            {
+                                recordsAfterPagingAndSorting().map(item =>
+                                (<TableRow key={item.id}>
+                                    <TableCell>{item.fullName}</TableCell>
+                                    <TableCell>{item.email}</TableCell>
+                                    <TableCell>{item.mobile}</TableCell>
+                                    <TableCell>{item.department}</TableCell>
+                                    <TableCell>
+                                        <Controls.ActionButton
+                                            color="primary"
+                                            onClick={() => {openInPopup(item)}}
+                                        >
+                                            <EditOutlined fontSize="small" />
+                                        </Controls.ActionButton>
+                                        <Controls.ActionButton
+                                            color="secondary"
+                                            onClick={() => {
+                                                setConfirmDialog({
+                                                    isOpen: true,
+                                                    title: 'Are you sure to delete this record ?',
+                                                    subTitle: "You can't undo this action",
+                                                    onConfirm:  () => {onDelete(item.id)}
+                                                })
+                                            }}
+                                        >
+                                            <Close fontSize="small"/>
+                                        </Controls.ActionButton>
+                                    </TableCell>
+                                </TableRow>))
+                            }
+                        </TableBody>
+                    </TblContainer>
+                    <TblPagination />
+                </Container>
+
             </Paper>
+            </div>
+            
             <Popup
                 title="User Form"
                 openPopup={openPopup}

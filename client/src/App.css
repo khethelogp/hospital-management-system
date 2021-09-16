@@ -13,6 +13,10 @@ body {
   background-color: #ccc;
 }
 
+.App {
+  width: "100%";
+}
+
 .home,
 .patients,
 .doctors,

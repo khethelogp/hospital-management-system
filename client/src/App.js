@@ -10,6 +10,7 @@ import Patients from './pages/patients/Patients';
 import Doctors from './pages/doctors/Doctors';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/admin/Admin';
+import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,6 +25,35 @@ const firebaseConfig = {
 // Initialize Firebase
 const fire = initializeApp(firebaseConfig);
 const auth = getAuth(fire);
+
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#333996",
+            light: '#3c44b126'
+        },
+        secondary: {
+        main: "#f83245",
+        light: '#f8324526'
+        },
+        background: {
+            default: "#f4f5fd"
+        },
+    },
+    overrides:{
+        MuiAppBar:{
+            root:{
+                transform:'translateZ(0)'
+            }
+        }
+    },
+    props:{
+        MuiIconButton:{
+            disableRipple:true
+        }
+    }
+})
 
 const App = () => {
     const [user, setUser] = useState('');
@@ -108,58 +138,61 @@ const App = () => {
 
     // TODO add theme and theme provider
     return (
-        <div className="App">       
-            <Helmet>
-                <meta charSet="utf-8" />
-                <title>HMS</title>
-                <link rel="canonical" href="#" />
-            </Helmet>
-            
-            <Router>
-                <Switch>
-                    <Route exact path='/' >
-                            {user ? (
-                                // TODO use useContext for passing logout fuction to home
-                                <Home handleLogout={handleLogout} />
-                            ) : (
-                                <Login 
-                                    setFireEmail={setFireEmail}
-                                    setFirePassword={setFirePassword}
-                                    handleLogin={handleLogin}
-                                    handleSignup={handleSignup}
-                                    emailError={emailError}
-                                    passwordError={passwordError}
-                                />
-                            ) }
-                    </Route>
-                    <Route path='/signup'>
-                        <Signup 
-                            setFireEmail={setFireEmail}
-                            setFirePassword={setFirePassword}
-                            handleSignup={handleSignup}
-                            emailError={emailError}
-                            passwordError={passwordError}
-                        />
-                    </Route>
-                    <Route path='/login'>
-                        <Login 
-                            setFireEmail={setFireEmail}
-                            setFirePassword={setFirePassword}
-                            handleLogin={handleLogin}
-                            handleSignup={handleSignup}
-                            emailError={emailError}
-                            passwordError={passwordError}
-                        />
-                    </Route>
-                    <Route path='/home' component={Home} />
-                    <Route path='/admin' component={Admin} />
-                    <Route path='/patients' component={Patients}/>
-                    <Route path='/doctors' component={Doctors}/>
-                    <Route path='/dashboard' component={Dashboard}/>
-                </Switch>
-            </Router>
-            
-        </div>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <div className="App">       
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>HMS</title>
+                    <link rel="canonical" href="#" />
+                </Helmet>
+                
+                <Router>
+                    <Switch>
+                        <Route exact path='/' >
+                                {user ? (
+                                    // TODO use useContext for passing logout fuction to home
+                                    <Home handleLogout={handleLogout} />
+                                ) : (
+                                    <Login 
+                                        setFireEmail={setFireEmail}
+                                        setFirePassword={setFirePassword}
+                                        handleLogin={handleLogin}
+                                        handleSignup={handleSignup}
+                                        emailError={emailError}
+                                        passwordError={passwordError}
+                                    />
+                                ) }
+                        </Route>
+                        <Route path='/signup'>
+                            <Signup 
+                                setFireEmail={setFireEmail}
+                                setFirePassword={setFirePassword}
+                                handleSignup={handleSignup}
+                                emailError={emailError}
+                                passwordError={passwordError}
+                            />
+                        </Route>
+                        <Route path='/login'>
+                            <Login 
+                                setFireEmail={setFireEmail}
+                                setFirePassword={setFirePassword}
+                                handleLogin={handleLogin}
+                                handleSignup={handleSignup}
+                                emailError={emailError}
+                                passwordError={passwordError}
+                            />
+                        </Route>
+                        <Route path='/home' component={Home} />
+                        <Route path='/admin' component={Admin} />
+                        <Route path='/patients' component={Patients}/>
+                        <Route path='/doctors' component={Doctors}/>
+                        <Route path='/dashboard' component={Dashboard}/>
+                    </Switch>
+                </Router>
+                
+            </div>
+        </ThemeProvider>
     )
 }
 

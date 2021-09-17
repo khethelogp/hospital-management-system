@@ -6,9 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import {Helmet} from "react-helmet";
 import Home from './pages/Home';
-import Patients from './pages/patients/Patients';
-import Doctors from './pages/doctors/Doctors';
-import Dashboard from './pages/Dashboard';
+import Patient from './pages/patient/Patient';
+import Doctor from './pages/doctor/Doctor';
 import Admin from './pages/admin/Admin';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 
@@ -185,9 +184,8 @@ const App = () => {
                         </Route>
                         <Route path='/home' component={Home} />
                         <Route path='/admin' component={Admin} />
-                        <Route path='/patients' component={Patients}/>
-                        <Route path='/doctors' component={Doctors}/>
-                        <Route path='/dashboard' component={Dashboard}/>
+                        <Route path='/patient' component={Patient}/>
+                        <Route path='/doctor' component={Doctor}/>
                     </Switch>
                 </Router>
                 

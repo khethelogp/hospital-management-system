@@ -84,7 +84,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-const DashboardContent = ({ title }) => {
+const DashboardContent = ({ title, children }) => {
   
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -167,8 +167,9 @@ const DashboardContent = ({ title }) => {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
+              {children}
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              {/* <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
                     p: 2,
@@ -179,9 +180,9 @@ const DashboardContent = ({ title }) => {
                 >
                   <Chart />
                 </Paper>
-              </Grid>
+              </Grid> */}
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              {/* <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
@@ -192,13 +193,13 @@ const DashboardContent = ({ title }) => {
                 >
                   <Deposits />
                 </Paper>
-              </Grid>
+              </Grid> */}
               {/* Recent Orders */}
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
                 </Paper>
-              </Grid>
+              </Grid> */}
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
@@ -208,8 +209,8 @@ const DashboardContent = ({ title }) => {
   );
 }
 
-export default function Dashboard({title}) {
+export default function Dashboard({title, children}) {
 
-  return <DashboardContent title={title}/>
+  return <DashboardContent title={title} children={children}/>
 
 }

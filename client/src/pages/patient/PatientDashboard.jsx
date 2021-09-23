@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button, Card, CardActions, CardContent, Container, Grid, Typography } from '@mui/material';
-import { PeopleOutlineOutlined } from '@material-ui/icons';
 import * as BsIcons from 'react-icons/bs';
-import Controls from '../../components/Controls/Controls';
 
 import useStyles from './styles';
 
@@ -13,12 +11,12 @@ const PatientDashboard = () => {
 
     return (
         <>
-            <Container  sx={{ py: 4 }} maxWidth="m">
+            <Container  className={classes.container} sx={{ py: 4 }} maxWidth="m">
                 <Grid container spacing={3} >
-                    <Grid item>
+                    <Grid item lg={12} md={4} sm={12}>
                         <Typography component="h1" variant="h4" color="primary" gutterBottom >Welcome User</Typography>            
                     </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
+                    <Grid item xs={12} sm={6} md={6} lg={4}>
                         <Card className={classes.card}>
                             <CardContent >
                                 <Card className={classes.cardIcon}>
@@ -36,16 +34,12 @@ const PatientDashboard = () => {
                                 </div>        
                             </CardContent>
                             <CardActions className={classes.cardActions}>
-                                {/* <Controls.Button 
-                                    size="medium"
-                                    text="Book Appointment"
-                                /> */}
                                 <Button variant="outlined">Book Appointment</Button>
                             </CardActions>
                         </Card>
                     </Grid>
 
-                    <Grid item xs={12} sm={6} md={4}>
+                    <Grid item xs={12} sm={6} md={6} lg={4}>
                         <Card className={classes.card}>
                             <CardContent >
                                 <Card className={classes.cardIcon}>
@@ -65,7 +59,7 @@ const PatientDashboard = () => {
                                 </div>        
                             </CardContent>
                             <CardActions className={classes.cardActions}>
-                                <Button variant="outlined">View Appointment History</Button>
+                                <Button variant="outlined">View History</Button>
                             </CardActions>
                         </Card>
                     </Grid>

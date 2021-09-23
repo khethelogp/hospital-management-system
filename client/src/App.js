@@ -11,6 +11,7 @@ import Doctor from './pages/doctor/Doctor';
 import Admin from './pages/admin/Admin';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAsIIcjQuDMnyl8-S8YAoUuX3Mit_wwHK4",
@@ -184,8 +185,8 @@ const App = () => {
                         </Route>
                         <Route path='/home' component={Home} />
                         <Route path='/admin' component={Admin} />
-                        <Route path='/patient' component={Patient}/>
                         <Route path='/doctor' component={Doctor}/>
+                        <Route path='/patient' component={Patient}/>
                     </Switch>
                 </Router>
                 

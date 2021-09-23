@@ -15,11 +15,11 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import { ChevronLeft, ExitToApp, Menu, Notifications, Logout } from '@material-ui/icons';
-import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import useStyles from './styles';
+import { Tooltip } from '@material-ui/core';
 
 
 function Copyright(props) {
@@ -84,7 +84,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-const DashboardContent = ({ title, children }) => {
+const DashboardContent = ({ title, children, mainListItems, secondaryListItems }) => {
   
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -112,7 +112,10 @@ const DashboardContent = ({ title, children }) => {
                 ...(open && { display: 'none' }),
               }}
             >
-              <Menu />
+              <Tooltip title="Menu">
+                <Menu />
+              </Tooltip>
+
             </IconButton>
             <Typography
               component="h1"
@@ -209,8 +212,15 @@ const DashboardContent = ({ title, children }) => {
   );
 }
 
-export default function Dashboard({title, children}) {
+export default function Dashboard({title, children, mainListItems, secondaryListItems}) {
 
-  return <DashboardContent title={title} children={children}/>
+  return(
+    <DashboardContent 
+      title={title} 
+      children={children} 
+      mainListItems={mainListItems} 
+      secondaryListItems={secondaryListItems}
+    />
+  ) 
 
 }

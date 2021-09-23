@@ -1,55 +1,39 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { ListItem, ListItemIcon, ListItemText, ListSubheader} from '@material-ui/core';
+import { ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
 import { Assignment, BarChart, Dashboard, EventAvailable, ExitToApp, History, Layers, People, ShoppingCart } from '@material-ui/icons';
 import { Tooltip } from '@mui/material';
 
-const CustomLink = ({to}) => <Link to={to} />;
+
 
 // TODO Add user icon and display username
 export const mainListItems = (
     <div>
+        
         <Tooltip title="Dashboard">
-            <ListItem button component={Link} to="/patient/dashboard">
+            <ListItem button>
                 <ListItemIcon>
                     <Dashboard />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
         </Tooltip>
-
+        
         <Tooltip title="Appointments">
-            <ListItem button component={Link} to="/patient/appointments">
+            <ListItem button>
                 <ListItemIcon>
                     <EventAvailable />
                 </ListItemIcon>
                 <ListItemText primary="Appointments" />
             </ListItem>
         </Tooltip>
-        
-        <Tooltip title="History">
-            <ListItem button>
-                <ListItemIcon>
-                    <History />
-                </ListItemIcon>
-                <ListItemText primary="History" />
-            </ListItem>
-        </Tooltip>
 
-        <Tooltip title="Reports">
-            <ListItem button>
-                <ListItemIcon>
-                    <BarChart />
-                </ListItemIcon>
-                <ListItemText primary="Reports" />
-            </ListItem>
-        </Tooltip>
     </div>
 );
 
 export const secondaryListItems = (
     <div>
         <ListSubheader inset>Saved reports</ListSubheader>
+        
         <Tooltip title="Current Month">
             <ListItem button>
                 <ListItemIcon>
@@ -58,13 +42,13 @@ export const secondaryListItems = (
                 <ListItemText primary="Current month" />
             </ListItem>
         </Tooltip>
-
+        
         <Tooltip title="Logout">
             <ListItem button>
-            <ListItemIcon>
-                <ExitToApp />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
+                <ListItemIcon>
+                    <ExitToApp />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
             </ListItem>
         </Tooltip>
     

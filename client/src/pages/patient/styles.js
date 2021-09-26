@@ -15,7 +15,8 @@ export default makeStyles((theme) => ({
         justifyContent: 'center',
         fontSize: '2rem',
         padding: theme.spacing(2),
-        color:'#3c44b1'
+        color:'#000',
+        // color:'#3c44b1',
     },
     cardTitle: {
         textAlign: 'center',
@@ -33,6 +34,13 @@ export default makeStyles((theme) => ({
         alignContent: 'center',
         justifyContent: 'center',
         margin: '1rem 0',
+    },
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '20px',
     }
 
 }));

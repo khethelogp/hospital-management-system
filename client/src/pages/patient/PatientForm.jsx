@@ -4,6 +4,7 @@ import Controls from '../../components/Controls/Controls';
 import useStyles from './styles'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Box } from '@mui/system';
 
 
 const PatientForm = () => {
@@ -31,41 +32,51 @@ const PatientForm = () => {
     })
     
     return (
-        <Container component="main" maxWidth="m">
-            <CssBaseline />
-            <Paper className={classes.paper} elevation={10}>
-                <Typography component="h1" variant="h6">
-                    Create an Appointment
-                </Typography>
-                <Formik  initialValues={initialValues} onSubmit={()=>{}} validationSchema={validationSchema}>
-                    {(props) => (
-                        <Form autoComplete="off">
-                            <Field 
-                                    as={TextField}
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    select
-                                    id="specialization"
-                                    label="Specialization"
-                                    placeholder=""
-                                    name="specialization"
-                                    autoComplete="specialization"
-                                    autoFocus
-                                    helperText={<ErrorMessage name="specialization" />}
-                            >
-                                {specializations.map((option) =>(
-                                    <MenuItem key={option} value={option}>
-                                    {option}
-                                    </MenuItem>
-                                ))}
-                            </Field>
-                        </Form>
-                    )}
-                </Formik>
-            </Paper>
-        </Container>
+            <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                }}
+                noValidate
+                autoComplete="off"
+            >
+            <Grid Container>
+                <Grid item xs={6}>
+                    <TextField 
+                        variant="outlined"
+                        label="specialization"
+                        name="specialization"
+                        id="specialization"
+                        select
+                        fullWidth
+                        helperText="Please select a specialization"
+                    >
+                        {specializations.map((option) => (
+                            <MenuItem key={option} value={option}>
+                            {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField 
+                        variant="outlined"
+                        label="doctor"
+                        name="doctor"
+                        id="doctor"
+                        select
+                        fullWidth
+                        helperText="Please select a Doctor"
+                    >
+                        {doctors.map((option) => (
+                            <MenuItem key={option} value={option}>
+                            {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                </Grid>
+                <Grid item xs={6}></Grid>
+            </Grid>
+        </Box>
     )
 }
 

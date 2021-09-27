@@ -11,8 +11,11 @@ const PatientAppointments = () => {
         <>
             <Container  className={classes.container} sx={{ py: 4 }} maxWidth="m">
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6} md={6} lg={4}>
-                        <PatientForm />          
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                        <Typography component="h1" variant="h6">
+                        Create an Appointment
+                        </Typography>
+                            <PatientForm />          
                     </Grid>
                 </Grid>
             </Container>

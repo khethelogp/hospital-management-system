@@ -41,6 +41,7 @@ export default makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         padding: '20px',
+        backgroundColor: 'yellow',
     }
 
 }));

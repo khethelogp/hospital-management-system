@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card, CardActions, CardContent, Container, Grid, Typography } from '@mui/material';
 import * as BsIcons from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 import useStyles from './styles';
 
@@ -34,7 +35,13 @@ const PatientDashboard = () => {
                                 </div>        
                             </CardContent>
                             <CardActions className={classes.cardActions}>
-                                <Button variant="outlined">Book Appointment</Button>
+                                <Button 
+                                    variant="outlined" 
+                                    component={Link} 
+                                    to="/patient/appointments"
+                                >
+                                    Book Appointment
+                                </Button>
                             </CardActions>
                         </Card>
                     </Grid>

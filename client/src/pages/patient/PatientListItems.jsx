@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText, ListSubheader} from '@material-ui/core';
-import { Assignment, BarChart, Dashboard, EventAvailable, ExitToApp, History, Layers, People, ShoppingCart } from '@material-ui/icons';
+import { Assignment, BarChart, Dashboard, EventAvailable, ExitToApp, History} from '@material-ui/icons';
 import { Tooltip } from '@mui/material';
-
-const CustomLink = ({to}) => <Link to={to} />;
 
 // TODO Add user icon and display username
 export const mainListItems = (
@@ -27,7 +25,7 @@ export const mainListItems = (
             </ListItem>
         </Tooltip>
         
-        <Tooltip title="History">
+        <Tooltip title="History" component={Link} to="/patient/appointment-history">
             <ListItem button>
                 <ListItemIcon>
                     <History />

@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import UserForm from './UserForm';
 import { Navbar } from '../../components';
-import { Paper, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Container, Button } from '@material-ui/core';
+import { Paper, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Container, Grid,Button } from '@material-ui/core';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import useTable from '../../components/Controls/useTable';
 import * as userService from '../../services/userService';
@@ -101,25 +101,31 @@ const Admin = ({}) => {
             <Paper className={classes.pageContent} >
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} >
                     <Toolbar sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Controls.Input
-                            label="Search User"
-                            className={classes.searchInput}
-                            sm={12}
-                            InputProps={{
-                                startAdornment: (<InputAdornment position="start">
-                                    <Search />
-                                </InputAdornment>)
-                            }}
-                            onChange={handleSearch} 
-                        />
-                        <Controls.Button 
-                            text="New"
-                            variant="outlined"
-                            startIcon={<Add /> }
-                            sm={12}
-                            className={classes.newButton}
-                            onClick={() => {setRecordForEdit(null); setOpenPopup(true);}}
-                        />
+                        <Grid container spacing={5}>
+                            <Grid item xs={8} sm={6} md={8}>
+                                <Controls.Input
+                                    label="Search User"
+                                    className={classes.searchInput}
+                                    sm={12}
+                                    InputProps={{
+                                        startAdornment: (<InputAdornment position="start">
+                                            <Search />
+                                        </InputAdornment>)
+                                    }}
+                                    onChange={handleSearch} 
+                                />
+                            </Grid>
+                            <Grid item xs={4} sm={6} md={4}>
+                                <Controls.Button 
+                                    text="New"
+                                    variant="outlined"
+                                    startIcon={<Add /> }
+                                    sm={12}
+                                    className={classes.newButton}
+                                    onClick={() => {setRecordForEdit(null); setOpenPopup(true);}}
+                                />
+                            </Grid>
+                        </Grid>
                     </Toolbar>
                 </Container>
                 

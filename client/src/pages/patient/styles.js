@@ -1,6 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+    root: {
+        '& .MuiFormControl-root':{
+            width: '80%',
+            margin: theme.spacing(1)
+        }
+    },
     container:{
         display: 'flex',
         flexDirection: 'column'
@@ -35,13 +41,9 @@ export default makeStyles((theme) => ({
         justifyContent: 'center',
         margin: '1rem 0',
     },
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '20px',
-        backgroundColor: 'yellow',
+    paperContent: {
+        margin: theme.spacing(5),
+        padding: theme.spacing(3),
     }
 
 }));

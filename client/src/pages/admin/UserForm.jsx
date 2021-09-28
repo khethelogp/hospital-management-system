@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Grid, } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import Controls from "../../components/Controls/Controls";
 import { useForm, Form } from '../../components/useForm/useForm';
 import * as userService from '../../services/userService';
@@ -72,8 +72,8 @@ const UserForm = (props) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={6}>
+            <Grid container >
+                <Grid item xs={12} lg={6}>
                     <Controls.Input
                         name="fullName"
                         label="Full Name"
@@ -103,7 +103,7 @@ const UserForm = (props) => {
                     />
 
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} lg={6}>
                     <Controls.RadioGroup
                         name="gender"
                         label="Gender"
@@ -132,7 +132,7 @@ const UserForm = (props) => {
                         onChange={handleInputChange}
                     />
 
-                    <div>
+                    <Box display="flex" flexDirection="row" alignItems="stretch" padding={1}>
                         <Controls.Button
                             type="submit"
                             text="Submit" />
@@ -140,7 +140,7 @@ const UserForm = (props) => {
                             text="Reset"
                             color="default"
                             onClick={resetForm} />
-                    </div>
+                    </Box>
                 </Grid>
             </Grid>
         </Form>

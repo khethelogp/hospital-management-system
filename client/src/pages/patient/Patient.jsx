@@ -4,6 +4,7 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import PatientDashboard from './PatientDashboard';
 import PatientAppointments from './PatientAppointments';
 import { mainListItems, secondaryListItems } from './PatientListItems';
+import PatientAppointmentHistory from './PatientAppointmentHistory';
 
 const Patient = () => {
     return (
@@ -31,6 +32,14 @@ const Patient = () => {
                         <Dashboard 
                                 title="Patient Dashboard"
                                 children={<PatientAppointments />}
+                                mainListItems={mainListItems} 
+                                secondaryListItems={secondaryListItems}
+                        />
+                    </Route>
+                    <Route path="/patient/appointment-history" >
+                        <Dashboard 
+                                title="Patient Dashboard"
+                                children={<PatientAppointmentHistory />}
                                 mainListItems={mainListItems} 
                                 secondaryListItems={secondaryListItems}
                         />

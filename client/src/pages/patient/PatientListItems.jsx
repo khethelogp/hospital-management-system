@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText, ListSubheader} from '@material-ui/core';
 import { Assignment, BarChart, Dashboard, EventAvailable, ExitToApp, History} from '@material-ui/icons';
 import { Tooltip } from '@mui/material';
+import * as GiIcons from 'react-icons/gi';
 
 // TODO Add user icon and display username
 export const mainListItems = (
@@ -25,8 +26,8 @@ export const mainListItems = (
             </ListItem>
         </Tooltip>
         
-        <Tooltip title="History" component={Link} to="/patient/appointment-history">
-            <ListItem button>
+        <Tooltip title="History">
+            <ListItem button component={Link} to="/patient/appointment-history">
                 <ListItemIcon>
                     <History />
                 </ListItemIcon>
@@ -34,12 +35,12 @@ export const mainListItems = (
             </ListItem>
         </Tooltip>
 
-        <Tooltip title="Reports">
-            <ListItem button>
+        <Tooltip title="Prescriptions">
+            <ListItem button component={Link} to="/patient/prescriptions">
                 <ListItemIcon>
-                    <BarChart />
+                    <GiIcons.GiPill className="reactIcon" />
                 </ListItemIcon>
-                <ListItemText primary="Reports" />
+                <ListItemText primary="Prescriptions" />
             </ListItem>
         </Tooltip>
     </div>
@@ -47,24 +48,15 @@ export const mainListItems = (
 
 export const secondaryListItems = (
     <div>
-        <ListSubheader inset>Saved reports</ListSubheader>
-        <Tooltip title="Current Month">
-            <ListItem button>
-                <ListItemIcon>
-                    <Assignment />
-                </ListItemIcon>
-                <ListItemText primary="Current month" />
-            </ListItem>
-        </Tooltip>
-
+        {/* <ListSubheader inset>Saved reports</ListSubheader> */}
         <Tooltip title="Logout">
-            <ListItem button>
+            <ListItem button className="flex-end">
             <ListItemIcon>
                 <ExitToApp />
             </ListItemIcon>
             <ListItemText primary="Logout" />
             </ListItem>
         </Tooltip>
-    
+        
     </div>
 );

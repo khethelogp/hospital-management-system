@@ -36,6 +36,10 @@ body {
   margin: 0 16px;
 }
 
+.reactIcon {
+  font-size: 1.5rem;
+}
+
 /* Auth Errors */
 .MuiFormHelperText-contained,
 .MuiFormHelperText-root {

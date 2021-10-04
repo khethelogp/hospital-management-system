@@ -30,11 +30,15 @@ const time  = getNormalTime(date.getTime());
 const rows = [
     createData('Dr. Smith', 159, appointmentDate, time, "active"),
     createData('Dr. Magagula', 237, appointmentDate, time, "not active"),
+    createData('Dr. Strange', 237, appointmentDate, time, "not active"),
+    createData('Dr. Noorbai', 500, appointmentDate, time, "active"),
+    createData('Dr. Nkosi', 237, appointmentDate, time, "active"),
+    createData('Dr. Huege', 237, appointmentDate, time, "not active"),
 ];
 
 
 
-const PatientTable = () => {
+const DoctorTable = () => {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -68,4 +72,4 @@ const PatientTable = () => {
     )
 }
 
-export default PatientTable;
+export default DoctorTable;

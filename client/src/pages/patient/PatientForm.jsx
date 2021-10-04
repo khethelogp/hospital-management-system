@@ -8,11 +8,11 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker, TimePicker} from '@mui/lab/';
 
 const doctors = [
-    { name: "Dr. Smith", specialzation: "General"},
-    { name: "Dr. Hughes", specialzation: "Cardiologist"},
-    { name: "Dr. Magagula", specialzation: "Gynaecologist"},
-    { name: "Dr. Strange", specialzation: "Pediatrician"},
-    { name: "Dr. Noorbai", specialzation: "Neurologist"},
+    { name: "Dr. Smith", specialzation: "General", fee: 100},
+    { name: "Dr. Hughes", specialzation: "Cardiologist", fee: 200},
+    { name: "Dr. Magagula", specialzation: "Gynaecologist", fee: 300},
+    { name: "Dr. Strange", specialzation: "Pediatrician", fee: 400},
+    { name: "Dr. Noorbai", specialzation: "Neurologist", fee: 500},
 ]
 
 
@@ -30,6 +30,7 @@ const PatientForm = () => {
     const [values, setValues] = useState(initialValues);
     const [dateValue, setDateValue] = useState(null);
     const [timeValue, setTimeValue] = useState(new Date('2014-08-18T21:11:54'));
+    const [fee, setFee] = useState(0);
 
     const handleInputChange = (newValue) => {
         setTimeValue(newValue);
@@ -42,11 +43,40 @@ const PatientForm = () => {
     const validationSchema = Yup.object().shape({
         specialzation: Yup.string().required("Please select a secialization").oneOf(doctors),
         doctor: Yup.string().required("Please select a secialization").oneOf(doctors),
-        consultantcyFee: Yup.string().required(),
         appointmentDate: Yup.date().default(() => new Date()),
         appointmentDate: Yup.date().default(() => new Date().getTime())
     })
     
+    const handleDoctorChange  = (e) => {
+        switch (e.target.value) {
+            case doctors[0].name:{
+                setFee(doctors[0].fee);        
+                break;
+            }
+            case doctors[1].name:{
+                setFee(doctors[1].fee);        
+                break;
+            }
+            case doctors[2].name:{
+                setFee(doctors[2].fee);        
+                break;
+            }
+            case doctors[3].name:{
+                setFee(doctors[3].fee);        
+                break;
+            }
+            case doctors[4].name:{
+                setFee(doctors[4].fee);        
+                break;
+            }
+            default:
+                setFee(0);
+                break;
+        }
+
+    }
+
+
     return (
             
             <form className={classes.root}>
@@ -79,7 +109,7 @@ const PatientForm = () => {
                         select
                         fullWidth
                         // value={values.doctor}
-                        // onChange={handleInputChange}
+                        onChange={handleDoctorChange}
                         helperText="Please select a Doctor"
                     >
                         {doctors.map((option) => (
@@ -88,6 +118,15 @@ const PatientForm = () => {
                             </MenuItem>
                         ))}
                     </TextField>
+                    <TextField 
+                        variant="outlined"
+                        label={fee ? fee : "Consultantcy Fee" } 
+                        name="consultancyFee"
+                        id="consultancyFee"
+                        disabled
+                        color="secondary"
+                    />
+        
 
                 </Grid>
                 <Grid item xs={12} lg={6}>

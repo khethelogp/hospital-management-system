@@ -70,7 +70,7 @@ export const mainListItems = (
                 <ListItemIcon >
                     <FaIcons.FaUserTimes className="reactIcon" />
                 </ListItemIcon>
-                <ListItemText primary="Add Doctor" />
+                <ListItemText primary="Delete Doctor" />
             </ListItem>
         </Tooltip>
 

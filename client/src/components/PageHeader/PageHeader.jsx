@@ -28,7 +28,7 @@ export default function PageHeader(props) {
     const classes = useStyles();
     const { title, subTitle, icon } = props;
     return (
-        <Paper elevation={0} square className={classes.root}>
+        <Paper elevation={0.5} square className={classes.root}>
             <div className={classes.pageHeader}>
                 <Card className={classes.pageIcon}>
                     {icon}

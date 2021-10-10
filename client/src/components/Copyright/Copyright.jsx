@@ -6,7 +6,7 @@ function Copyright (){
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://www.khethelogp.com" target="blank">
-                KhetheloGP 
+                GROUP-I DEV 
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}

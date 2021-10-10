@@ -7,6 +7,7 @@ import { mainListItems, secondaryListItems } from './AdminListItems';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import useStyles from './styles';
 import AdminDashboard from './AdminDashboard';
+import AdminDoctorList from './AdminDoctorList';
 
 const Admin = () => {
     const classes = useStyles();
@@ -19,6 +20,24 @@ const Admin = () => {
                         <Dashboard 
                             title="Admin Dashboard"
                             children={<AdminDashboard />}
+                            mainListItems={mainListItems} 
+                            secondaryListItems={secondaryListItems}
+                        />
+                    </Route>
+
+                    <Route exact path= "/admin/dashboard">
+                        <Dashboard 
+                            title="Admin Dashboard"
+                            children={<AdminDashboard />}
+                            mainListItems={mainListItems} 
+                            secondaryListItems={secondaryListItems}
+                        />
+                    </Route>
+        
+                    <Route exact path= "/admin/doctor-list">
+                        <Dashboard 
+                            title="Admin Dashboard"
+                            children={<AdminDoctorList />}
                             mainListItems={mainListItems} 
                             secondaryListItems={secondaryListItems}
                         />

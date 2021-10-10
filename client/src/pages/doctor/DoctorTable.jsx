@@ -22,7 +22,6 @@ function getNormalTime(unixTimestamp){
     return time;
 }
 
-
 const date = new Date();
 const appointmentDate =  `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 const time  = getNormalTime(date.getTime());

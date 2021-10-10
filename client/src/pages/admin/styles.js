@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
         padding: theme.spacing(3)
     },
     searchInput: {
-        width: '75%'
+        width: '100%'
     },
     newButton: {
         position: 'absolute',

@@ -46,7 +46,7 @@ const AdminDashboard = () => {
                                 <Button 
                                     variant="outlined" 
                                     component={Link} 
-                                    to="/doctor/appointments"
+                                    to="/admin/doctor-list"
                                 >
                                     Doctor List
                                 </Button>
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
                                 <Button 
                                     variant="outlined" 
                                     component={Link} 
-                                    to="/doctor/appointments"
+                                    to="/admin/patient-list"
                                 >
                                     Patient List
                                 </Button>
@@ -104,7 +104,7 @@ const AdminDashboard = () => {
                                 <Button 
                                     variant="outlined" 
                                     component={Link} 
-                                    to="/doctor/appointments"
+                                    to="/admin/all-appointments"
                                 >
                                     Appointments
                                 </Button>
@@ -134,7 +134,7 @@ const AdminDashboard = () => {
                                 <Button 
                                     variant="outlined" 
                                     component={Link} 
-                                    to="/doctor/prescriptions"
+                                    to="/admin/all-prescriptions"
                                 >
                                     Prescriptions
                                 </Button>
@@ -165,7 +165,7 @@ const AdminDashboard = () => {
                                     color="primary" 
                                     endIcon={<Add />}
                                     component={Link} 
-                                    to="/doctor/prescriptions"
+                                    to="/admin/add-doctor"
                                 >
                                     Add 
                                 </Button>
@@ -174,7 +174,7 @@ const AdminDashboard = () => {
                                     color="error" 
                                     endIcon={<Delete />}
                                     component={Link} 
-                                    to="/doctor/prescriptions"
+                                    to="/admin/delete-doctor"
                                 >
                                     Delete 
                                 </Button>

@@ -47,12 +47,12 @@ export const mainListItems = (
             </ListItem>
         </Tooltip>
 
-        <Tooltip title="All Prescriptions">
+        <Tooltip title="Prescriptions List">
             <ListItem button component={Link} to="/admin/all-prescriptions">
                 <ListItemIcon >
                     <GiIcons.GiPill className="reactIcon" />
                 </ListItemIcon>
-                <ListItemText primary="Prescription Details" />
+                <ListItemText primary="Prescriptions List" />
             </ListItem>
         </Tooltip>
 

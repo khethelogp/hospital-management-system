@@ -11,6 +11,7 @@ const doctors = [
     { name: "Dr. Smith", specialzation: "General", fee: 100},
     { name: "Dr. Hughes", specialzation: "Cardiologist", fee: 200},
     { name: "Dr. Magagula", specialzation: "Gynaecologist", fee: 300},
+    { name: "Dr. Nkosi", specialzation: "Dermatologist", fee: 350},
     { name: "Dr. Strange", specialzation: "Pediatrician", fee: 400},
     { name: "Dr. Noorbai", specialzation: "Neurologist", fee: 500},
 ]

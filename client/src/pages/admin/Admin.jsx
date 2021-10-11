@@ -8,6 +8,9 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import useStyles from './styles';
 import AdminDashboard from './AdminDashboard';
 import AdminDoctorList from './AdminDoctorList';
+import AdminPatientList from './AdminPatientList';
+import AdminAppointments from './AdminAppointments';
+import AdminPrescriptionsList from './AdminPrescriptionsList';
 
 const Admin = () => {
     const classes = useStyles();
@@ -42,6 +45,34 @@ const Admin = () => {
                             secondaryListItems={secondaryListItems}
                         />
                     </Route>
+
+                    <Route exact path= "/admin/patient-list">
+                        <Dashboard 
+                            title="Admin Dashboard"
+                            children={<AdminPatientList />}
+                            mainListItems={mainListItems} 
+                            secondaryListItems={secondaryListItems}
+                        />
+                    </Route>
+
+                    <Route exact path= "/admin/all-appointments">
+                        <Dashboard 
+                            title="Admin Dashboard"
+                            children={<AdminAppointments />}
+                            mainListItems={mainListItems} 
+                            secondaryListItems={secondaryListItems}
+                        />
+                    </Route>
+
+                    <Route exact path= "/admin/all-prescriptions">
+                        <Dashboard 
+                            title="Admin Dashboard"
+                            children={<AdminPrescriptionsList />}
+                            mainListItems={mainListItems} 
+                            secondaryListItems={secondaryListItems}
+                        />
+                    </Route>
+
                 </Switch>
             </Router>
 

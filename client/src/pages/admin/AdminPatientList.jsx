@@ -7,29 +7,36 @@ import AdminTable from './AdminTable';
 
 import useStyles from './styles';
 
-function createData(name, specialization, email, password, fees) {
-    return { name, specialization, email, password, fees};
+function createData( id, firstName, lastName, gender, email, contact, password) {
+    return { id, firstName, lastName, gender, email, contact, password };
 }
 
 const rows = [
-    createData('Dr. Smith', 'General', 'smith@email.com', '123456', '100'),
-    createData('Dr. Hueges', 'Cardiologist', 'hueges@email.com', '123456', "200"),
-    createData('Dr. Magagula', 'Gynaecolorgist', 'magagula@email.com', '123456', '300'),
-    createData('Dr. Nkosi', 'Dermatologist', 'nkosi@email.com', '123456', '350'),
-    createData('Dr. Strange', 'Pediatrician', 'strange@email.com', '123456', '400'),
-    createData('Dr. Noorbai', 'Neurologist', 'noorbai@email.com', '123456', '500'),
+    createData(1,'Kennedi', 'Werner', 'Male', '@email.com', '0712345678', 'user@password'),
+    createData(2,'Gerald', 'King', 'Male', '@email.com', '0712345678', 'user@password'),
+    createData(3,'Grace', 'Miller', 'Female', '@email.com', '0712345678', 'user@password'),
+    createData(4,'Tasha', 'Fisher', 'Female', '@email.com', '0712345678', 'user@password'),
+    createData(5,'Abel', 'Clay', 'Male', '@email.com', '0712345678', 'user@password'),
+    createData(6,'Nathen', 'Buck', 'Male', '@email.com', '0712345678', 'user@password'),
+    createData(705,'Susan', 'Jacobs', 'Female', '@email.com', '0712345678', 'user@password'),
+    createData(8,'Bongani', 'Manzini', 'Male', '@email.com', '0712345678', 'user@password'),
+    createData(9,'Britney', 'Larsen', 'Female', '@email.com', '0712345678', 'user@password'),
+    createData(10,'Eve', 'Franco', 'Female', '@email.com', '0712345678', 'user@password'),
+    
 ];
 
 const columns = [
-    { id: 'name', label: 'Doctor Name', minWidth: 150 },
-    { id: 'specialization', label: 'Specialization', minWidth: 170 },
-    { id: 'email', label: 'Email Address', minWidth: 170 },
+    { id: 'id', label: 'Patient ID', minWidth: 170 },
+    { id: 'firstName', label: 'First Name', minWidth: 170 },
+    { id: 'lastName', label: 'Last Name', minWidth: 170 },
+    { id: 'gender', label: 'Gender', minWidth: 170 },
+    { id: 'email', label: 'Email', minWidth: 170 },
+    { id: 'contact', label: 'Contact', minWidth: 170 },
     { id: 'password', label: 'Password', minWidth: 170 },
-    { id: 'fees', label: 'Fees', minWidth: 150, align: 'right' }
+    // { id: 'fees', label: 'Fees', minWidth: 170, align: 'right' }
 ];
 
-
-const AdminDoctorList = (props) => {
+const AdminPatientList = (props) => {
     const classes = useStyles();
 
     return (
@@ -38,12 +45,12 @@ const AdminDoctorList = (props) => {
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Typography component="h1" variant="h4" color="primary">
-                            Doctor List
+                            Patient List
                         </Typography>
                         <Paper className={classes.paperContent} elevation={5}>
                             <Toolbar>
                                 <Controls.Input
-                                    label="Search Doctor"
+                                    label="Search Patient"
                                     className={classes.searchInput}
                                     InputProps={{
                                         startAdornment: (<InputAdornment position="start">
@@ -60,15 +67,10 @@ const AdminDoctorList = (props) => {
                         </Paper>
                     </Grid>
 
-                    {/* <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Paper className={classes.paperContent} elevation={5}>
-                            <AdminTable />
-                        </Paper>
-                    </Grid> */}
                 </Grid>
-            </Container>
+            </Container>  
         </>
     )
 }
 
-export default AdminDoctorList
+export default AdminPatientList

@@ -1,0 +1,24 @@
+{
+  "name": "hospital-management-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "recharts": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khethelogp/hospital-management-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khethelogp/hospital-management-system/issues"
+  },
+  "homepage": "https://github.com/khethelogp/hospital-management-system#readme"
+}

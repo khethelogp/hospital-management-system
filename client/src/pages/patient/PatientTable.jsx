@@ -7,8 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, consultancyFee, appointmentDate, appointmentTime, status) {
-    return { name, consultancyFee, appointmentDate, appointmentTime, status};
+function createData(name, roomNumber, appointmentDate, appointmentTime, status) {
+    return { name, roomNumber, appointmentDate, appointmentTime, status};
 }
 
 //TODO can use useTable Component that's already created
@@ -41,7 +41,7 @@ const PatientTable = () => {
                 <TableHead>
                 <TableRow>
                     <TableCell>Doctor</TableCell>
-                    <TableCell align="right">Consultancy Fee</TableCell>
+                    <TableCell align="right">Room Number</TableCell>
                     <TableCell align="right">Appointment Date</TableCell>
                     <TableCell align="right">Appointment Time</TableCell>
                     <TableCell align="right">Current Status</TableCell>
@@ -56,7 +56,7 @@ const PatientTable = () => {
                         <TableCell component="th" scope="row">
                             {row.name}
                         </TableCell>
-                        <TableCell align="right">{row.consultancyFee}</TableCell>
+                        <TableCell align="right">{row.roomNumber}</TableCell>
                         <TableCell align="right">{row.appointmentDate}</TableCell>
                         <TableCell align="right">{row.appointmentTime}</TableCell>
                         <TableCell align="right">{row.status}</TableCell>

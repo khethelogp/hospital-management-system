@@ -8,12 +8,12 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker, TimePicker} from '@mui/lab/';
 
 const doctors = [
-    { name: "Dr. Smith", specialzation: "General", fee: 100},
-    { name: "Dr. Hughes", specialzation: "Cardiologist", fee: 200},
-    { name: "Dr. Magagula", specialzation: "Gynaecologist", fee: 300},
-    { name: "Dr. Nkosi", specialzation: "Dermatologist", fee: 350},
-    { name: "Dr. Strange", specialzation: "Pediatrician", fee: 400},
-    { name: "Dr. Noorbai", specialzation: "Neurologist", fee: 500},
+    { name: "Dr. Smith", specialzation: "General", room: 135},
+    { name: "Dr. Hughes", specialzation: "Cardiologist", room: 125},
+    { name: "Dr. Magagula", specialzation: "Gynaecologist", room: 120},
+    { name: "Dr. Nkosi", specialzation: "Dermatologist", room: 115},
+    { name: "Dr. Strange", specialzation: "Pediatrician", room: 105},
+    { name: "Dr. Noorbai", specialzation: "Neurologist", room: 140},
 ]
 
 
@@ -23,7 +23,8 @@ const PatientForm = () => {
     const initialValues = {
         specialzation: '',
         doctor: '',
-        consultantcyFee: 0,
+        roomNumber: 0,
+       // consultantcyFee: 0,
         appointmentDate: new Date(),
         appointmentTime: new Date(),
     }
@@ -31,8 +32,8 @@ const PatientForm = () => {
     const [values, setValues] = useState(initialValues);
     const [dateValue, setDateValue] = useState(null);
     const [timeValue, setTimeValue] = useState(new Date('2014-08-18T21:11:54'));
-    const [fee, setFee] = useState(0);
-
+    //const [fee, setFee] = useState(0);
+      const[room, setRoom] = useState(0);
     const handleInputChange = (newValue) => {
         setTimeValue(newValue);
     };
@@ -51,27 +52,27 @@ const PatientForm = () => {
     const handleDoctorChange  = (e) => {
         switch (e.target.value) {
             case doctors[0].name:{
-                setFee(doctors[0].fee);        
+                setRoom(doctors[0].room);        
                 break;
             }
             case doctors[1].name:{
-                setFee(doctors[1].fee);        
+                setRoom(doctors[1].room);        
                 break;
             }
             case doctors[2].name:{
-                setFee(doctors[2].fee);        
+                setRoom(doctors[2].room);        
                 break;
             }
             case doctors[3].name:{
-                setFee(doctors[3].fee);        
+                setRoom(doctors[3].room);        
                 break;
             }
             case doctors[4].name:{
-                setFee(doctors[4].fee);        
+                setRoom(doctors[4].room);        
                 break;
             }
             default:
-                setFee(0);
+                setRoom(0);
                 break;
         }
 
@@ -121,9 +122,12 @@ const PatientForm = () => {
                     </TextField>
                     <TextField 
                         variant="outlined"
-                        label={fee ? fee : "Consultantcy Fee" } 
-                        name="consultancyFee"
-                        id="consultancyFee"
+                        //label={fee ? fee : "Consultancy Fee" } 
+                        label={room ? room : "Room Number"}
+                       // name="consultancyFee"
+                          name= "room number"
+                        //id="consultancyFee"
+                        id="room number"
                         disabled
                         color="secondary"
                     />

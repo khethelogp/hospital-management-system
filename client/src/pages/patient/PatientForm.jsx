@@ -33,7 +33,7 @@ const PatientForm = () => {
     const [dateValue, setDateValue] = useState(null);
     const [timeValue, setTimeValue] = useState(new Date('2014-08-18T21:11:54'));
     //const [fee, setFee] = useState(0);
-      const[room, setRoom] = useState(0);
+    const[room, setRoom] = useState(0);
     const handleInputChange = (newValue) => {
         setTimeValue(newValue);
     };
@@ -125,7 +125,7 @@ const PatientForm = () => {
                         //label={fee ? fee : "Consultancy Fee" } 
                         label={room ? room : "Room Number"}
                        // name="consultancyFee"
-                          name= "room number"
+                        name= "room number"
                         //id="consultancyFee"
                         id="room number"
                         disabled

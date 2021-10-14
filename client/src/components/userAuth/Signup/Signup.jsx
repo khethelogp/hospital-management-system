@@ -82,7 +82,7 @@ const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passw
                         {(props) => (
                             <Form>
                                 <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12}>
                                 <Field
                                     as={TextField}
                                     autoComplete="fname"
@@ -96,7 +96,7 @@ const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passw
                                     helperText={<ErrorMessage name="firstName"/>}
                                 />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12}>
                                 <Field
                                     as={TextField}
                                     variant="outlined"

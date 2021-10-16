@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import zIndex from "@mui/material/styles/zIndex";
 
 export default makeStyles((theme) => ({
     container: {
@@ -19,7 +20,7 @@ export default makeStyles((theme) => ({
         '& .MuiFormControl-root':{
             width: '80%',
             margin: theme.spacing(1)
-        }
+        },
     },
     container:{
         display: 'flex',
@@ -56,7 +57,7 @@ export default makeStyles((theme) => ({
         margin: '1rem 0',
     },
     paperContent: {
-        margin: theme.spacing(5, 0),
+        margin: theme.spacing(3, 0),
         padding: theme.spacing(3),
     },
     table: {
@@ -74,5 +75,12 @@ export default makeStyles((theme) => ({
             cursor: 'pointer'
         },
     },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    button: {
+        margin: theme.spacing(5, 2)
+    }
     
 }))

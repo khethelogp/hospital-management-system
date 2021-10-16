@@ -12,6 +12,7 @@ import AdminPatientList from './AdminPatientList';
 import AdminAppointments from './AdminAppointments';
 import AdminPrescriptionsList from './AdminPrescriptionsList';
 import AdminAddDoctor from './AdminAddDoctor';
+import AdminDeleteDoctor from './AdminDeleteDoctor';
 
 const Admin = () => {
     const classes = useStyles();
@@ -78,6 +79,15 @@ const Admin = () => {
                         <Dashboard 
                             title="Admin Dashboard"
                             children={<AdminAddDoctor />}
+                            mainListItems={mainListItems} 
+                            secondaryListItems={secondaryListItems}
+                        />
+                    </Route>
+
+                    <Route exact path= "/admin/delete-doctor">
+                        <Dashboard 
+                            title="Admin Dashboard"
+                            children={<AdminDeleteDoctor />}
                             mainListItems={mainListItems} 
                             secondaryListItems={secondaryListItems}
                         />

@@ -24,7 +24,7 @@ const AdminDeleteDoctor = (props) => {
         <>
             <Container className={classes.container} sx={{ py: 4 }} maxWidth="m">
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
                         <Typography component="h1" variant="h4" color="primary">
                             Delete a doctor
                         </Typography>
@@ -39,12 +39,13 @@ const AdminDeleteDoctor = (props) => {
                             // value={drName}
                             // onChange={handleInputChange}
                             helperText="Doctor ID is required"
+                            sx={{mt: 4}}
                         />
                         <Button
                             variant="contained"
                             color="primary"
                             size="large"
-                            sx={{m: 2}}
+                            sx={{mt: 2}}
                         >
                             Delete Doctor
                         </Button>

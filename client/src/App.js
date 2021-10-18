@@ -5,7 +5,6 @@ import { Signup, Login } from './components' ;
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import {Helmet} from "react-helmet";
-import Home from './pages/Home';
 import Patient from './pages/patient/Patient';
 import Doctor from './pages/doctor/Doctor';
 import Admin from './pages/admin/Admin';
@@ -79,7 +78,8 @@ const App = () => {
         });
     };
 
-    const handleSignup = () => {
+    const handleSignup = event => {
+        event.preventDefault();
         clearErrors();
         createUserWithEmailAndPassword(auth, fireEmail, firePassword)
         .catch((err) => {
@@ -139,7 +139,7 @@ const App = () => {
                         <Route exact path='/' >
                                 {user ? (
                                     // TODO use useContext for passing logout fuction to home
-                                    <Home handleLogout={handleLogout} />
+                                    <Patient />
                                 ) : (
                                     <Login 
                                         setFireEmail={setFireEmail}
@@ -170,7 +170,6 @@ const App = () => {
                                 passwordError={passwordError}
                             />
                         </Route>
-                        <Route path='/home' component={Home} />
                         <Route path='/admin' component={Admin} />
                         <Route path='/doctor' component={Doctor}/>
                         <Route path='/patient' component={Patient}/>

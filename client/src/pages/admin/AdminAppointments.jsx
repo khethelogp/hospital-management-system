@@ -7,8 +7,8 @@ import AdminTable from './AdminTable';
 
 import useStyles from './styles';
 
-function createData( id, pID, firstName, lastName, gender, email, contact, doctorName, conFees, aDate, aTime, aStatus) {
-    return { id , pID, firstName, lastName, gender, email, contact, doctorName, conFees, aDate, aTime, aStatus };
+function createData( id, pID, firstName, lastName, gender, email, contact, doctorName, roomNum, aDate, aTime, aStatus) {
+    return { id , pID, firstName, lastName, gender, email, contact, doctorName, roomNum, aDate, aTime, aStatus };
 }
 
 
@@ -35,7 +35,7 @@ const columns = [
     { id: 'email', label: 'Email', minWidth: 130 },
     { id: 'contact', label: 'Contact', minWidth: 130 },
     { id: 'doctorName', label: 'Doctor Name', minWidth: 130 },
-    { id: 'conFees', label: 'Fees', minWidth: 130, align: 'right' },
+    { id: 'roomNum', label: 'Room Number', minWidth: 130, align: 'right' },
     { id: 'aDate', label: 'Appointment Date', minWidth: 130 },
     { id: 'aTime', label: 'Appointment Time', minWidth: 130 },
     { id: 'aStatus', label: 'Appointment Status', minWidth: 130 },

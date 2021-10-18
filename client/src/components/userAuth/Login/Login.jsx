@@ -8,6 +8,9 @@ import Axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { InputAdornment, IconButton } from '@mui/material';
+import { VisibilityOff, Visibility } from '@material-ui/icons';
+
 
 const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,passwordError }) => {
     
@@ -18,12 +21,16 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
     const initialValues = {
         email: '',
         password: '',
-        remember: false 
+        showPassword: false,
+        admin: false,
+        doctor: false, 
     }
 
+    const [values, setValues] = useState(initialValues);
+
     const validationSchema = Yup.object().shape({
-        email: Yup.string().email('Please enter a valid email').required('Required'),
-        password: Yup.string().required('Required')
+        email: Yup.string().email(emailError ? emailError : 'Please enter a valid email').required('Required'),
+        password: Yup.string().required(passwordError? passwordError : 'Required')
     })
 
     const handleSubmit = (values, props) => {
@@ -33,22 +40,21 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
             props.setSubmitting(false)
         },2000)
 
-        
-        Axios.post("http://localhost:3001/login", {
-            email: values.email,
-            password: values.password
-        }).then((response) => {
-            if (response.data.message){
-                setLoginStatus(response.data.message)
-            } else {
-                setLoginStatus(response.data[0].firstName)
-            }
-        })
-
         setFireEmail(values.email);
         setFirePassword(values.password); 
 
     }
+
+    const handleClickShowPassword = () => {
+        setValues({
+            ...values,
+            showPassword: !values.showPassword,
+        });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     return (
         <>
@@ -79,7 +85,7 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                                     autoFocus
                                     helperText={<ErrorMessage name="email" />}
                                 />
-                                <p className="errorMsg">{emailError}</p>
+
                                 <Field
                                     as={TextField}
                                     variant="outlined"
@@ -89,16 +95,34 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                                     name="password"
                                     label="Password"
                                     placeholder="Enter Password"
-                                    type="password"
                                     id="password"
+                                    type={values.showPassword ? 'text' : 'password'}
                                     autoComplete="current-password"
                                     helperText={<ErrorMessage name="password" />}
+                                    InputProps={{
+                                        endAdornment: <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            >
+                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>,
+                                    }}
                                 />
-                                <p className="errorMsg">{passwordError}</p>
                                 <Field
                                     as={FormControlLabel} 
-                                    name="remember"
-                                    label="Remember me"
+                                    name="admin"
+                                    label="Admin"
+                                    control={<Checkbox value="remember" color="primary" />}
+                                />
+
+                                <Field
+                                    as={FormControlLabel} 
+                                    name="doctor"
+                                    label="Doctor"
                                     control={<Checkbox value="remember" color="primary" />}
                                 />
                                 
@@ -107,6 +131,7 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                                     fullWidth
                                     variant="contained"
                                     color="primary"
+                                    size="large"
                                     className={classes.submit}
                                     disabled={props.isSubmitting}
                                     onClick={handleLogin}
@@ -115,12 +140,12 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                                 </Button>
                                         
                                 <Grid container>
-                                    <Grid item>
+                                    <Grid item xs={12} sm={6}>
                                         <Link href="#" variant="body2">
                                             {`Forgot password ? `}
                                         </Link>
                                     </Grid>
-                                    <Grid item xs>
+                                    <Grid item xs={12} sm={6}>
                                         <Link component={RouterLink} to="/signup" variant="body2">
                                             {"Don't have an account? Sign Up"}
                                         </Link>

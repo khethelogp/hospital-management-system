@@ -4,7 +4,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
 import { Link as RouterLink } from 'react-router-dom';
-import Axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Popup from '../../Popup/Popup';
@@ -90,131 +89,133 @@ const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passw
                         {(props) => (
                             <Form>
                                 <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
-                                <Field
-                                    as={TextField}
-                                    autoComplete="fname"
-                                    name="firstName"
-                                    variant="outlined"
-                                    required
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            autoComplete="fname"
+                                            name="firstName"
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            id="firstName"
+                                            label="First Name"
+                                            autoFocus
+                                            helperText={<ErrorMessage name="firstName"/>}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            id="lastName"
+                                            label="Last Name"
+                                            name="lastName"
+                                            autoComplete="lname"
+                                            helperText={<ErrorMessage name="lastName"/>}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            id="email"
+                                            label="Email Address"
+                                            name="email"
+                                            autoComplete="email"
+                                            helperText={<ErrorMessage name="email"/>}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            id="phone"
+                                            label="Phone Number"
+                                            name="phone"
+                                            autoComplete="phone"
+                                            helperText={<ErrorMessage name="phone"/>}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            name="password"
+                                            label="Password"
+                                            id="password"
+                                            type={values.showPassword ? 'text' : 'password'}
+                                            autoComplete="current-password"
+                                            helperText={<ErrorMessage name="password"/>}
+                                            InputProps={{
+                                                endAdornment: <InputAdornment position="end">
+                                                    <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    >
+                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>,
+                                            }}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            name="confirmPassword"
+                                            label="Confirm Password"
+                                            id="confirmPassword"
+                                            type={values.showPassword ? 'text' : 'password'}
+                                            autoComplete="confirm-password"
+                                            helperText={<ErrorMessage name="confirmPassword"/>}
+                                            InputProps={{
+                                                endAdornment: <InputAdornment position="end">
+                                                    <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    >
+                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>,
+                                            }}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            
+                                <Button
+                                    type="submit"
                                     fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    autoFocus
-                                    helperText={<ErrorMessage name="firstName"/>}
-                                />
+                                    variant="contained"
+                                    color="primary"
+                                    size="large"
+                                    className={classes.submit}
+                                    disabled={props.isSubmitting}
+                                    onClick={handleSignup}
+                                >
+                                    {props.isSubmitting ? 'Loading...': 'Sign Up' }
+                                </Button>
+                                
+                                <Grid container justifyContent="flex-end">
+                                    <Grid item>
+                                    <Link component={RouterLink} to="/login" variant="body2">
+                                        Already have an account? Sign in
+                                    </Link>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
-                                <Field
-                                    as={TextField}
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="lname"
-                                    helperText={<ErrorMessage name="lastName"/>}
-                                />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                <Field
-                                    as={TextField}
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    helperText={<ErrorMessage name="email"/>}
-                                />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                <Field
-                                    as={TextField}
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="phone"
-                                    label="Phone Number"
-                                    name="phone"
-                                    autoComplete="phone"
-                                    helperText={<ErrorMessage name="phone"/>}
-                                />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                <Field
-                                    as={TextField}
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    id="password"
-                                    type={values.showPassword ? 'text' : 'password'}
-                                    autoComplete="current-password"
-                                    helperText={<ErrorMessage name="password"/>}
-                                    InputProps={{
-                                        endAdornment: <InputAdornment position="end">
-                                            <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                            >
-                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>,
-                                    }}
-                                />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                <Field
-                                    as={TextField}
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="confirmPassword"
-                                    label="Confirm Password"
-                                    id="confirmPassword"
-                                    type={values.showPassword ? 'text' : 'password'}
-                                    autoComplete="confirm-password"
-                                    helperText={<ErrorMessage name="confirmPassword"/>}
-                                    InputProps={{
-                                        endAdornment: <InputAdornment position="end">
-                                            <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                            >
-                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>,
-                                    }}
-                                />
-                                </Grid>
-                            </Grid>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                size="large"
-                                className={classes.submit}
-                                disabled={props.isSubmitting}
-                                onClick={handleSignup}
-                            >
-                                {props.isSubmitting ? 'Loading...': 'Sign Up' }
-                            </Button>
-                            <Grid container justifyContent="flex-end">
-                                <Grid item>
-                                <Link component={RouterLink} to="/login" variant="body2">
-                                    Already have an account? Sign in
-                                </Link>
-                                </Grid>
-                            </Grid>
                             </Form>
                         )}
                     </Formik>

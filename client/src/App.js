@@ -1,6 +1,5 @@
 import React,{ useState, useEffect } from 'react';
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword , createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword , createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import { Signup, Login } from './components' ;
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
@@ -10,7 +9,7 @@ import Doctor from './pages/doctor/Doctor';
 import Admin from './pages/admin/Admin';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 
-import { db, auth } from './firebase-config';
+import { auth } from './auth/firebase-config';
 
 
 const theme = createMuiTheme({

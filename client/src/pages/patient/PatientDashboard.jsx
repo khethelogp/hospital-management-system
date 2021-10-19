@@ -1,13 +1,10 @@
 import React from 'react';
 import { Button, Card, CardActions, CardContent, Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import * as GiIcons from 'react-icons/gi';
 import * as CgIcons from 'react-icons/cg';
 import * as BsIcons from 'react-icons/bs';
 
 import useStyles from './styles';
-
-//const cards = [{ cardIcon: },{}];
 
 const PatientDashboard = () => {
     const  classes = useStyles();
@@ -27,12 +24,12 @@ const PatientDashboard = () => {
                                 </Card>
                                 <div className={classes.cardContent}>    
                                     <Typography className={classes.cardTitle} variant="h5" component="h1">
-                                        Book My Appointment 
+                                        Book Appointment 
                                     </Typography>
                                     <Typography variant="subtitle2"  color="text.secondary"
                                     textAlign="center"
                                     >
-                                        Request to see a doctor by booking an appointment
+                                        Request to see a doctor.
                                     </Typography>
                                 </div>        
                             </CardContent>
@@ -63,7 +60,7 @@ const PatientDashboard = () => {
                                         color="text.secondary"
                                         textAlign="center"
                                     >
-                                        View Appointment History
+                                        View Appointment History.
                                     </Typography>
                                 </div>        
                             </CardContent>
@@ -94,7 +91,7 @@ const PatientDashboard = () => {
                                         color="text.secondary"
                                         textAlign="center"
                                     >
-                                        View Prescription List
+                                        View Prescription List.
                                     </Typography>
                                 </div>        
                             </CardContent>

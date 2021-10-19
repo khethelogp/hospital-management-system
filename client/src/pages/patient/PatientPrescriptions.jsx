@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
 import PatientTable from './PatientTable';
-import { Container, Grid, Typography, Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@mui/material';
+import { Container, Grid, Typography, Paper} from '@mui/material';
 
-import { EditOutlined, Close } from '@material-ui/icons';
 import useStyles from './styles';
 
 const headCells = [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, CardActions, CardContent, Container, Grid, Paper, Typography } from '@mui/material';
+import { Container, Grid, Paper, Typography } from '@mui/material';
 import useStyles from './styles';
 import PatientTable from './PatientTable';
 

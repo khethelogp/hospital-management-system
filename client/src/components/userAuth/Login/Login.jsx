@@ -4,7 +4,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link as RouterLink } from 'react-router-dom';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
-import Axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 

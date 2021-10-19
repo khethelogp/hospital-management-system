@@ -63,7 +63,7 @@ const AdminAddDoctor = (props) => {
                                 FORM
                             </Typography>
                             <form className={classes.root}>
-                                <Grid Container className={classes.container} >
+                                <Grid container className={classes.container} >
                                     <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <TextField
                                             variant="outlined"

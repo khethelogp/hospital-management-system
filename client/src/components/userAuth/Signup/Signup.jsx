@@ -6,21 +6,14 @@ import Copyright from '../../Copyright/Copyright';
 import { Link as RouterLink } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Popup from '../../Popup/Popup';
+// import Popup from '../../Popup/Popup';
 import { VisibilityOff, Visibility } from '@material-ui/icons';
+// import { useAuth } from '../../../contexts/AuthContext' 
+import { set } from 'date-fns/esm';
 
-
-const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passwordError }) => {
+const Signup = () => {
 
     const  classes = useStyles();
-
-    /* const [firstNameReg, setFirstNameReg] = useState('');
-    const [lastNameReg, setLastNameReg] = useState('');
-    const [emailReg, setEmailReg] = useState('');
-    const [passwordReg, setPasswordReg] = useState(''); */
-    const [openPopup, setOpenPopup] = useState(false);
-    const [signEmail, setSignEmail] = useState('');
-    const [signPassword, setSignPassword] = useState('');
     
     const initialValues = {
         firstName: '',
@@ -33,28 +26,37 @@ const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passw
     }
 
     const [values, setValues] = useState(initialValues);
+    
+    // const { signup } = useAuth()
+
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().required('Required'),
         lastName: Yup.string().required('Required'),
-        email: Yup.string().email(emailError ? emailError : 'Please enter a valid email').required('Required'),
+        email: Yup.string().email('Please enter a valid email').required('Required'),
         phone: Yup.string().min(10, 'Please enter a valid phone number').required('Required'),
-        password: Yup.string().min(6, passwordError ? passwordError : 'Password must be atleast 6 characters').required('Required'),
+        password: Yup.string().min(6, 'Password must be atleast 6 characters').required('Required'),
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password does not match').required('Required')
     })
 
-    const onSubmit = (values, props) => {
-        console.log(values)
+    const handleSubmit = (values, props) => {
+        console.log(values);
         setTimeout(() => {
             props.resetForm()
             props.setSubmitting(false)
         }, 2000)
 
-        setSignEmail(values.email);
-        setSignPassword(values.password);
-        setFireEmail(values.email);
-        setFirePassword(values.password);
+        console.log(values.firstName);
+        console.log(values.lastName);
 
+
+        /* setFirstName(values.firstName)
+        setLastName(values.lastName)
+        setEmail(values.email)
+        setPhone(values.phone)
+        setPassword(values.password)
+        setConfirmPassword(values.confirmPassword) */
+        // signup(email , password);
     }
 
     const handleClickShowPassword = () => {
@@ -82,140 +84,137 @@ const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passw
 
                     <Formik 
                         initialValues={initialValues} 
-                        onSubmit={onSubmit} 
+                        onSubmit={handleSubmit} 
                         validationSchema={validationSchema} 
                         autoComplete="off"
                     >
                         {(props) => (
                             <Form>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6}>
-                                        <Field
-                                            as={TextField}
-                                            autoComplete="fname"
-                                            name="firstName"
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id="firstName"
-                                            label="First Name"
-                                            autoFocus
-                                            helperText={<ErrorMessage name="firstName"/>}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Field
-                                            as={TextField}
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id="lastName"
-                                            label="Last Name"
-                                            name="lastName"
-                                            autoComplete="lname"
-                                            helperText={<ErrorMessage name="lastName"/>}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Field
-                                            as={TextField}
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id="email"
-                                            label="Email Address"
-                                            name="email"
-                                            autoComplete="email"
-                                            helperText={<ErrorMessage name="email"/>}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Field
-                                            as={TextField}
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id="phone"
-                                            label="Phone Number"
-                                            name="phone"
-                                            autoComplete="phone"
-                                            helperText={<ErrorMessage name="phone"/>}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Field
-                                            as={TextField}
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            name="password"
-                                            label="Password"
-                                            id="password"
-                                            type={values.showPassword ? 'text' : 'password'}
-                                            autoComplete="current-password"
-                                            helperText={<ErrorMessage name="password"/>}
-                                            InputProps={{
-                                                endAdornment: <InputAdornment position="end">
-                                                    <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                    >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>,
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Field
-                                            as={TextField}
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            name="confirmPassword"
-                                            label="Confirm Password"
-                                            id="confirmPassword"
-                                            type={values.showPassword ? 'text' : 'password'}
-                                            autoComplete="confirm-password"
-                                            helperText={<ErrorMessage name="confirmPassword"/>}
-                                            InputProps={{
-                                                endAdornment: <InputAdornment position="end">
-                                                    <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                    >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>,
-                                            }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            
-                                <Button
-                                    type="submit"
+                                <Grid item xs={12} sm={6}>
+                                <Field
+                                    as={TextField}
+                                    autoComplete="fname"
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
                                     fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    size="large"
-                                    className={classes.submit}
-                                    disabled={props.isSubmitting}
-                                    onClick={handleSignup}
-                                >
-                                    {props.isSubmitting ? 'Loading...': 'Sign Up' }
-                                </Button>
-                                
-                                <Grid container justifyContent="flex-end">
-                                    <Grid item>
-                                    <Link component={RouterLink} to="/login" variant="body2">
-                                        Already have an account? Sign in
-                                    </Link>
-                                    </Grid>
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                    helperText={<ErrorMessage name="firstName"/>}
+                                />
                                 </Grid>
+                                <Grid item xs={12} sm={6}>
+                                <Field
+                                    as={TextField}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                    helperText={<ErrorMessage name="lastName"/>}
+                                />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                <Field
+                                    as={TextField}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    helperText={<ErrorMessage name="email"/>}
+                                />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                <Field
+                                    as={TextField}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="phone"
+                                    label="Phone Number"
+                                    name="phone"
+                                    autoComplete="phone"
+                                    helperText={<ErrorMessage name="phone"/>}
+                                />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                <Field
+                                    as={TextField}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    id="password"
+                                    type={values.showPassword ? 'text' : 'password'}
+                                    autoComplete="current-password"
+                                    helperText={<ErrorMessage name="password"/>}
+                                    InputProps={{
+                                        endAdornment: <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            >
+                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>,
+                                    }}
+                                />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                <Field
+                                    as={TextField}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="confirmPassword"
+                                    label="Confirm Password"
+                                    id="confirmPassword"
+                                    type={values.showPassword ? 'text' : 'password'}
+                                    autoComplete="confirm-password"
+                                    helperText={<ErrorMessage name="confirmPassword"/>}
+                                    InputProps={{
+                                        endAdornment: <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            >
+                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>,
+                                    }}
+                                />
+                                </Grid>
+                            </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                size="large"
+                                className={classes.submit}
+                                disabled={props.isSubmitting}
+                            >
+                                {props.isSubmitting ? 'Loading...': 'Sign Up' }
+                            </Button>
+                            <Grid container justifyContent="flex-end">
+                                <Grid item>
+                                <Link component={RouterLink} to="/login" variant="body2">
+                                    Already have an account? Sign in
+                                </Link>
+                                </Grid>
+                            </Grid>
                             </Form>
                         )}
                     </Formik>
@@ -225,7 +224,7 @@ const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passw
                     <Copyright />
                 </Box>
                 </Container>
-                <Popup 
+                {/*  <Popup 
                     openPopup={openPopup}
                     setOpenPopup={setOpenPopup}
                     title="Success"
@@ -245,7 +244,7 @@ const Signup = ({ setFireEmail, setFirePassword, handleSignup, emailError, passw
                             Close
                         </Button>
                     </div>
-                </Popup>                    
+                </Popup>      */}               
         </>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, Paper, TextField, MenuItem, Button, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
+import { Container, Grid, Typography, Paper, TextField, MenuItem, Button, InputAdornment, IconButton } from '@mui/material';
 import { VisibilityOff, Visibility } from '@material-ui/icons';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+// import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import useStyles from './styles';
 
@@ -29,12 +29,11 @@ const initialValues = {
 const AdminAddDoctor = (props) => {
     const classes = useStyles();
     
-    const [room, setRoom] = useState(0);
     const [values, setValues] = useState(initialValues);
 
-    const handleChange = (prop) => (event) => {
+    /* const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
-    };
+    }; */
 
     const handleClickShowPassword = () => {
         setValues({

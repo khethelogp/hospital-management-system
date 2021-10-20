@@ -3,17 +3,6 @@ import { Container, Grid, Typography, Paper} from '@mui/material';
 
 import useStyles from './styles';
 
-const headCells = [
-    { id: 'doctor', label: 'Doctor Name' },
-    { id: 'appointmentID', label: 'Appointment ID' },
-    { id: 'appointmentDate', label: 'Appointment Date' },
-    { id: 'appointmentTime', label: 'Appointment Time' },
-    { id: 'disease', label: 'Disease' },
-    { id: 'allergies', label: 'Allergies' },
-    { id: 'prescriptions', label: 'Prescriptions' },
-    { id: 'billPayment', label: 'Bill Payment', disableSorting: true}
-]
-
 const PatientPrescriptions = () => {
     const  classes = useStyles();
     return (

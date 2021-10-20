@@ -1,10 +1,7 @@
 import { makeStyles } from "@material-ui/core";
-import zIndex from "@mui/material/styles/zIndex";
 
 export default makeStyles((theme) => ({
-    container: {
-        padding: theme.spacing(2)
-    },
+    
     pageContent: {
         margin: theme.spacing(5),
         padding: theme.spacing(3)
@@ -22,13 +19,14 @@ export default makeStyles((theme) => ({
             margin: theme.spacing(1)
         },
     },
-    container:{
+    container: {
+        padding: theme.spacing(2),
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        flexWrap: 'wrap',
     },
     card:{
-        minWidth: '275px',
-        
+        minWidth: '275px',     
     },
     cardIcon: {
         display: 'flex',
@@ -74,10 +72,6 @@ export default makeStyles((theme) => ({
             backgroundColor: '#fffbf2',
             cursor: 'pointer'
         },
-    },
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
     },
     button: {
         margin: theme.spacing(5, 2)

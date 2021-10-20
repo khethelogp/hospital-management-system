@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
 import useStyles from './styles'
-import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker, TimePicker} from '@mui/lab/';
@@ -41,14 +41,6 @@ const PatientForm = () => {
         appointmentDate: Yup.date().default(() => new Date()).required('Please choose a date'),
         appointmentTime: Yup.date().default(() => new Date().getTime()).required('Please choose a time')
     })
-
-    const formik = useFormik({
-        initialValues: initialValues,
-        validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
     
     const handleDoctorChange  = (e) => {
         switch (e.target.value) {

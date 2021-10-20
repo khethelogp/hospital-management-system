@@ -1,24 +1,11 @@
-import React, { useState } from 'react';
-import { Container, Grid, Typography, Paper, TextField, MenuItem, Button } from '@mui/material';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React from 'react';
+import { Container, Grid, Typography, TextField, Button } from '@mui/material';
+// import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import useStyles from './styles';
 
-const specializations = [
-    "Nothing Selected", 
-    "General", 
-    "Cardiologist", 
-    "Gynaecologist", 
-    "Dermatologist", 
-    "Pediatrician", 
-    "Neurologist" 
-];
-
-const roomNumbers = [ "1", "2", "3", "6" ];
-
 const AdminDeleteDoctor = (props) => {
-    const[room, setRoom] = useState(0);
-
+    
     const classes = useStyles();
     return (
         <>

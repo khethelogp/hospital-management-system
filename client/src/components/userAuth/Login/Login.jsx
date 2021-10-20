@@ -11,38 +11,33 @@ import { InputAdornment, IconButton } from '@mui/material';
 import { VisibilityOff, Visibility } from '@material-ui/icons';
 
 
-const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,passwordError }) => {
-    
+const Login = () => {
     const  classes = useStyles();
-
-    const [loginStatus, setLoginStatus] = useState('');
 
     const initialValues = {
         email: '',
         password: '',
         showPassword: false,
+        patient: true,
         admin: false,
-        doctor: false, 
+        doctor: true, 
     }
 
     const [values, setValues] = useState(initialValues);
 
     const validationSchema = Yup.object().shape({
-        email: Yup.string().email(emailError ? emailError : 'Please enter a valid email').required('Required'),
-        password: Yup.string().required(passwordError? passwordError : 'Required')
+        email: Yup.string().email('Please enter a valid email').required('Required'),
+        password: Yup.string().required('Required')
     })
 
-    const handleSubmit = (values, props) => {
+    /*  const handleSubmit = (values, props) => {
         console.log(values)
         setTimeout(() => {
             props.resetForm()
             props.setSubmitting(false)
         },2000)
 
-        setFireEmail(values.email);
-        setFirePassword(values.password); 
-
-    }
+    } */
 
     const handleClickShowPassword = () => {
         setValues({
@@ -67,7 +62,7 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                         Sign in
                     </Typography>
                     
-                    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
+                    <Formik initialValues={initialValues} onSubmit={()=>{}} validationSchema={validationSchema}>
                         {(props) => (
                             <Form autoComplete="off">
                                 <Field 
@@ -113,16 +108,23 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                                 />
                                 <Field
                                     as={FormControlLabel} 
-                                    name="admin"
-                                    label="Admin"
-                                    control={<Checkbox value="remember" color="primary" />}
+                                    name="patient"
+                                    label="Patient"
+                                    control={<Checkbox value="patient" color="primary"  />}
                                 />
 
                                 <Field
                                     as={FormControlLabel} 
                                     name="doctor"
                                     label="Doctor"
-                                    control={<Checkbox value="remember" color="primary" />}
+                                    control={<Checkbox value="doctor" color="primary" />}
+                                />
+
+                                <Field
+                                    as={FormControlLabel} 
+                                    name="admin"
+                                    label="Admin"
+                                    control={<Checkbox value="admin" color="primary" />}
                                 />
                                 
                                 <Button
@@ -133,7 +135,7 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                                     size="large"
                                     className={classes.submit}
                                     disabled={props.isSubmitting}
-                                    onClick={handleLogin}
+                                    onClick={() => {}}
                                 >
                                     {props.isSubmitting? "Loading" : "Sign In" }  
                                 </Button>
@@ -159,7 +161,6 @@ const Login = ({ setFireEmail, setFirePassword, handleLogin, emailError,password
                 </Box>
             </Container>
 
-            <h1>{loginStatus}</h1>
         </>
     )
 }

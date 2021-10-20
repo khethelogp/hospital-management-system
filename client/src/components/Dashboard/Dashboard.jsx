@@ -12,13 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
-import { ChevronLeft, ExitToApp, Menu, Notifications, Logout } from '@material-ui/icons';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
-import useStyles from './styles';
+import { ChevronLeft, Menu, Notifications } from '@material-ui/icons';
 import { Tooltip } from '@material-ui/core';
 
 

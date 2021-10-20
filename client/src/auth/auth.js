@@ -1,1 +1,0 @@
-// for all the authentication functions

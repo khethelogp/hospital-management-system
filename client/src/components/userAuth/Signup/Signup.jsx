@@ -3,13 +3,12 @@ import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typogra
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-// import Popup from '../../Popup/Popup';
 import { VisibilityOff, Visibility } from '@material-ui/icons';
-// import { useAuth } from '../../../contexts/AuthContext' 
-import { set } from 'date-fns/esm';
+import { useAuth } from '../../../contexts/AuthContext';
+import { Alert } from '@mui/material';
 
 const Signup = () => {
 
@@ -26,9 +25,10 @@ const Signup = () => {
     }
 
     const [values, setValues] = useState(initialValues);
-    
-    // const { signup } = useAuth()
-
+    const { signup } = useAuth();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().required('Required'),
@@ -39,24 +39,29 @@ const Signup = () => {
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password does not match').required('Required')
     })
 
-    const handleSubmit = (values, props) => {
+    const handleSubmit = async(values, props) => {
         console.log(values);
         setTimeout(() => {
             props.resetForm()
             props.setSubmitting(false)
         }, 2000)
 
-        console.log(values.firstName);
-        console.log(values.lastName);
+        if(values.password !== values.confirmPassword){
+            return setError('Passwords do not match')
+        }
 
+        try {
+            setError('')
+            setLoading(true)
+            await signup(values.email, values.password)
+            history.push('/patient')
+            
+        } catch (error) {
+            setError('Failed to create an account')
+        } 
 
-        /* setFirstName(values.firstName)
-        setLastName(values.lastName)
-        setEmail(values.email)
-        setPhone(values.phone)
-        setPassword(values.password)
-        setConfirmPassword(values.confirmPassword) */
-        // signup(email , password);
+        setLoading(false)
+
     }
 
     const handleClickShowPassword = () => {
@@ -81,6 +86,8 @@ const Signup = () => {
                     <Typography component="h1" variant="h4" className={classes.signUpText}>
                         Sign up as a patient
                     </Typography>
+
+                    {error && <Alert severity="error" sx={{ my: 1, width:'100%' }} >{error}</Alert>}
 
                     <Formik 
                         initialValues={initialValues} 
@@ -204,14 +211,17 @@ const Signup = () => {
                                 color="primary"
                                 size="large"
                                 className={classes.submit}
-                                disabled={props.isSubmitting}
+                                disabled={loading}
+                                // disabled={props.isSubmitting}
+
                             >
-                                {props.isSubmitting ? 'Loading...': 'Sign Up' }
+                                {loading ? 'Loading...': 'Sign Up' }
+                                {/* {props.isSubmitting ? 'Loading...': 'Sign Up' } */}
                             </Button>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
                                 <Link component={RouterLink} to="/login" variant="body2">
-                                    Already have an account? Sign in
+                                    Already have an account? Log In
                                 </Link>
                                 </Grid>
                             </Grid>
@@ -223,28 +233,7 @@ const Signup = () => {
                 <Box mt={5}>
                     <Copyright />
                 </Box>
-                </Container>
-                {/*  <Popup 
-                    openPopup={openPopup}
-                    setOpenPopup={setOpenPopup}
-                    title="Success"
-                    message="You have successfully created your account"        
-                >
-                    <div className={classes.popupText}> 
-                        <Typography component="h1" variant="body2">Email: {signEmail}</Typography>
-                        <Typography component="h1" variant="body2">Password: {signPassword}</Typography>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={() => setOpenPopup(false)}
-                        > 
-                            Close
-                        </Button>
-                    </div>
-                </Popup>      */}               
+                </Container>          
         </>
     )
 }

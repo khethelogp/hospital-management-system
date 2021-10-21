@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { mainListItems, secondaryListItems } from './AdminListItems';
+import { mainListItems } from './AdminListItems';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import AdminDashboard from './AdminDashboard';
 import AdminDoctorList from './AdminDoctorList';
@@ -24,7 +24,6 @@ const Admin = () => {
                             title={title}
                             children={<AdminDashboard />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
 
@@ -33,7 +32,6 @@ const Admin = () => {
                             title={title}
                             children={<AdminDashboard />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
         
@@ -42,7 +40,6 @@ const Admin = () => {
                             title={title}
                             children={<AdminDoctorList />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
 
@@ -51,7 +48,6 @@ const Admin = () => {
                             title={title}
                             children={<AdminPatientList />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
 
@@ -60,7 +56,6 @@ const Admin = () => {
                             title={title}
                             children={<AdminAppointments />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
 
@@ -69,7 +64,6 @@ const Admin = () => {
                             title={title}
                             children={<AdminPrescriptionsList />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
 
@@ -78,7 +72,6 @@ const Admin = () => {
                             title={title}
                             children={<AdminAddDoctor />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
 
@@ -87,19 +80,11 @@ const Admin = () => {
                             title={title}
                             children={<AdminDeleteDoctor />}
                             mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
                         />
                     </Route>
 
                 </Switch>
             </Router>
-
-
-            {/* <div className={classes.container}>
-                <Paper className={classes.pageContent} >
-                    <Typography variant="h6">This is it ?</Typography>
-                </Paper>
-            </div> */}
             
         </>
     )

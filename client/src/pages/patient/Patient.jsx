@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import PatientDashboard from './PatientDashboard';
 import PatientAppointments from './PatientAppointments';
-import { mainListItems, secondaryListItems } from './PatientListItems';
+import { mainListItems } from './PatientListItems';
 import PatientAppointmentHistory from './PatientAppointmentHistory';
 import PatientPrescriptions from './PatientPrescriptions';
 
@@ -16,8 +16,7 @@ const Patient = () => {
                         <Dashboard 
                             title="Patient Dashboard"
                             children={<PatientDashboard />}
-                            mainListItems={mainListItems} 
-                            secondaryListItems={secondaryListItems}
+                            mainListItems={mainListItems}
                         />
                     </Route> 
 
@@ -26,7 +25,6 @@ const Patient = () => {
                                 title="Patient Dashboard"
                                 children={<PatientDashboard />}
                                 mainListItems={mainListItems} 
-                                secondaryListItems={secondaryListItems}
                         />
                     </Route>
                     <Route path="/patient/appointments" >
@@ -34,7 +32,6 @@ const Patient = () => {
                                 title="Patient Dashboard"
                                 children={<PatientAppointments />}
                                 mainListItems={mainListItems} 
-                                secondaryListItems={secondaryListItems}
                         />
                     </Route>
                     <Route path="/patient/appointment-history" >
@@ -42,7 +39,6 @@ const Patient = () => {
                                 title="Patient Dashboard"
                                 children={<PatientAppointmentHistory />}
                                 mainListItems={mainListItems} 
-                                secondaryListItems={secondaryListItems}
                         />
                     </Route>
                     <Route path="/patient/prescriptions" >
@@ -50,7 +46,6 @@ const Patient = () => {
                                 title="Patient Dashboard"
                                 children={<PatientPrescriptions />}
                                 mainListItems={mainListItems} 
-                                secondaryListItems={secondaryListItems}
                         />
                     </Route>
                     

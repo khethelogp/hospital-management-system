@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Dashboard, EventAvailable, ExitToApp } from '@material-ui/icons';
+import { Dashboard, EventAvailable } from '@material-ui/icons';
 import { Tooltip } from '@mui/material';
 import * as GiIcons from 'react-icons/gi';
 import * as FaIcons from 'react-icons/fa';
@@ -77,7 +77,7 @@ export const mainListItems = (
     </div>
 );
 
-export const secondaryListItems = (
+/* export const secondaryListItems = (
     <div>
         <Tooltip title="Logout">
             <ListItem button className="flex-end">
@@ -89,3 +89,4 @@ export const secondaryListItems = (
         </Tooltip>
     </div>
 );
+ */

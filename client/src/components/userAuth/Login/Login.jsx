@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Paper, Checkbox, Link, Grid, Box, Typography, Container } from '@material-ui/core';
+import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
-import { InputAdornment, IconButton } from '@mui/material';
+import { InputAdornment, IconButton, Alert } from '@mui/material';
 import { VisibilityOff, Visibility } from '@material-ui/icons';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel} from '@mui/material';
+import { useAuth } from '../../../contexts/AuthContext';
+
+//TODO Implement a doctor and admin signup with radio Buttons
 
 
 const Login = () => {
@@ -24,20 +27,36 @@ const Login = () => {
     }
 
     const [values, setValues] = useState(initialValues);
+    const { login } = useAuth();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
+    const [userRole, SetUserRole] = useState('patient');
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Please enter a valid email').required('Required'),
         password: Yup.string().required('Required')
     })
 
-    /*  const handleSubmit = (values, props) => {
-        console.log(values)
+    const handleSubmit = async(values, props) => {
         setTimeout(() => {
             props.resetForm()
             props.setSubmitting(false)
-        },2000)
+        }, 2000)
 
-    } */
+        try {
+            setError('')
+            setLoading(true)
+            await login(values.email, values.password)
+            history.push('/patient')
+            
+        } catch (error) {
+            setError('Failed to Sign In')
+        } 
+
+        setLoading(false)
+
+    }
 
     const handleClickShowPassword = () => {
         setValues({
@@ -50,6 +69,10 @@ const Login = () => {
         event.preventDefault();
     };
 
+    const handleRoleChange = (event) => {
+        SetUserRole(event.target.value);
+    };
+
     return (
         <>
             <Container component="main" maxWidth="xs">
@@ -59,10 +82,12 @@ const Login = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h4">
-                        Sign in
+                        Log In
                     </Typography>
+
+                    {error && <Alert severity="error" sx={{ my: 1, width:'100%' }} >{error}</Alert>}
                     
-                    <Formik initialValues={initialValues} onSubmit={()=>{}} validationSchema={validationSchema}>
+                    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
                         {(props) => (
                             <Form autoComplete="off">
                                 <Field 
@@ -106,26 +131,29 @@ const Login = () => {
                                         </InputAdornment>,
                                     }}
                                 />
-                                <Field
-                                    as={FormControlLabel} 
-                                    name="patient"
-                                    label="Patient"
-                                    control={<Checkbox value="patient" color="primary"  />}
-                                />
 
-                                <Field
-                                    as={FormControlLabel} 
-                                    name="doctor"
-                                    label="Doctor"
-                                    control={<Checkbox value="doctor" color="primary" />}
-                                />
+                                <FormControl component="fieldset" sx={{my:1}}>
+                                    <FormLabel component="legend">User Role</FormLabel>
+                                    <RadioGroup 
+                                        row 
+                                        aria-label="userRole" 
+                                        name="row-radio-buttons-group"
+                                        value={userRole}
+                                        onChange={handleRoleChange}
+                                    >
+                                        <FormControlLabel value="patient" control={<Radio />} label="patient" />
+                                        <FormControlLabel value="doctor" control={<Radio />} label="doctor" />
+                                        <FormControlLabel value="admin" control={<Radio />} label="admin" />
+                                    </RadioGroup>
+                                </FormControl>
+                                
 
-                                <Field
+                                {/* <Field
                                     as={FormControlLabel} 
                                     name="admin"
                                     label="Admin"
                                     control={<Checkbox value="admin" color="primary" />}
-                                />
+                                /> */}
                                 
                                 <Button
                                     type="submit"
@@ -134,10 +162,11 @@ const Login = () => {
                                     color="primary"
                                     size="large"
                                     className={classes.submit}
-                                    disabled={props.isSubmitting}
+                                    disabled={loading}
+                                    // disabled={props.isSubmitting}
                                     onClick={() => {}}
                                 >
-                                    {props.isSubmitting? "Loading" : "Sign In" }  
+                                    {loading ? "Loading..." : "Sign In" }  
                                 </Button>
                                         
                                 <Grid container>

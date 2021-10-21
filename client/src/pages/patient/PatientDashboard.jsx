@@ -3,18 +3,22 @@ import { Button, Card, CardActions, CardContent, Container, Grid, Typography } f
 import { Link } from 'react-router-dom';
 import * as CgIcons from 'react-icons/cg';
 import * as BsIcons from 'react-icons/bs';
+import { useAuth } from '../../contexts/AuthContext'
 
 import useStyles from './styles';
 
 const PatientDashboard = () => {
     const  classes = useStyles();
+    const { currentUser } = useAuth();
 
     return (
         <>
             <Container  className={classes.container} sx={{ py: 4 }} maxWidth="m">
                 <Grid container spacing={3} >
                     <Grid item lg={12} md={4} sm={12}>
-                        <Typography component="h1" variant="h4" color="primary" gutterBottom >Welcome User</Typography>            
+                        <Typography component="h1" variant="h4" color="primary" gutterBottom >
+                            Welcome ({currentUser.email})
+                        </Typography>            
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={4}>
                         <Card className={classes.card}>

@@ -6,9 +6,10 @@ import Doctor from './pages/doctor/Doctor';
 import Admin from './pages/admin/Admin';
 import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 
-// import { AuthProvider } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/AuthContext';
 
 import './App.css';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const theme = createTheme({
     palette: {
@@ -42,23 +43,23 @@ const App = () => {
 
     // TODO add theme and theme provider
     return (
-        // <AuthProvider>    
-        <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <div className="App">       
                     <Router>
+                        <AuthProvider>  
                             <Switch>
                                 <Route exact path='/' component={Login} />
                                 <Route path='/login' component={Login} />
                                 <Route path='/signup' component={Signup} />
                                 <Route path='/admin' component={Admin} />
                                 <Route path='/doctor' component={Doctor}/>
-                                <Route path='/patient' component={Patient}/>
+                                <PrivateRoute path='/patient' component={Patient}/>
                             </Switch>
+                        </AuthProvider>
                     </Router>    
                 </div>
             </ThemeProvider>
-        // </AuthProvider>
     )
 }
 

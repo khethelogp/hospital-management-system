@@ -9,12 +9,15 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
-import { ChevronLeft, Menu, Notifications } from '@material-ui/icons';
-import { Tooltip } from '@material-ui/core';
+import { AccountCircle, ChevronLeft, ExitToApp, Menu, Notifications } from '@material-ui/icons';
+import { Badge, ListItem, ListItemIcon, ListItemText, Tooltip } from '@material-ui/core';
+import { secondaryListItems } from './listItems';
+import { useHistory } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
+import { Alert } from '@mui/material';
 
 
 function Copyright(props) {
@@ -79,13 +82,27 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-const DashboardContent = ({ title, children, mainListItems, secondaryListItems }) => {
+const DashboardContent = ({ title, children, mainListItems }) => {
+  
+  const [error, setError] = React.useState('')
+  const { currentUser, logout } = useAuth()
+  const history = useHistory()
   
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const handleLogout = async() => {
+    setError('')
+
+    try {
+        await logout()
+        history.push('/login')
+    } catch (error) {
+        setError('Failed to logout')
+    }
+}
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -122,11 +139,21 @@ const DashboardContent = ({ title, children, mainListItems, secondaryListItems }
             >
               {title}
             </Typography>
+              
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <Notifications />
               </Badge>
             </IconButton>
+
+            {/* <IconButton 
+              color="inherit"
+              onClick={handleLogout}
+            >
+              <Tooltip title="Log Out">
+                <ExitToApp />
+              </Tooltip>
+            </IconButton> */}
 
           </Toolbar>
         </AppBar>
@@ -147,6 +174,29 @@ const DashboardContent = ({ title, children, mainListItems, secondaryListItems }
           <List>{mainListItems}</List>
           <Divider />
           <List>{secondaryListItems}</List>
+          
+          <List sx={{mt: 'auto' }}>
+            <Tooltip title="Account">
+                <ListItem button className="flex-end">
+                    <ListItemIcon>
+                        <AccountCircle />
+                    </ListItemIcon>
+                    <ListItemText primary={currentUser.email} />
+                </ListItem>
+            </Tooltip>
+          </List>
+          
+          <List >
+            <Tooltip title="Logout">
+              <ListItem button className="flex-end" onClick={handleLogout}>
+                  <ListItemIcon>
+                      <ExitToApp />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout"/>
+              </ListItem>
+            </Tooltip>
+          </List>
+
         </Drawer>
         <Box
           component="main"
@@ -163,6 +213,7 @@ const DashboardContent = ({ title, children, mainListItems, secondaryListItems }
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
+              {error && <Alert severity="error" sx={{ my: 1, width:'100%' }} >{error}</Alert>}
               {children}
             </Grid>
             <Copyright sx={{ pt: 4 }} />
@@ -173,14 +224,13 @@ const DashboardContent = ({ title, children, mainListItems, secondaryListItems }
   );
 }
 
-export default function Dashboard({title, children, mainListItems, secondaryListItems}) {
+export default function Dashboard({title, children, mainListItems}) {
 
   return(
     <DashboardContent 
       title={title} 
       children={children} 
       mainListItems={mainListItems} 
-      secondaryListItems={secondaryListItems}
     />
   ) 
 

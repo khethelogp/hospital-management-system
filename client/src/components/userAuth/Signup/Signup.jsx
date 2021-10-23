@@ -1,14 +1,14 @@
 import React,{ useState } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, Container, InputAdornment, IconButton } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { VisibilityOff, Visibility } from '@material-ui/icons';
+import { LockOutlined, VisibilityOff, Visibility  } from '@material-ui/icons';
 import { useAuth } from '../../../contexts/AuthContext';
 import { Alert } from '@mui/material';
+
 
 const Signup = () => {
 
@@ -61,8 +61,8 @@ const Signup = () => {
         } 
 
         setLoading(false)
-
     }
+
 
     const handleClickShowPassword = () => {
         setValues({
@@ -81,7 +81,7 @@ const Signup = () => {
                 <CssBaseline />
                 <Paper className={classes.paper} elevation={10}>
                     <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlined />
                     </Avatar>
                     <Typography component="h1" variant="h4" className={classes.signUpText}>
                         Sign up as a patient

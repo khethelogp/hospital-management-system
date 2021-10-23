@@ -1,37 +1,29 @@
 import React, { useState } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, Container } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { LockOpenOutlined } from '@material-ui/icons/';
+import { Link as RouterLink } from 'react-router-dom';
 import useStyles from './styles';
-import Copyright from '../../Copyright/Copyright';
+import Copyright from '../Copyright/Copyright';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { InputAdornment, IconButton, Alert } from '@mui/material';
-import { VisibilityOff, Visibility } from '@material-ui/icons';
-import { useAuth } from '../../../contexts/AuthContext';
-
-//TODO Implement a doctor and admin signup with radio Buttons
+import { Alert } from '@mui/material';
+import { useAuth } from '../../contexts/AuthContext';
 
 
-const Login = () => {
+const ForgotPassword = () => {
     const  classes = useStyles();
 
     const initialValues = {
         email: '',
-        password: '',
-        showPassword: false 
     }
 
-    const [values, setValues] = useState(initialValues);
-    const { login, currentUser } = useAuth();
+    const { resetPassword } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const history = useHistory();
-    // const [userRole, SetUserRole] = useState('patient');
-
+    const [message, setMessage] = useState('');
+    
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Please enter a valid email').required('Required'),
-        password: Yup.string().required('Required')
     })
 
     const handleSubmit = async(values, props) => {
@@ -41,44 +33,32 @@ const Login = () => {
         }, 2000)
 
         try {
+            setMessage('')
             setError('')
             setLoading(true)
-            await login(values.email, values.password)
-            history.push('/patient')
-            
+            await resetPassword(values.email)
+            setMessage('Check your inbox for further instructions.')            
         } catch (error) {
-            setError('Failed to Sign In')
+            setError('Failed to Reset Password')
         } 
 
         setLoading(false)
     }
 
-    
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    console.log(currentUser);
     return (
         <>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Paper className={classes.paper} elevation={10}>
                     <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
+                        <LockOpenOutlined />
                     </Avatar>
                     <Typography component="h1" variant="h4">
-                        Log In
+                        Password Reset
                     </Typography>
 
                     {error && <Alert severity="error" sx={{ my: 1, width:'100%' }} >{error}</Alert>}
+                    {message && <Alert severity="info" sx={{ my: 1, width:'100%' }} >{message}</Alert>}
                     
                     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
                         {(props) => (
@@ -98,33 +78,6 @@ const Login = () => {
                                     helperText={<ErrorMessage name="email" />}
                                 />
 
-                                <Field
-                                    as={TextField}
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    placeholder="Enter Password"
-                                    id="password"
-                                    type={values.showPassword ? 'text' : 'password'}
-                                    autoComplete="current-password"
-                                    helperText={<ErrorMessage name="password" />}
-                                    InputProps={{
-                                        endAdornment: <InputAdornment position="end">
-                                            <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                            >
-                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>,
-                                    }}
-                                />
-                                
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -136,18 +89,18 @@ const Login = () => {
                                     // disabled={props.isSubmitting}
                                     onClick={() => {}}
                                 >
-                                    {loading ? "Loading..." : "Sign In" }  
+                                    {loading ? "Loading..." : "Reset Password" }  
                                 </Button>
                                         
                                 <Grid container>
                                     <Grid item xs={12} sm={6}>
-                                        <Link component={RouterLink} to="/forgot-password" variant="body2">
-                                            {`Forgot password ? `}
+                                        <Link component={RouterLink} to="/login" variant="body2" >
+                                            {`Login instead?`}
                                         </Link>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Link component={RouterLink} to="/signup" variant="body2">
-                                            {"Don't have an account? Sign Up"}
+                                            {"Need an account? Sign Up"}
                                         </Link>
                                     </Grid>                        
                                 </Grid>
@@ -164,5 +117,5 @@ const Login = () => {
     )
 }
 
-export default Login
+export default ForgotPassword
 

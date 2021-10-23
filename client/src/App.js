@@ -10,6 +10,7 @@ import { AuthProvider } from './contexts/AuthContext';
 
 import './App.css';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 const theme = createTheme({
     palette: {
@@ -52,8 +53,9 @@ const App = () => {
                                 <Route exact path='/' component={Login} />
                                 <Route path='/login' component={Login} />
                                 <Route path='/signup' component={Signup} />
-                                <Route path='/admin' component={Admin} />
-                                <Route path='/doctor' component={Doctor}/>
+                                <Route path='/forgot-password' component={ForgotPassword} />
+                                <PrivateRoute path='/admin' component={Admin} />
+                                <PrivateRoute path='/doctor' component={Doctor}/>
                                 <PrivateRoute path='/patient' component={Patient}/>
                             </Switch>
                         </AuthProvider>

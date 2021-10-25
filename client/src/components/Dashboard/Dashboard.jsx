@@ -181,7 +181,7 @@ const DashboardContent = ({ title, children, mainListItems }) => {
                     <ListItemIcon>
                         <AccountCircle />
                     </ListItemIcon>
-                    <ListItemText primary={currentUser.email} />
+                    <ListItemText primary={currentUser.displayName || currentUser.email} />
                 </ListItem>
             </Tooltip>
           </List>

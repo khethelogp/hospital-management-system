@@ -1,5 +1,5 @@
 import React from 'react';
-import { Signup, Login } from './components' ;
+import { Signup, Signup2, Login } from './components' ;
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Patient from './pages/patient/Patient';
 import Doctor from './pages/doctor/Doctor';
@@ -42,6 +42,8 @@ const theme = createTheme({
 
 const App = () => {
 
+    // const [customPath, setCustomPath ] = useState();
+    
     // TODO add theme and theme provider
     return (
             <ThemeProvider theme={theme}>
@@ -53,6 +55,7 @@ const App = () => {
                                 <Route exact path='/' component={Login} />
                                 <Route path='/login' component={Login} />
                                 <Route path='/signup' component={Signup} />
+                                <Route path='/signup-2' component={Signup2} />
                                 <Route path='/forgot-password' component={ForgotPassword} />
                                 <PrivateRoute path='/admin' component={Admin} />
                                 <PrivateRoute path='/doctor' component={Doctor}/>

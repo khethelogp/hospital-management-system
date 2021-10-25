@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, Container, InputAdornment, IconButton } from '@material-ui/core';
+import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, InputAdornment, IconButton } from '@material-ui/core';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
@@ -8,8 +8,18 @@ import * as Yup from 'yup';
 import { LockOutlined, VisibilityOff, Visibility  } from '@material-ui/icons';
 import { useAuth } from '../../../contexts/AuthContext';
 import { Alert } from '@mui/material';
+import bgImage from "../../../assets/bg-2.jpg";
 
-const Signup = () => {
+const styles = {
+    signUpBG: {
+        backgroundImage: `url(${bgImage})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    }
+};
+
+const Signup2 = () => {
 
     const  classes = useStyles();
     
@@ -24,7 +34,7 @@ const Signup = () => {
     }
 
     const [values, setValues] = useState(initialValues);
-    const { signup, currentUser } = useAuth();
+    const { signup } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -39,6 +49,7 @@ const Signup = () => {
     })
 
     const handleSubmit = async(values, props) => {
+        console.log(values);
         setTimeout(() => {
             props.resetForm()
             props.setSubmitting(false)
@@ -51,24 +62,17 @@ const Signup = () => {
         try {
             setError('')
             setLoading(true)
-            await signup(values.email, values.password, values.firstName, values.lastName, Number(values.phone))
-            history.push('/patient')    
+            await signup(values.email, values.password)
+            history.push('/patient')
+            
         } catch (error) {
             setError('Failed to create an account')
         } 
 
-        /* if(currentUser !== null){
-            updateProfile(currentUser, {
-                displayName: `${values.firstName} ${values.lastName}`,
-                phoneNumber: values.phone
-            })
-        } */
-
         setLoading(false)
     }
 
-    console.log(currentUser);
-    
+
     const handleClickShowPassword = () => {
         setValues({
             ...values,
@@ -82,9 +86,27 @@ const Signup = () => {
     
     return (
         <>
-            <Container component="main" maxWidth="sm">
+            <Grid container component="main" > 
                 <CssBaseline />
-                <Paper className={classes.paper} elevation={10}>
+                <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={7}
+                    style={styles.signUpBG}
+                />
+                
+                <Grid item xs={12} sm={8} md={5} component={Paper}>
+                <Box
+                    sx={{
+                    my: 0,
+                    mx: 4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    }}
+                >
+                <Paper className={classes.paper} elevation={10} >
                     <Avatar className={classes.avatar}>
                     <LockOutlined />
                     </Avatar>
@@ -130,7 +152,7 @@ const Signup = () => {
                                     helperText={<ErrorMessage name="lastName"/>}
                                 />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={12}>
                                 <Field
                                     as={TextField}
                                     variant="outlined"
@@ -143,7 +165,7 @@ const Signup = () => {
                                     helperText={<ErrorMessage name="email"/>}
                                 />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={12}>
                                 <Field
                                     as={TextField}
                                     variant="outlined"
@@ -156,7 +178,7 @@ const Signup = () => {
                                     helperText={<ErrorMessage name="phone"/>}
                                 />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={12}>
                                 <Field
                                     as={TextField}
                                     variant="outlined"
@@ -182,7 +204,7 @@ const Signup = () => {
                                     }}
                                 />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={12}>
                                 <Field
                                     as={TextField}
                                     variant="outlined"
@@ -217,10 +239,10 @@ const Signup = () => {
                                 size="large"
                                 className={classes.submit}
                                 disabled={loading}
-                                // disabled={props.isSubmitting
+                                // disabled={props.isSubmitting}
+
                             >
                                 {loading ? 'Loading...': 'Sign Up' }
-                                {/* {props.isSubmitting ? 'Loading...': 'Sign Up' } */}
                             </Button>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
@@ -232,14 +254,15 @@ const Signup = () => {
                             </Form>
                         )}
                     </Formik>
-                    
-                </Paper>
-                <Box mt={5}>
-                    <Copyright />
+                    </Paper>
+                    <Box mt={3}>
+                        <Copyright />
+                    </Box>
                 </Box>
-                </Container>          
+                </Grid>    
+                </Grid>
         </>
     )
 }
 
-export default Signup
+export default Signup2

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
@@ -27,7 +27,6 @@ const Login = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
-    // const [userRole, SetUserRole] = useState('patient');
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Please enter a valid email').required('Required'),
@@ -45,13 +44,23 @@ const Login = () => {
             setLoading(true)
             await login(values.email, values.password)
             history.push('/patient')
-            
+
         } catch (error) {
             setError('Failed to Sign In')
         } 
 
+        
         setLoading(false)
     }
+
+    //TODO render admin to admin and have admin route
+    useEffect(() => {
+        if(currentUser!== null){
+            if((currentUser.uid).includes('Mb9KHFgNNhYI4tbRCA1iEqjrkki1')){
+                console.log("YOU ARE THE ADMIN")
+            }
+        }
+    }, [currentUser])
 
     
     const handleClickShowPassword = () => {
@@ -65,7 +74,6 @@ const Login = () => {
         event.preventDefault();
     };
 
-    console.log(currentUser);
     return (
         <>
             <Container component="main" maxWidth="xs">
@@ -134,7 +142,6 @@ const Login = () => {
                                     className={classes.submit}
                                     disabled={loading}
                                     // disabled={props.isSubmitting}
-                                    onClick={() => {}}
                                 >
                                     {loading ? "Loading..." : "Sign In" }  
                                 </Button>

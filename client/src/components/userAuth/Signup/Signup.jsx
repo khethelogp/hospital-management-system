@@ -33,7 +33,8 @@ const Signup = () => {
         firstName: Yup.string().required('Required'),
         lastName: Yup.string().required('Required'),
         email: Yup.string().email('Please enter a valid email').required('Required'),
-        phone: Yup.string().min(10, 'Please enter a valid phone number').required('Required'),
+        phone: Yup.number().integer().typeError('Please enter a valid phone number').required('Required'),
+        // phone: Yup.string().min(10, 'Please enter a valid phone number').required('Required'),
         password: Yup.string().min(6, 'Password must be atleast 6 characters').required('Required'),
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password does not match').required('Required')
     })

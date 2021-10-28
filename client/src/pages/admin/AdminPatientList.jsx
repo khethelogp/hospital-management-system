@@ -3,7 +3,7 @@ import { Container, Grid, InputAdornment,Paper, Toolbar, Typography } from '@mui
 import Controls from '../../components/Controls/Controls';
 import { Search } from '@material-ui/icons';
 import AdminTable from './AdminTable';
-
+import { useDB } from '../../contexts/DbContext';
 
 import useStyles from './styles';
 
@@ -37,6 +37,9 @@ const columns = [
 
 const AdminPatientList = (props) => {
     const classes = useStyles();
+    const { users } = useDB();
+
+    console.log(users);
 
     return (
         <>

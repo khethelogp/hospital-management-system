@@ -12,6 +12,7 @@ import './App.css';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import AdminRoute from './components/PrivateRoute/AdminRoute';
+import DbProvider from './contexts/DbContext';
 
 const theme = createTheme({
     palette: {
@@ -43,7 +44,6 @@ const theme = createTheme({
 
 const App = () => {
 
-    // const [customPath, setCustomPath ] = useState();
     
     // TODO add theme and theme provider
     return (
@@ -51,18 +51,20 @@ const App = () => {
                 <CssBaseline />
                 <div className="App">       
                     <Router>
-                        <AuthProvider>  
-                            <Switch>
-                                <Route exact path='/' component={Login} />
-                                <Route path='/login' component={Login} />
-                                <Route path='/signup' component={Signup2} />
-                                <Route path='/forgot-password' component={ForgotPassword} />
-                                <AdminRoute path='/admin' component={Admin} />
-                                <PrivateRoute path='/doctor' component={Doctor}/>
-                                <PrivateRoute path='/patient' component={Patient}/>
-                                {/* <Route path='/signup' component={Signup} /> */}
-                                {/* <PrivateRoute path='/admin' component={Admin} /> */}
-                            </Switch>
+                        <AuthProvider>
+                            <DbProvider>
+                                <Switch>
+                                    <Route exact path='/' component={Login} />
+                                    <Route path='/login' component={Login} />
+                                    <Route path='/signup' component={Signup2} />
+                                    <Route path='/forgot-password' component={ForgotPassword} />
+                                    <AdminRoute path='/admin' component={Admin} />
+                                    <PrivateRoute path='/doctor' component={Doctor}/>
+                                    <PrivateRoute path='/patient' component={Patient}/>
+                                    {/* <Route path='/signup' component={Signup} /> */}
+                                    {/* <PrivateRoute path='/admin' component={Admin} /> */}
+                                </Switch>
+                            </DbProvider>  
                         </AuthProvider>
                     </Router>    
                 </div>

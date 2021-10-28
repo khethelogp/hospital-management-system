@@ -10,8 +10,6 @@ import { InputAdornment, IconButton, Alert } from '@mui/material';
 import { VisibilityOff, Visibility } from '@material-ui/icons';
 import { useAuth } from '../../../contexts/AuthContext';
 
-//TODO Implement a doctor and admin signup with radio Buttons
-
 
 const Login = () => {
     const  classes = useStyles();

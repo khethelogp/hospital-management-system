@@ -7,10 +7,6 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-/* const signup = async(email, password ) => {
-    return createUserWithEmailAndPassword(auth, email, password)
-} */
-
 const signup = async(email, password, firstName, lastName, phone) => {
     return createUserWithEmailAndPassword(auth, email, password)
     .then((res) => {

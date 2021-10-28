@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, InputAdornment, IconButton } from '@material-ui/core';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
@@ -9,6 +9,8 @@ import { LockOutlined, VisibilityOff, Visibility  } from '@material-ui/icons';
 import { useAuth } from '../../../contexts/AuthContext';
 import { Alert } from '@mui/material';
 import bgImage from "../../../assets/bg-2.jpg";
+import { useDB } from '../../../contexts/DbContext';
+
 
 const styles = {
     signUpBG: {
@@ -34,10 +36,18 @@ const Signup2 = () => {
     }
 
     const [values, setValues] = useState(initialValues);
-    const { signup } = useAuth();
+    const { signup, currentUser } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
+    const { createUser } = useDB();
+
+    // database values
+    const[ufirstName, setUFirstName]= useState('');
+    const[ulastName, setULastName]= useState('');
+    const[uEmail, setUEmail]= useState('');
+    const[uPhone, setUPhone]= useState(0);
+    const[uId, setUID]= useState('');
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().required('Required'),
@@ -49,11 +59,15 @@ const Signup2 = () => {
     })
 
     const handleSubmit = async(values, props) => {
-        console.log(values);
         setTimeout(() => {
             props.resetForm()
             props.setSubmitting(false)
         }, 2000)
+
+        setUFirstName(values.firstName);
+        setULastName(values.lastName);
+        setUEmail(values.email);
+        setUPhone(values.phone);
 
         if(values.password !== values.confirmPassword){
             return setError('Passwords do not match')
@@ -62,7 +76,7 @@ const Signup2 = () => {
         try {
             setError('')
             setLoading(true)
-            await signup(values.email, values.password)
+            await signup(values.email, values.password, values.firstName, values.lastName, Number(values.phone))
             history.push('/patient')
             
         } catch (error) {
@@ -72,6 +86,10 @@ const Signup2 = () => {
         setLoading(false)
     }
 
+    if (currentUser!== null){
+        console.log('userId: ', currentUser.uid);
+        setUID(currentUser.uid); 
+    }
 
     const handleClickShowPassword = () => {
         setValues({
@@ -83,6 +101,13 @@ const Signup2 = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    useEffect(() => {
+        createUser(ufirstName,ulastName,uEmail,uPhone,uEmail, uId);
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]) 
+
     
     return (
         <>

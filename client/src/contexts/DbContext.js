@@ -1,6 +1,6 @@
 import React,{ useContext, useState, useEffect } from 'react'
 import { db } from '../config/firebase'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, addDoc } from 'firebase/firestore'
 
 const DbContext = React.createContext()
 export function useDB() {
@@ -16,9 +16,20 @@ export default function DbProvider({ children }) {
         const data = await getDocs(usersCollectionRef);
         setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
+
+    const createUser = async(fName, lName, mail, contact, userId) => {
+        await addDoc(usersCollectionRef, {
+            firstName: fName,
+            lastName: lName,
+            email: mail,
+            phone: contact,
+            uid: userId 
+        })   
+    }
     
     const value = {
-        users
+        users,
+        createUser,
     }
 
     useEffect(() => {
@@ -26,6 +37,9 @@ export default function DbProvider({ children }) {
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []) 
+
+    console.log(users);
+
 
     return (
         <DbContext.Provider value={value}>

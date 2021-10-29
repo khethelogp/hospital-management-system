@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Paper, Link, Grid, Box, Typography, Container, InputAdornment, IconButton } from '@material-ui/core';
 import useStyles from './styles';
 import Copyright from '../../Copyright/Copyright';
@@ -8,6 +8,8 @@ import * as Yup from 'yup';
 import { LockOutlined, VisibilityOff, Visibility  } from '@material-ui/icons';
 import { useAuth } from '../../../contexts/AuthContext';
 import { Alert } from '@mui/material';
+import { useDB } from '../../../contexts/DbContext';
+
 
 const Signup = () => {
 
@@ -28,6 +30,14 @@ const Signup = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
+    const { createUser } = useDB();
+
+    // database values
+    const[ufirstName, setUFirstName]= useState('');
+    const[ulastName, setULastName]= useState('');
+    const[uEmail, setUEmail]= useState('');
+    const[uPhone, setUPhone]= useState(0);
+
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().required('Required'),
@@ -44,6 +54,11 @@ const Signup = () => {
             props.setSubmitting(false)
         }, 2000)
 
+        setUFirstName(values.firstName);
+        setULastName(values.lastName);
+        setUEmail(values.email);
+        setUPhone(values.phone);
+
         if(values.password !== values.confirmPassword){
             return setError('Passwords do not match')
         }
@@ -57,17 +72,16 @@ const Signup = () => {
             setError('Failed to create an account')
         } 
 
-        /* if(currentUser !== null){
-            updateProfile(currentUser, {
-                displayName: `${values.firstName} ${values.lastName}`,
-                phoneNumber: values.phone
-            })
-        } */
-
         setLoading(false)
     }
 
-    console.log(currentUser);
+    useEffect(() => {
+        if (currentUser!== null){
+            createUser(ufirstName, ulastName, uEmail, uPhone, String(currentUser.uid))
+        }
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]) 
     
     const handleClickShowPassword = () => {
         setValues({

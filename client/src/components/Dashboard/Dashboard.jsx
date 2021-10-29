@@ -88,7 +88,7 @@ const DashboardContent = ({ title, children, mainListItems }) => {
   const { currentUser, logout } = useAuth()
   const history = useHistory()
   
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };

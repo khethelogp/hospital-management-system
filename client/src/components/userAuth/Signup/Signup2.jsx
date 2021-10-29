@@ -47,7 +47,6 @@ const Signup2 = () => {
     const[ulastName, setULastName]= useState('');
     const[uEmail, setUEmail]= useState('');
     const[uPhone, setUPhone]= useState(0);
-    const[uId, setUID]= useState('');
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().required('Required'),
@@ -86,10 +85,15 @@ const Signup2 = () => {
         setLoading(false)
     }
 
-    if (currentUser!== null){
-        console.log('userId: ', currentUser.uid);
-        setUID(currentUser.uid); 
-    }
+
+    useEffect(() => {
+        if (currentUser!== null){
+            // console.log({ name: ufirstName, last: ulastName, userEmail: uEmail, userPhone: Number(uPhone)});
+            createUser(ufirstName, ulastName, uEmail, uPhone, String(currentUser.uid))
+        }
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]) 
 
     const handleClickShowPassword = () => {
         setValues({
@@ -101,12 +105,6 @@ const Signup2 = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
-    useEffect(() => {
-        createUser(ufirstName,ulastName,uEmail,uPhone,uEmail, uId);
-        
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser]) 
 
     
     return (

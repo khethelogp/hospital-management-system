@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Container, Grid, Typography, Paper, TextField, MenuItem, Button, InputAdornment, IconButton } from '@mui/material';
 import { VisibilityOff, Visibility } from '@material-ui/icons';
-// import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useDB } from '../../contexts/DbContext';
+import { Alert } from '@mui/material';
 
 import useStyles from './styles';
 
 const specializations = [
-    "Nothing Selected",
     "General",
     "Cardiologist",
     "Gynaecologist",
@@ -15,13 +17,13 @@ const specializations = [
     "Neurologist"
 ];
 
-const roomNumbers = ["1", "2", "3", "4"];
 const initialValues = {
     drName: '',
     specialization: '',
     email: '',
     password: '',
     confirmPassword: '',
+    roomNumber: '',
     showPassword: false,
 }
 
@@ -30,10 +32,20 @@ const AdminAddDoctor = (props) => {
     const classes = useStyles();
     
     const [values, setValues] = useState(initialValues);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
 
-    /* const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    }; */
+    const { createNewDoctor } = useDB();
+
+    const validationSchema = Yup.object().shape({
+        drName: Yup.string().required('Doctor name is required'),
+        specialization: Yup.string().required('Please select a specialization'),
+        email: Yup.string().email('Please enter a valid email').required('Required'),
+        password: Yup.string().min(6, 'Password must be atleast 6 characters').required('Required'),
+        confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password does not match').required('Required'),
+        roomNumber: Yup.number().integer().typeError('Please enter a valid room number').required('Room number is required')
+    });
 
     const handleClickShowPassword = () => {
         setValues({
@@ -45,6 +57,29 @@ const AdminAddDoctor = (props) => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    const handleSubmit = (values, props) => {
+        setTimeout(() => {
+            props.resetForm();
+            props.setSubmitting(false);
+        }, 2000);
+
+        console.log(values);
+
+        try {
+            setError('');
+            setLoading(true);
+            createNewDoctor(values.drName, values.specialization, values.email, values.password, Number(values.roomNumber));
+            setMessage('New Doctor account created successfuly.')            
+        } catch (error) {
+            setError('Failed to create Doctor Account')
+        }
+
+        setLoading(false);
+
+    } 
+
+    
 
     return (
         <>
@@ -61,134 +96,147 @@ const AdminAddDoctor = (props) => {
                             <Typography variant="h3">
                                 FORM
                             </Typography>
-                            <form className={classes.root}>
-                                <Grid container className={classes.container} >
-                                    <Grid item xs={12} sm={12} md={6} lg={6}>
-                                        <TextField
-                                            variant="outlined"
-                                            label="Doctor Name"
-                                            name="drName"
-                                            id="drName"
-                                            fullWidth
-                                            required
-                                            // value={drName}
-                                            // onChange={handleInputChange}
-                                            helperText="Doctor name is required"
-                                        />
 
-                                        <TextField
-                                            variant="outlined"
-                                            label="Specialization"
-                                            name="specialization"
-                                            id="specialization"
-                                            select
-                                            fullWidth
-                                            required
-                                            // value={specialization}
-                                            // onChange={handleInputChange}
-                                            helperText="Please select a specialization"
-                                        >
-                                            {specializations.map((option) => (
-                                                <MenuItem key={option} value={option}>
-                                                    {option}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        <TextField
-                                            variant="outlined"
-                                            label="Email ID"
-                                            name="email"
-                                            id="email"
-                                            fullWidth
-                                            required
-                                            // value={email}
-                                            // onChange={handleInputChange}
-                                            helperText="Doctor email is required"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={6}>
-                                        <TextField
-                                            variant="outlined"
-                                            label="Password"
-                                            name="password"
-                                            id="password"
-                                            type={values.showPassword ? 'text' : 'password'}
-                                            fullWidth
-                                            required
-                                            // value={password}
-                                            // onChange={handleInputChange}
-                                            helperText="Please provide password"
-                                            InputProps={{
-                                                endAdornment: <InputAdornment position="end">
-                                                    <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
+                            {error && <Alert severity="error" sx={{ my: 1, width:'100%' }} >{error}</Alert>}
+                            {message && <Alert severity="success" sx={{ my: 1, width:'100%' }} >{message}</Alert>}
+
+                                <Formik 
+                                    initialValues={initialValues} 
+                                    autoComplete="off"
+                                    validationSchema={validationSchema}
+                                    onSubmit={handleSubmit} 
+                                >
+                                    {(props) => (
+                                        <Form className={classes.root}>
+                                            <Grid container className={classes.container} >
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>      
+                                                    <Field
+                                                        as={TextField}
+                                                        autoComplete="drName"
+                                                        variant="outlined"
+                                                        label="Doctor Name"
+                                                        name="drName"
+                                                        id="drName"
+                                                        fullWidth
+                                                        required
+                                                        autoFocus
+                                                        helperText={<ErrorMessage name="drName"/>}
+                                                    />
+
+                                                    <Field 
+                                                        as={TextField}
+                                                        variant="outlined"
+                                                        label="Specialization"
+                                                        name="specialization"
+                                                        id="specialization"
+                                                        select
+                                                        fullWidth
+                                                        helperText={<ErrorMessage name="specialization"/>}
                                                     >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>,
-                                            }}
-                                        />
-                                        <TextField
-                                            variant="outlined"
-                                            label="Confirm Password"
-                                            name="confirmPassword"
-                                            id="confirmPassword"
-                                            type={values.showPassword ? 'text' : 'password'}
-                                            fullWidth
-                                            required
-                                            // value={password}
-                                            // onChange={handleInputChange}
-                                            helperText="Password does not match"
-                                            InputProps={{
-                                                endAdornment: <InputAdornment position="end">
-                                                    <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
+                                                        {specializations.map((option) => (
+                                                            <MenuItem key={option} value={option}>
+                                                                {option}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </Field>
+
+                                                    <Field
+                                                        as={TextField}
+                                                        autoComplete="email"
+                                                        variant="outlined"
+                                                        label="Dr Email"
+                                                        name="email"
+                                                        id="email"
+                                                        fullWidth
+                                                        required
+                                                        helperText={<ErrorMessage name="email"/>}
+                                                    />
+
+                                                </Grid>
+
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <Field
+                                                        as={TextField}
+                                                        variant="outlined"
+                                                        required
+                                                        fullWidth
+                                                        name="password"
+                                                        label="Password"
+                                                        id="password"
+                                                        type={values.showPassword ? 'text' : 'password'}
+                                                        autoComplete="current-password"
+                                                        helperText={<ErrorMessage name="password"/>}
+                                                        InputProps={{
+                                                            endAdornment: <InputAdornment position="end">
+                                                                <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleClickShowPassword}
+                                                                onMouseDown={handleMouseDownPassword}
+                                                                edge="end"
+                                                                >
+                                                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>,
+                                                        }}
+                                                    />
+
+                                                    <Field
+                                                        as={TextField}
+                                                        variant="outlined"
+                                                        required
+                                                        fullWidth
+                                                        name="confirmPassword"
+                                                        label="Confirm Password"
+                                                        id="confirmPassword"
+                                                        type={values.showPassword ? 'text' : 'password'}
+                                                        autoComplete="confirm-password"
+                                                        helperText={<ErrorMessage name="confirmPassword"/>}
+                                                        InputProps={{
+                                                            endAdornment: <InputAdornment position="end">
+                                                                <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleClickShowPassword}
+                                                                onMouseDown={handleMouseDownPassword}
+                                                                edge="end"
+                                                                >
+                                                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>,
+                                                        }}
+                                                    />    
+
+                                                    <Field
+                                                        as={TextField}
+                                                        autoComplete="roomNumber"
+                                                        variant="outlined"
+                                                        label="Room number"
+                                                        name="roomNumber"
+                                                        id="roomNumber"
+                                                        fullWidth
+                                                        required
+                                                        helperText={<ErrorMessage name="roomNumber"/>}
+                                                    />
+
+
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <Button
+                                                        type="submit"
+                                                        variant="contained"
+                                                        color="primary"
+                                                        size="large"
+                                                        sx={{ m: 2, my: 4 }}
+                                                        disabled={loading}
+                                                        // disabled={props.isSubmitting}
                                                     >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>,
-                                            }}
-                                        />
+                                                        {loading ? "Loading..." : "Add Doctor" }  
+                                                    </Button>
+                                                </Grid>
 
-                                        <TextField
-                                            variant="outlined"
-                                            label="Room Number"
-                                            name="roomNumber"
-                                            id="roomNumber"
-                                            select
-                                            fullWidth
-                                            required
-                                            // value={password}
-                                            // onChange={handleInputChange}
-                                            helperText="Please select a room number"
-                                        >
-                                            {roomNumbers.map((room) => (
-                                                <MenuItem key={room} value={room}>
-                                                    {room}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={6}>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            sx={{ m: 2 }}
-                                        >
-                                            Add Doctor
-                                        </Button>
-                                    </Grid>
-
-                                </Grid>
-                            </form>
+                                            </Grid>    
+                                        </Form>
+                                    )}
+                            </Formik>
                         </Paper>
                     </Grid>
                 </Grid>

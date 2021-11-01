@@ -127,8 +127,8 @@ const DashboardContent = ({ title, children, mainListItems }) => {
               <Tooltip title="Menu">
                 <Menu />
               </Tooltip>
-
             </IconButton>
+            
             <Typography
               component="h1"
               variant="h6"

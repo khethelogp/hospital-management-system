@@ -17,6 +17,16 @@ const signup = async(email, password, firstName, lastName, phone) => {
     
 }
 
+const drSignup = async(email, password, drName ) => {
+    return createUserWithEmailAndPassword(auth, email, password)
+    .then((res) => {
+        return updateProfile(res.user, {
+            displayName: `${drName}`,
+        })
+    })
+    
+}
+
 const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
 }
@@ -48,7 +58,8 @@ export function AuthProvider({ children }) {
         logout,
         resetPassword,
         updateUserEmail,
-        updateUserPassword
+        updateUserPassword,
+        drSignup
     }
 
     useEffect(() => {

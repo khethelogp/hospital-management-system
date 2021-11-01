@@ -1,5 +1,5 @@
 import React from 'react';
-import { Signup2, Login } from './components' ;
+import { Signup2 } from './components' ;
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Patient from './pages/patient/Patient';
 import Doctor from './pages/doctor/Doctor';
@@ -12,7 +12,9 @@ import './App.css';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import AdminRoute from './components/PrivateRoute/AdminRoute';
+import DoctorRoute from './components/PrivateRoute/DoctorRoute';
 import DbProvider from './contexts/DbContext';
+import Home from './pages/home/Home';
 
 const theme = createTheme({
     palette: {
@@ -54,15 +56,18 @@ const App = () => {
                         <AuthProvider>
                             <DbProvider>
                                 <Switch>
-                                    <Route exact path='/' component={Login} />
-                                    <Route path='/login' component={Login} />
+                                    <Route exact path='/' component={Home} />
+                                    <Route path='/login' component={Home} />
                                     <Route path='/signup' component={Signup2} />
                                     <Route path='/forgot-password' component={ForgotPassword} />
                                     <AdminRoute path='/admin' component={Admin} />
-                                    <PrivateRoute path='/doctor' component={Doctor}/>
+                                    <DoctorRoute path='/doctor' component={Doctor}/>
                                     <PrivateRoute path='/patient' component={Patient}/>
+                                    {/* <Route exact path='/' component={Login} /> */}
+                                    {/* <Route path='/login' component={Login} /> */}
                                     {/* <Route path='/signup' component={Signup} /> */}
                                     {/* <PrivateRoute path='/admin' component={Admin} /> */}
+                                    {/* <PrivateRoute path='/doctor' component={Doctor}/> */}
                                 </Switch>
                             </DbProvider>  
                         </AuthProvider>

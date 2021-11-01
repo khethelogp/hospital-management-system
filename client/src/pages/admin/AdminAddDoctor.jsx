@@ -4,6 +4,7 @@ import { VisibilityOff, Visibility } from '@material-ui/icons';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDB } from '../../contexts/DbContext';
+import { useAuth } from '../../contexts/AuthContext'
 import { Alert } from '@mui/material';
 
 import useStyles from './styles';
@@ -37,6 +38,8 @@ const AdminAddDoctor = (props) => {
     const [message, setMessage] = useState('');
 
     const { createNewDoctor } = useDB();
+    const { drSignup } = useAuth();
+
 
     const validationSchema = Yup.object().shape({
         drName: Yup.string().required('Doctor name is required'),
@@ -58,7 +61,7 @@ const AdminAddDoctor = (props) => {
         event.preventDefault();
     };
 
-    const handleSubmit = (values, props) => {
+    const handleSubmit = async(values, props) => {
         setTimeout(() => {
             props.resetForm();
             props.setSubmitting(false);
@@ -70,7 +73,8 @@ const AdminAddDoctor = (props) => {
             setError('');
             setLoading(true);
             createNewDoctor(values.drName, values.specialization, values.email, values.password, Number(values.roomNumber));
-            setMessage('New Doctor account created successfuly.')            
+            await drSignup(values.email, values.password, values.drName);
+            setMessage('New Doctor account created successfuly.');            
         } catch (error) {
             setError('Failed to create Doctor Account')
         }

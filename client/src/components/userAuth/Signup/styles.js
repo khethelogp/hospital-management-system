@@ -10,7 +10,7 @@ export default makeStyles((theme) => ({
         paddingRight: '0',
     },
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(6),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -36,5 +36,6 @@ export default makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column'
-    }
+    },
+    
 }));

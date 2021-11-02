@@ -43,15 +43,17 @@ const Home = () => {
                     <Button color="inherit">About US</Button>
                     <Button color="inherit">Contact</Button>
                 </Toolbar>
-            </AppBar>  */}    
-            <div className={classes.home}>
-                <Grid container component="main" >
-                    <Grid item xs={12} >
+            </AppBar>  */}
+
+            <div className={classes.root}>
+                <Grid container component="main" className={classes.main}>
+                    <Grid item xs={12}>
                         <Login2 />
                     </Grid>
+
                 </Grid>
 
-                <Box mt={4}>
+                <Box mt={6}>
                     <Copyright />
                 </Box>       
             </div>

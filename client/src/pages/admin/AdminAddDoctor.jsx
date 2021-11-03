@@ -40,7 +40,6 @@ const AdminAddDoctor = (props) => {
     const { createNewDoctor } = useDB();
     const { drSignup } = useAuth();
 
-
     const validationSchema = Yup.object().shape({
         drName: Yup.string().required('Doctor name is required'),
         specialization: Yup.string().required('Please select a specialization'),
@@ -66,24 +65,19 @@ const AdminAddDoctor = (props) => {
             props.resetForm();
             props.setSubmitting(false);
         }, 2000);
-
-        console.log(values);
-
+        
         try {
             setError('');
             setLoading(true);
             createNewDoctor(values.drName, values.specialization, values.email, values.password, Number(values.roomNumber));
             await drSignup(values.email, values.password, values.drName);
-            setMessage('New Doctor account created successfuly.');            
+            setMessage('New Doctor account created successfuly.');
         } catch (error) {
             setError('Failed to create Doctor Account')
         }
 
         setLoading(false);
-
-    } 
-
-    
+    }
 
     return (
         <>

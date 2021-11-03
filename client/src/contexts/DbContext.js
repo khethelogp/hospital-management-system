@@ -1,6 +1,6 @@
 import React,{ useContext, useState, useEffect } from 'react'
 import { db } from '../config/firebase'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
 
 const DbContext = React.createContext()
 export function useDB() {
@@ -36,15 +36,30 @@ export default function DbProvider({ children }) {
         });   
     }
 
-    const createNewDoctor = async(drname, specialty, mail, passcode, roomNr ) => {
+    const createNewDoctor = async(drname, specialty, mail, passcode, roomNr) => {
         await addDoc(doctorsCollectionRef, {
             name: drname,
             specialization: specialty,
             email: mail,
             password: passcode,
-            roomNumber: roomNr
+            roomNumber: roomNr,
         });
     }
+
+    /* const updateUser = async (id, age) => {
+        const userDoc = doc(db, "users", id);
+        const newFields = {age: age + 1};
+        await updateDoc(userDoc, newFields);
+    } */
+
+    const deleteDoctor = (id) => {
+        return deleteDoc(doc(db, "doctors", id))
+    }
+
+    /* const deleteDoctor = (id) => {
+        const userDoc = doc(db, "doctors", id);
+        return deleteDoc(userDoc);
+    }  */
 
 
     // value to return forn useDB();
@@ -53,6 +68,7 @@ export default function DbProvider({ children }) {
         doctors,
         createUser,
         createNewDoctor,
+        deleteDoctor,
     }
 
     useEffect(() => {
@@ -61,10 +77,6 @@ export default function DbProvider({ children }) {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []) 
-
-    console.log(users);
-    console.log(doctors);
-
 
     return (
         <DbContext.Provider value={value}>

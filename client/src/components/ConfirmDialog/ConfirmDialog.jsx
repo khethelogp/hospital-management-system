@@ -1,7 +1,8 @@
 import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Typography, makeStyles, IconButton } from '@material-ui/core';
-import Controls from '../Controls/Controls';
+// import Controls from '../Controls/Controls';
 import { NotListedLocation } from '@material-ui/icons';
+import { Button } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
     dialog: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center'
     },
     dialogAction: {
-        justifyContent: 'center'
+        justifyContent: 'space-between'
     }, 
     titleIcon: {
         backgroundColor: theme.palette.secondary.light,
@@ -28,7 +29,8 @@ const useStyles = makeStyles(theme => ({
         '& .MuiSvgIcon-root': {
             fontSize: '8rem',
         }
-    }
+    },
+    
 }))
 
 function ConfirmDialog(props) {
@@ -52,7 +54,26 @@ function ConfirmDialog(props) {
                 </Typography>
             </DialogContent>
             <DialogActions className={classes.dialogAction}>
-                <Controls.Button 
+                <Button
+                    variant="contained"
+                    size="large"
+                    color="inherit"
+                    fullWidth
+                    onClick={()=> setConfirmDialog({...confirmDialog, isOpen: false})}
+                >
+                    No
+                </Button>
+                <Button
+                    variant="contained"
+                    size="large"
+                    color="error"
+                    fullWidth
+                    onClick={confirmDialog.onConfirm}
+                >
+                    Yes
+                </Button>
+
+                {/* <Controls.Button 
                     text="No"
                     color="default" 
                     onClick={()=> setConfirmDialog({...confirmDialog, isOpen: false})}
@@ -61,7 +82,7 @@ function ConfirmDialog(props) {
                     text="Yes"
                     color="secondary" 
                     onClick={confirmDialog.onConfirm}
-                />
+                /> */}
             </DialogActions>
         </Dialog>
     )

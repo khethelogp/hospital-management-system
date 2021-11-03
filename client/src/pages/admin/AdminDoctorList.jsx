@@ -25,7 +25,8 @@ const columns = [
     { id: 'specialization', label: 'Specialization', minWidth: 170 },
     { id: 'email', label: 'Email Address', minWidth: 170 },
     { id: 'password', label: 'Password', minWidth: 170 },
-    { id: 'roomNumber', label: 'Room Number', minWidth: 150, align: 'right' }
+    { id: 'roomNumber', label: 'Room Number', minWidth: 150, align: 'right' },
+    { id: 'uid', label: 'Doctor Id', minWidth: 150 }
 ];
 
 

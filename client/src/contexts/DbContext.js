@@ -53,13 +53,15 @@ export default function DbProvider({ children }) {
     } */
 
     const deleteDoctor = (id) => {
-        return deleteDoc(doc(db, "doctors", id))
+        return deleteDoc(doc(db, "doctors", id));
     }
 
     /* const deleteDoctor = (id) => {
         const userDoc = doc(db, "doctors", id);
         return deleteDoc(userDoc);
     }  */
+
+    console.log(doctors);
 
 
     // value to return forn useDB();

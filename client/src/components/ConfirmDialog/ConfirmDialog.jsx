@@ -46,10 +46,10 @@ function ConfirmDialog(props) {
                 </IconButton>
             </DialogTitle>
             <DialogContent>
-                <Typography variant="h6">
+                <Typography variant="h6" align="center" gutterBottom>
                     {confirmDialog.title}
                 </Typography>
-                <Typography variant="subtitle2">
+                <Typography variant="subtitle2" align="center">
                     {confirmDialog.subTitle}
                 </Typography>
             </DialogContent>

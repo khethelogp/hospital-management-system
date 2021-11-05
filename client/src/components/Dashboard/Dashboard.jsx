@@ -18,6 +18,7 @@ import { secondaryListItems } from './listItems';
 import { useHistory } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
 import { Alert } from '@mui/material';
+import { ConfirmDialog } from '../index';
 
 
 function Copyright(props) {
@@ -85,24 +86,34 @@ const mdTheme = createTheme();
 const DashboardContent = ({ title, children, mainListItems }) => {
   
   const [error, setError] = React.useState('')
-  const { currentUser, logout } = useAuth()
-  const history = useHistory()
-  
+  const { currentUser, logout } = useAuth();
+  const history = useHistory();
+
+  const [confirmDialog, setConfirmDialog] = React.useState({isOpen: false, title: '', subTitle: ''});
+
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   const handleLogout = async() => {
-    setError('')
+      setConfirmDialog({
+        isOpen: true,
+        title: 'You are logging out!',
+        subTitle: "Are you sure you want to exit the app?",
+        onConfirm:  () => {onLogout()}
+      })
+  }
 
-    try {
-        await logout()
-        history.push('/login')
-    } catch (error) {
-        setError('Failed to logout')
-    }
-}
+  const onLogout = async() => {
+    setError('');
+      try {
+          await logout()
+          history.push('/login')
+      } catch (error) {
+          setError('Failed to logout')
+      }
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -220,6 +231,12 @@ const DashboardContent = ({ title, children, mainListItems }) => {
           </Container>
         </Box>
       </Box>
+
+      <ConfirmDialog 
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
+      />
+
     </ThemeProvider>
   );
 }

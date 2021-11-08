@@ -3,7 +3,7 @@ import { Button, Grid, MenuItem, TextField } from '@mui/material';
 import useStyles from './styles'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { DatePickerField, TimePickerField, DateTimePickerField } from '../../components';
+import { DateTimePickerField } from '../../components';
 import { useDB } from '../../contexts/DbContext';
 
 
@@ -15,8 +15,6 @@ const PatientForm = () => {
         specialization: '',
         doctor: '',
         roomNumber: 1,
-        appointmentDate: '',
-        appointmentTime: new Date().toLocaleTimeString(),
         appointmentDateTime: ''
     }
 
@@ -25,8 +23,6 @@ const PatientForm = () => {
     const validationSchema = Yup.object().shape({
         specialization: Yup.string().required("Please select a specialization"),
         doctor: Yup.string().required("Please select a doctor"),
-        appointmentDate: Yup.date().required('Please choose a date'),
-        appointmentTime: Yup.date().required('Please choose a time'),   
         appointmentDateTime: Yup.date().required('Please choose a time'),   
     })
     
@@ -123,7 +119,7 @@ const PatientForm = () => {
                             </Grid>
                             
                             <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <Field 
+                                {/*  <Field 
                                     component={DatePickerField}
                                     name="appointmentDate" 
                                     // label="Date"
@@ -144,7 +140,7 @@ const PatientForm = () => {
                                     inputVariant="outlined"
                                     placeholder="08:00 AM" 
                                     helperText={<ErrorMessage name="appointmentTime"/>}
-                                />
+                                /> */}
 
                                 <Field 
                                     component={DateTimePickerField}
@@ -155,8 +151,6 @@ const PatientForm = () => {
                                     inputVariant="outlined"
                                     helperText={<ErrorMessage name="appointmentTime"/>}
                                 />
-
-                                
 
                                 
                             </Grid>
@@ -180,48 +174,3 @@ const PatientForm = () => {
 }
 
 export default PatientForm
-
-
-/* 
-<LocalizationProvider dateAdapter={AdapterDateFns}>
-                                    <CssBaseline />
-                                    
-                                    
-
-                                    <Field
-                                        as={TimePicker}
-                                        name="appointmentTime"
-                                        label="Time"
-                                        id="appointmentTime"
-                                        required
-                                        value={timeValue}
-                                        onChange={(newValue) => {
-                                            setDateValue(newValue);
-                                            set
-                                        }}
-                                        renderInput={(params) => <TextField {...params} helperText={<ErrorMessage name="appointmentTime"/> } />}
-                                    /> 
-
-                                    <TimePicker
-                                        name="appointmentTime"
-                                        label="Time"
-                                        id="appointmentTime"
-                                        value={timeValue}
-                                        onChange={handleInputChange}
-                                        renderInput={(params) => <TextField {...params} helperText={<ErrorMessage name="appointmentTime"/>} />}
-                                    />
-                                    
-                                    <DatePicker
-                                        name="appointmentDate"
-                                        label="Date"
-                                        id="appointmentDate"
-                                        value={dateValue}
-                                        onChange={(newValue) => {
-                                        setDateValue(newValue);
-                                        }}
-                                        renderInput={(params) => <TextField {...params} helperText={<ErrorMessage name="appointmentDate"/>} />}
-                                    />
-                                </LocalizationProvider>
-
-
-*/

@@ -14,8 +14,8 @@ const DateTimePickerField = ({ field, form, ...other}) => {
                 autoOk
                 clearable
                 disablePast
-                ampm={true}
-                allowKeyboardControl={false}
+                ampm={false}
+                allowKeyboardControl={true}
                 leftArrowIcon={<Alarm />}
                 leftArrowButtonProps={{ "aria-label": "Prev month" }}
                 rightArrowButtonProps={{ "aria-label": "Next month" }}

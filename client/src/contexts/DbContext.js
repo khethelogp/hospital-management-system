@@ -14,6 +14,7 @@ export default function DbProvider({ children }) {
 
     const usersCollectionRef = collection(db, "users");
     const doctorsCollectionRef = collection(db, "doctors");
+    const appointmentsCollectionRef = collection(db, "appointments");
     
     const fetchUsers = async() => {
         const data = await getDocs(usersCollectionRef);
@@ -25,7 +26,7 @@ export default function DbProvider({ children }) {
         setDoctors(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
 
-    // create new collections in the DB
+    // create new user in the DB
     const createUser = async(fName, lName, mail, contact, userId) => {
         await addDoc(usersCollectionRef, {
             firstName: fName,
@@ -36,6 +37,7 @@ export default function DbProvider({ children }) {
         });   
     }
 
+    // create a new doctor in the DB
     const createNewDoctor = async(drname, specialty, mail, passcode, roomNr) => {
         await addDoc(doctorsCollectionRef, {
             name: drname,
@@ -46,20 +48,22 @@ export default function DbProvider({ children }) {
         });
     }
 
-    /* const updateUser = async (id, age) => {
-        const userDoc = doc(db, "users", id);
-        const newFields = {age: age + 1};
-        await updateDoc(userDoc, newFields);
-    } */
+    // create a new Appointment
+    const createNewAppointment = async(drName, drRoom, date, time, pID, dID ) => {
+        await addDoc(appointmentsCollectionRef, {
+            name: drName,
+            roomNumber: drRoom,
+            appointmentDate: date,
+            appointmentTime: time,
+            patientID: pID,
+            doctorID: dID
+        });
+    }
+
 
     const deleteDoctor = (id) => {
         return deleteDoc(doc(db, "doctors", id));
     }
-
-    /* const deleteDoctor = (id) => {
-        const userDoc = doc(db, "doctors", id);
-        return deleteDoc(userDoc);
-    }  */
 
     console.log(doctors);
 
@@ -71,6 +75,7 @@ export default function DbProvider({ children }) {
         createUser,
         createNewDoctor,
         deleteDoctor,
+        createNewAppointment,
     }
 
     useEffect(() => {

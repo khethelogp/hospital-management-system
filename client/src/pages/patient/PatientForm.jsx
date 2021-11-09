@@ -5,31 +5,78 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { DateTimePickerField } from '../../components';
 import { useDB } from '../../contexts/DbContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { Alert } from '@mui/material';
 
+
+//? Convert Date to YYYY-MM-DD
+function convertToDate(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+}
+
+//? Convert Time to hh:mm:ss
+function convertToTime(str) {
+    var date = new Date(str),
+        mins = ("0" + (date.getMinutes() + 1)).slice(-2),
+        secs = ("0" + date.getSeconds()).slice(-2);
+    return [date.getHours(), mins, secs].join(":");
+}
 
 const PatientForm = () => {
     const classes = useStyles();
-    const { doctors } = useDB();
+    const { doctors, createNewAppointment } = useDB();
+    const { currentUser } = useAuth();
+
 
     const initialValues = {
         specialization: '',
         doctor: '',
-        roomNumber: 1,
         appointmentDateTime: ''
     }
 
     const [room, setRoom] = useState(0);
+    const [aTime, setATime] = useState('');
+    const [aDate, setADate] = useState('');
+    const [doctorID, setDoctorID] = useState('');
+
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
 
     const validationSchema = Yup.object().shape({
         specialization: Yup.string().required("Please select a specialization"),
         doctor: Yup.string().required("Please select a doctor"),
-        appointmentDateTime: Yup.date().required('Please choose a time'),   
+        appointmentDateTime: Yup.date().required('Please choose a date and a time'),   
     })
     
-
+    // setPatientID(currentUser.uid);
+    
     const handleSubmit = (values, props) => {
+        setTimeout(() => {
+            props.resetForm();
+            props.setSubmitting(false);
+        }, 2000);
 
-        console.log(values);
+        console.log(values)
+        setADate(convertToDate(values.appointmentDateTime));
+        setATime(convertToTime(values.appointmentDateTime));
+
+        try {
+            setError('');
+            setLoading(true);
+            createNewAppointment(values.doctor, room, aDate, aTime, currentUser.uid, doctorID);
+            setTimeout(() => {
+                setMessage('Appointment successfuly booked.');
+            }, 2000);
+                setMessage('');
+        } catch (error) {
+            setError('Failed to create Doctor Account.');
+        }
+
+        setLoading(false);
     }
 
 
@@ -44,6 +91,11 @@ const PatientForm = () => {
                 {(props) => (
                     <Form className={classes.root}>
                         <Grid container className={classes.container}>
+
+                            {error && <Alert severity="error" sx={{ my: 1, width:'100%' }} >{error}</Alert>}
+
+                            {message && <Alert severity="success" sx={{ my: 1, width:'100%' }} >{message}</Alert>}
+
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <Field 
                                     as={TextField}
@@ -84,6 +136,7 @@ const PatientForm = () => {
                                                     roomNumber: cur.roomNumber,
                                                     uid: cur.id
                                                 }
+                                                setDoctorID(newDoctor.uid)
                                                 setRoom(Number(newDoctor.roomNumber))
                                                 acc.push(newDoctor)
                                             } 
@@ -149,7 +202,6 @@ const PatientForm = () => {
                                     // variant="inline"
                                     variant="outlined"
                                     inputVariant="outlined"
-                                    helperText={<ErrorMessage name="appointmentTime"/>}
                                 />
 
                                 
@@ -161,9 +213,12 @@ const PatientForm = () => {
                                     type="submit"
                                     color="primary"
                                     size="large"
+                                    disabled={loading}
                                     sx={{ m: 2 }}
                                 >
-                                    Book Appointment
+                                    {
+                                        loading ? "Loading..." : "Book Appointment"
+                                    }
                                 </Button>
                             </Grid>
                         </Grid> 

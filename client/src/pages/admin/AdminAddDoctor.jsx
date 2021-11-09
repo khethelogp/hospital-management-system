@@ -73,7 +73,7 @@ const AdminAddDoctor = (props) => {
             await drSignup(values.email, values.password, values.drName);
             setMessage('New Doctor account created successfuly.');
         } catch (error) {
-            setError('Failed to create Doctor Account')
+            setError('Failed to create Doctor Account.')
         }
 
         setLoading(false);

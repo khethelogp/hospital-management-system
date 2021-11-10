@@ -38,8 +38,6 @@ const PatientForm = () => {
     }
 
     const [room, setRoom] = useState(0);
-    const [aTime, setATime] = useState('');
-    const [aDate, setADate] = useState('');
     const [doctorID, setDoctorID] = useState('');
 
     const [error, setError] = useState('');
@@ -60,14 +58,12 @@ const PatientForm = () => {
             props.setSubmitting(false);
         }, 2000);
 
-        console.log(values)
-        setADate(convertToDate(values.appointmentDateTime));
-        setATime(convertToTime(values.appointmentDateTime));
-
+        console.log(values);
+        
         try {
             setError('');
             setLoading(true);
-            createNewAppointment(values.doctor, room, aDate, aTime, currentUser.uid, doctorID);
+            createNewAppointment(values.doctor, room, convertToDate(values.appointmentDateTime), convertToTime(values.appointmentDateTime), currentUser.uid, doctorID);
             setTimeout(() => {
                 setMessage('Appointment successfuly booked.');
             }, 2000);

@@ -1,6 +1,7 @@
 import React,{ useContext, useState, useEffect } from 'react'
 import { db } from '../config/firebase'
-import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, doc, query, where } from 'firebase/firestore'
+import { useAuth } from './AuthContext';
 
 const DbContext = React.createContext()
 export function useDB() {
@@ -11,6 +12,9 @@ export function useDB() {
 export default function DbProvider({ children }) {
     const [users, setUsers] = useState([]);
     const [doctors, setDoctors] = useState([]);
+    const { currentUser } = useAuth();
+    const [userAppointments, setUserAppointments] = useState([]);
+
 
     const usersCollectionRef = collection(db, "users");
     const doctorsCollectionRef = collection(db, "doctors");
@@ -61,12 +65,21 @@ export default function DbProvider({ children }) {
     }
 
 
+    // deleteing a doctor
     const deleteDoctor = (id) => {
         return deleteDoc(doc(db, "doctors", id));
     }
 
-    console.log(doctors);
+    // console.log(doctors);
 
+    // !queries to DB
+    const q = query(appointmentsCollectionRef, where("patientID", "==", `${currentUser && currentUser.uid }`));
+    const fetchUserAppointments = async() => {
+        const data = await getDocs(q);
+        setUserAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    }
+
+    console.log(userAppointments);
 
     // value to return forn useDB();
     const value = {
@@ -76,11 +89,14 @@ export default function DbProvider({ children }) {
         createNewDoctor,
         deleteDoctor,
         createNewAppointment,
+        userAppointments
     }
 
     useEffect(() => {
+        setUserAppointments([]);
         fetchUsers();
         fetchDoctors();
+        fetchUserAppointments();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []) 

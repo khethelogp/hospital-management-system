@@ -2,15 +2,14 @@ import React from 'react';
 import { Container, Grid, Paper, Typography } from '@mui/material';
 import useStyles from './styles';
 import PatientTable from './PatientTable';
+import { useDB } from '../../contexts/DbContext';
 
 function createData(name, roomNumber, appointmentDate, appointmentTime) {
     return { name, roomNumber, appointmentDate, appointmentTime};
 }
 
 const rows = [
-    createData('Dr. Smith', '1', '2020-11-20', '14:30:00'),
-    createData('Dr. Noorbai', '6', '2020-11-15', '12:00:00'),
-    createData('Dr. Magagula', '3', '2020-11-29', '09:15:00'),
+    createData('N/A', 'N/A', 'N/A', 'N/A'),
     
 ];
 
@@ -25,6 +24,8 @@ const columns = [
 const PatientAppointmentHistory = () => {
     const  classes = useStyles();
 
+    const { userAppointments } = useDB();
+
     return (
         <>
             <Container  className={classes.container} sx={{ py: 4 }} maxWidth="m">
@@ -33,8 +34,12 @@ const PatientAppointmentHistory = () => {
                         <Typography component="h1" variant="h4" color="primary">
                             Appointment History
                         </Typography>
-                        <Paper className={classes.paperContent} elevation={5} >    
-                            <PatientTable columns={columns} rows={rows}/>
+                        <Paper className={classes.paperContent} elevation={5}>
+                            {userAppointments ? 
+                                <PatientTable columns={columns} rows={userAppointments}/>
+                                :
+                                <PatientTable columns={columns} rows={rows}/>
+                            }    
                         </Paper>
                     </Grid>
                 </Grid>

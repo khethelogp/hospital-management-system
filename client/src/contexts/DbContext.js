@@ -14,6 +14,7 @@ export default function DbProvider({ children }) {
     const [doctors, setDoctors] = useState([]);
     const { currentUser } = useAuth();
     const [userAppointments, setUserAppointments] = useState([]);
+    const [doctorAppointments, setDoctorAppointments] = useState([]);
 
 
     const usersCollectionRef = collection(db, "users");
@@ -53,14 +54,15 @@ export default function DbProvider({ children }) {
     }
 
     // create a new Appointment
-    const createNewAppointment = async(drName, drRoom, date, time, pID, dID ) => {
+    const createNewAppointment = async(drName, drRoom, date, time, pID, dID, aStatus ) => {
         await addDoc(appointmentsCollectionRef, {
             name: drName,
             roomNumber: drRoom,
             appointmentDate: date,
             appointmentTime: time,
             patientID: pID,
-            doctorID: dID
+            doctorID: dID,
+            status: aStatus
         });
     }
 
@@ -70,16 +72,24 @@ export default function DbProvider({ children }) {
         return deleteDoc(doc(db, "doctors", id));
     }
 
-    // console.log(doctors);
-
+    //console.log(doctors);
+    
+    
     // !queries to DB
-    const q = query(appointmentsCollectionRef, where("patientID", "==", `${currentUser && currentUser.uid }`));
+    // const q = query(appointmentsCollectionRef, where("doctorID", "==", `${currentUser && currentUser.uid }`));
     const fetchUserAppointments = async() => {
-        const data = await getDocs(q);
+        const data = await getDocs(query(appointmentsCollectionRef, where("patientID", "==", `${currentUser && currentUser.uid }`)));
         setUserAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
 
-    console.log(userAppointments);
+    const fetchDoctorAppointments = async() => {
+        const data = await getDocs(query(appointmentsCollectionRef, where("doctorID", "==", `${currentUser && currentUser.uid}`)));
+        setDoctorAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    }
+    
+    // console.log(userAppointments);
+    // console.log(doctorAppointments);
+
 
     // value to return forn useDB();
     const value = {
@@ -89,17 +99,26 @@ export default function DbProvider({ children }) {
         createNewDoctor,
         deleteDoctor,
         createNewAppointment,
-        userAppointments
+        userAppointments,
+        doctorAppointments
     }
 
     useEffect(() => {
-        setUserAppointments([]);
         fetchUsers();
         fetchDoctors();
-        fetchUserAppointments();
+        /* fetchUserAppointments();
+        fetchDoctorAppointments(); */
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []) 
+    }, [])
+
+    // use effect for when use changes
+    useEffect(() => {
+        fetchUserAppointments();
+        fetchDoctorAppointments();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]) 
 
     return (
         <DbContext.Provider value={value}>

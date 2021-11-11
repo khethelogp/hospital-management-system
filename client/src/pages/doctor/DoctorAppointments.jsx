@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, Grid, Paper, Typography } from '@mui/material';
 import useStyles from './styles';
-import DoctorTable from './DoctorTable';
+import DoctorTableModified from './DoctorTableModified';
+import { useDB } from '../../contexts/DbContext'
 
 function createData(name, appointmentDate, appointmentTime, status) {
     return { name, appointmentDate, appointmentTime, status};
@@ -22,12 +23,13 @@ const columns = [
     { id: 'patientID', label: 'Patient ID', minWidth: 150 },
     { id: 'appointmentDate', label: 'Appointment Date', minWidth: 170 },
     { id: 'appointmentTime', label: 'Appointment Time', minWidth: 170 },
-    { id: 'status', label: 'Appointment Time', minWidth: 170 },
+    { id: 'status', label: 'Status', minWidth: 170 },
 ];
 
 
 const DoctorAppointments = () => {
     const  classes = useStyles();
+    const { doctorAppointments } = useDB();
 
     return (
         <>
@@ -38,7 +40,8 @@ const DoctorAppointments = () => {
                             Appointments
                         </Typography>
                         <Paper className={classes.paperContent} elevation={5} >    
-                            <DoctorTable columns={columns} rows={rows}/>
+                            <DoctorTableModified columns={columns} rows={doctorAppointments}/>
+                            {/* <DoctorTable columns={columns} rows={rows}/> */}
                         </Paper>
                     </Grid>
                 </Grid>

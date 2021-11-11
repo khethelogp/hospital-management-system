@@ -15,7 +15,7 @@ const PatientDashboard = () => {
         <>
             <Container  className={classes.container} sx={{ py: 4 }} maxWidth="m">
                 <Grid container spacing={3} >
-                    <Grid item lg={12} md={4} sm={12}>
+                    <Grid item lg={12} md={12} sm={12}>
                         <Typography component="h1" variant="h4" color="primary" gutterBottom >
                             Welcome ({currentUser.displayName || currentUser.email})
                         </Typography>            

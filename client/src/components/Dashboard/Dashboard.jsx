@@ -18,14 +18,14 @@ import { secondaryListItems } from './listItems';
 import { useHistory } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
 import { Alert } from '@mui/material';
-import { ConfirmDialog } from '../index';
+import { ConfirmDialog, Notification, Popup } from '../index';
 
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://khethelogp.com" >
+      <Link color="inherit" href="https://khethelogp.com" target="blank">
         GROUP-I DEV
       </Link>{' '}
       {new Date().getFullYear()}
@@ -90,6 +90,8 @@ const DashboardContent = ({ title, children, mainListItems }) => {
   const history = useHistory();
 
   const [confirmDialog, setConfirmDialog] = React.useState({isOpen: false, title: '', subTitle: ''});
+  const [openPopup, setOpenPopup]= React.useState(false);
+  const [notify, setNotify]= React.useState({isOpen: false, message: '', type:''});
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
@@ -113,6 +115,18 @@ const DashboardContent = ({ title, children, mainListItems }) => {
       } catch (error) {
           setError('Failed to logout')
       }
+  }
+
+  const handleClickNotification = () => {
+    /* setNotify({
+      isOpen: true,
+      message: 'Notifications coming soon! 😃',
+      type: 'info'
+    }); */
+    setOpenPopup(true);
+    setTimeout(function () {
+      setOpenPopup(false);
+    }, 3000);
   }
 
   return (
@@ -151,7 +165,7 @@ const DashboardContent = ({ title, children, mainListItems }) => {
               {title}
             </Typography>
               
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={handleClickNotification}>
               <Badge badgeContent={4} color="secondary">
                 <Notifications />
               </Badge>
@@ -236,6 +250,21 @@ const DashboardContent = ({ title, children, mainListItems }) => {
           confirmDialog={confirmDialog}
           setConfirmDialog={setConfirmDialog}
       />
+
+      <Notification 
+          notify={notify}
+          setNotify={setNotify}
+      />
+
+            <Popup
+                title="Notifcations"
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <Typography variant="h3">
+                  Notifications coming soon! 😃
+                </Typography>
+            </Popup>
 
     </ThemeProvider>
   );

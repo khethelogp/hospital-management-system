@@ -60,6 +60,8 @@ export default makeStyles((theme) => ({
             cursor: 'pointer'
         },
     },
-    
+    succes: {
+        backgroundColor: '#4caf50',
+    }
 
 }));

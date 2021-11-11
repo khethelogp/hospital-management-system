@@ -60,6 +60,11 @@ export default makeStyles((theme) => ({
             cursor: 'pointer'
         },
     },
+    success: {
+        backgroundColor: '#4caf50',
+        color: '#fff',
+        textTransform: 'capitalize',
+    }
     
 
 }));

@@ -42,6 +42,7 @@ const PatientForm = () => {
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState('active');
     const [message, setMessage] = useState('');
 
     const validationSchema = Yup.object().shape({
@@ -63,7 +64,7 @@ const PatientForm = () => {
         try {
             setError('');
             setLoading(true);
-            createNewAppointment(values.doctor, room, convertToDate(values.appointmentDateTime), convertToTime(values.appointmentDateTime), currentUser.uid, doctorID);
+            createNewAppointment(values.doctor, room, convertToDate(values.appointmentDateTime), convertToTime(values.appointmentDateTime), currentUser.uid, doctorID, status);
             setTimeout(() => {
                 setMessage('Appointment successfuly booked.');
             }, 2000);
@@ -130,7 +131,7 @@ const PatientForm = () => {
                                                     name: cur.name, 
                                                     specialization: cur.specialization,
                                                     roomNumber: cur.roomNumber,
-                                                    uid: cur.id
+                                                    uid: cur.uid
                                                 }
                                                 setDoctorID(newDoctor.uid)
                                                 setRoom(Number(newDoctor.roomNumber))

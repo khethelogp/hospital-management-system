@@ -29,6 +29,7 @@ const theme = createTheme({
         background: {
             default: "#f4f5fd"
         },
+        // type: "dark"
     },
     overrides:{
         MuiAppBar:{
@@ -46,7 +47,6 @@ const theme = createTheme({
 
 const App = () => {
 
-    
     // TODO add theme and theme provider
     return (
             <ThemeProvider theme={theme}>

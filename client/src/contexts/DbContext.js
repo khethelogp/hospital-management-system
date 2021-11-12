@@ -15,6 +15,7 @@ export default function DbProvider({ children }) {
     const { currentUser } = useAuth();
     const [userAppointments, setUserAppointments] = useState([]);
     const [doctorAppointments, setDoctorAppointments] = useState([]);
+    const [allAppointments, setAllAppointments] = useState([]);
 
 
     const usersCollectionRef = collection(db, "users");
@@ -29,6 +30,11 @@ export default function DbProvider({ children }) {
     const fetchDoctors = async() => {
         const data = await getDocs(doctorsCollectionRef);
         setDoctors(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    }
+
+    const fetchAllAppointments = async() => {
+        const data = await getDocs(appointmentsCollectionRef);
+        setAllAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
 
     // create new user in the DB
@@ -54,10 +60,11 @@ export default function DbProvider({ children }) {
     }
 
     // create a new Appointment
-    const createNewAppointment = async(drName, drRoom, date, time, pID, dID, aStatus ) => {
+    const createNewAppointment = async(drName, drRoom, pName, date, time, pID, dID, aStatus ) => {
         await addDoc(appointmentsCollectionRef, {
             name: drName,
             roomNumber: drRoom,
+            patientName: pName,
             appointmentDate: date,
             appointmentTime: time,
             patientID: pID,
@@ -89,6 +96,7 @@ export default function DbProvider({ children }) {
     
     // console.log(userAppointments);
     // console.log(doctorAppointments);
+    console.log(allAppointments);
 
 
     // value to return forn useDB();
@@ -100,12 +108,14 @@ export default function DbProvider({ children }) {
         deleteDoctor,
         createNewAppointment,
         userAppointments,
-        doctorAppointments
+        doctorAppointments,
+        allAppointments
     }
 
     useEffect(() => {
         fetchUsers();
         fetchDoctors();
+        fetchAllAppointments();
         /* fetchUserAppointments();
         fetchDoctorAppointments(); */
 

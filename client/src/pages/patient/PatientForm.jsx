@@ -64,7 +64,7 @@ const PatientForm = () => {
         try {
             setError('');
             setLoading(true);
-            createNewAppointment(values.doctor, room, convertToDate(values.appointmentDateTime), convertToTime(values.appointmentDateTime), currentUser.uid, doctorID, status);
+            createNewAppointment(values.doctor, room,`${currentUser.displayName || currentUser.email}`,convertToDate(values.appointmentDateTime), convertToTime(values.appointmentDateTime), currentUser.uid, doctorID, status);
             setTimeout(() => {
                 setMessage('Appointment successfuly booked.');
             }, 2000);

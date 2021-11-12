@@ -19,8 +19,8 @@ const rows = [
 
 
 const columns = [
-    // { id: 'name', label: 'Patient Name', minWidth: 150 },
-    { id: 'patientID', label: 'Patient ID', minWidth: 150 },
+    // { id: 'patientID', label: 'Patient ID', minWidth: 150 },
+    { id: 'patientName', label: 'Patient Name', minWidth: 170},
     { id: 'appointmentDate', label: 'Appointment Date', minWidth: 170 },
     { id: 'appointmentTime', label: 'Appointment Time', minWidth: 170 },
     { id: 'status', label: 'Status', minWidth: 170 },

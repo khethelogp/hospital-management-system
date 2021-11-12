@@ -21,6 +21,7 @@ import { Alert } from '@mui/material';
 import { ConfirmDialog, Notification, Popup } from '../index';
 
 
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -81,7 +82,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme();
+const mdTheme = createTheme({
+  palette: {
+    type: "dark"
+  }
+});
 
 const DashboardContent = ({ title, children, mainListItems }) => {
   

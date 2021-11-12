@@ -8,10 +8,10 @@ import * as Yup from 'yup';
 import { LockOutlined, VisibilityOff, Visibility  } from '@material-ui/icons';
 import { useAuth } from '../../../contexts/AuthContext';
 import { Alert } from '@mui/material';
-import bgImage from "../../../assets/bg-4.jpg";
 import { useDB } from '../../../contexts/DbContext';
 
 
+import bgImage from "../../../assets/bg-4.jpg";
 const styles = {
     signUpBG: {
         backgroundImage: `url(${bgImage})`,

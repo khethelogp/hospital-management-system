@@ -30,7 +30,7 @@ const AdminDeleteDoctor = (props) => {
         setConfirmDialog({
             isOpen: true,
             title: 'Are you sure to delete this record ?',
-            subTitle: "You cannot undo this action",
+            subTitle: "You cannot undo this action!",
             onConfirm:  () => {onDelete(values.doctorID)}
         })
     }

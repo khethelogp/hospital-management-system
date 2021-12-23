@@ -42,8 +42,9 @@ const PatientForm = () => {
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [status, setStatus] = useState('active');
+    const status = 'active';
     const [message, setMessage] = useState('');
+    // const updatedDocs = [... new Set(doctors)];
 
     const validationSchema = Yup.object().shape({
         specialization: Yup.string().required("Please select a specialization"),
@@ -104,7 +105,6 @@ const PatientForm = () => {
                                     fullWidth
                                     helperText={<ErrorMessage name="specialization"/>}
                                 >
-                                    {/*! use filter or reduce to remove duplicates  */}
 
                                     {doctors.map((option) => (
                                         <MenuItem key={option.uid} value={option.specialization}>

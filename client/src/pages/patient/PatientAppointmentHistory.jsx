@@ -10,7 +10,6 @@ function createData(name, roomNumber, appointmentDate, appointmentTime, status) 
 
 const rows = [
     createData('N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
-    
 ];
 
 const columns = [
@@ -36,10 +35,9 @@ const PatientAppointmentHistory = () => {
                             Appointment History
                         </Typography>
                         <Paper className={classes.paperContent} elevation={5}>
-                            {userAppointments ? 
-                                <PatientTableModified columns={columns} rows={userAppointments}/>
-                                :
-                                <PatientTableModified columns={columns} rows={rows}/>
+                            {userAppointments 
+                                ? <PatientTableModified columns={columns} rows={userAppointments}/>
+                                : <PatientTableModified columns={columns} rows={rows}/>
                             }    
                         </Paper>
                     </Grid>

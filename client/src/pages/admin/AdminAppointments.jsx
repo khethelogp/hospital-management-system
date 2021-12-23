@@ -8,9 +8,9 @@ import { useDB } from '../../contexts/DbContext';
 
 import useStyles from './styles';
 
-function createData( id, pID, firstName, lastName, gender, email, contact, doctorName, roomNum, aDate, aTime, aStatus) {
+/* function createData( id, pID, firstName, lastName, gender, email, contact, doctorName, roomNum, aDate, aTime, aStatus) {
     return { id , pID, firstName, lastName, gender, email, contact, doctorName, roomNum, aDate, aTime, aStatus };
-}
+} */
 
 
 /* const rows = [

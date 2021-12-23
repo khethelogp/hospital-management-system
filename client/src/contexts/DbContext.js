@@ -81,7 +81,6 @@ export default function DbProvider({ children }) {
 
     //console.log(doctors);
     
-    
     // !queries to DB
     // const q = query(appointmentsCollectionRef, where("doctorID", "==", `${currentUser && currentUser.uid }`));
     const fetchUserAppointments = async() => {
@@ -96,7 +95,12 @@ export default function DbProvider({ children }) {
     
     // console.log(userAppointments);
     // console.log(doctorAppointments);
-    console.log(allAppointments);
+    // console.log(allAppointments);
+     // deleteing a doctor
+
+    const deleteAppointment = async(id) => {
+        await deleteDoc(doc(db, "appointments", id));
+    }
 
 
     // value to return forn useDB();
@@ -109,15 +113,14 @@ export default function DbProvider({ children }) {
         createNewAppointment,
         userAppointments,
         doctorAppointments,
-        allAppointments
+        allAppointments,
+        deleteAppointment
     }
 
     useEffect(() => {
         fetchUsers();
         fetchDoctors();
         fetchAllAppointments();
-        /* fetchUserAppointments();
-        fetchDoctorAppointments(); */
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

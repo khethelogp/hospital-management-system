@@ -7,16 +7,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Alert from '@mui/material/Alert';
 import useStyles from './styles';
 import { Button } from '@material-ui/core';
+import { useDB } from '../../contexts/DbContext';
+
 
 export default function StickyHeadTable(props) {
     const { columns, rows } = props;
     const classes = useStyles();
 
+    const [error, setError] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+    const { deleteAppointment } = useDB();
+    
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -24,10 +30,24 @@ export default function StickyHeadTable(props) {
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
-};
+    };
+
+    const handleDelete = (id) => {
+        try {
+            setError('');
+            setLoading(true);
+            deleteAppointment(id);
+            setLoading(false);
+        } catch (error) {
+            setError('Failed to delete Appointment');
+        }
+    }
 
 return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation={0}>
+        
+        {error && <Alert severity="error" sx={{ my: 1, width:'100%' }} >{error}</Alert>}
+
         <TableContainer sx={{ maxHeight: 440}}>
             <Table stickyHeader aria-label="sticky table" className={classes.table}>
             <TableHead>
@@ -64,8 +84,12 @@ return (
                         })}
 
                         <TableCell align="start">
-                            <Button color="secondary" variant="contained">
-                                Cancel    
+                            <Button 
+                                color="secondary" variant="contained" 
+                                disabled={loading}
+                                onClick={() => {handleDelete(row.id)}}
+                            >
+                                {loading ? "Loading..." : "Cancel"}    
                             </Button>
                         </TableCell>
                     </TableRow>

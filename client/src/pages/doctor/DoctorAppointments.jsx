@@ -39,9 +39,11 @@ const DoctorAppointments = () => {
                         <Typography component="h1" variant="h4" color="primary">
                             Appointments
                         </Typography>
-                        <Paper className={classes.paperContent} elevation={5} >    
-                            <DoctorTableModified columns={columns} rows={doctorAppointments}/>
-                            {/* <DoctorTable columns={columns} rows={rows}/> */}
+                        <Paper className={classes.paperContent} elevation={5} >
+                            { doctorAppointments 
+                                ? <DoctorTableModified columns={columns} rows={doctorAppointments}/>
+                                : <DoctorTableModified columns={columns} rows={rows}/>
+                            }    
                         </Paper>
                     </Grid>
                 </Grid>

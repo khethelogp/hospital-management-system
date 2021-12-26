@@ -1,19 +1,32 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
+    
+    pageContent: {
+        margin: theme.spacing(5),
+        padding: theme.spacing(3)
+    },
+    searchInput: {
+        width: '100%'
+    },
+    newButton: {
+        position: 'absolute',
+        right: '10px'
+    },
     root: {
         '& .MuiFormControl-root':{
             width: '80%',
             margin: theme.spacing(1)
-        }
+        },
     },
-    container:{
+    container: {
+        padding: theme.spacing(2),
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        flexWrap: 'wrap',
     },
     card:{
-        minWidth: '275px',
-        
+        minWidth: '275px',     
     },
     cardIcon: {
         display: 'flex',
@@ -42,7 +55,7 @@ export default makeStyles((theme) => ({
         margin: '1rem 0',
     },
     paperContent: {
-        margin: theme.spacing(5, 0),
+        margin: theme.spacing(3, 0),
         padding: theme.spacing(3),
     },
     table: {
@@ -57,11 +70,11 @@ export default makeStyles((theme) => ({
         },
         '& tbody tr:hover': {
             backgroundColor: '#fffbf2',
-            // cursor: 'pointer'
+            cursor: 'pointer'
         },
     },
-    succes: {
-        backgroundColor: '#4caf50',
+    button: {
+        margin: theme.spacing(5, 2)
     }
-
-}));
+    
+}))

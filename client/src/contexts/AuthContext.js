@@ -47,7 +47,7 @@ const updateUserPassword = (password) => {
     return updatePassword(auth.currentUser , password)
 }
 
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
     

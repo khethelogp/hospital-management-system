@@ -66,17 +66,15 @@ const PatientForm = () => {
             setError('');
             setLoading(true);
             createNewAppointment(values.doctor, room,`${currentUser.displayName || currentUser.email}`,convertToDate(values.appointmentDateTime), convertToTime(values.appointmentDateTime), currentUser.uid, doctorID, status);
-            setTimeout(() => {
-                setMessage('Appointment successfuly booked.');
-            }, 2000);
-                setMessage('');
+            setMessage('Appointment successfuly booked.');
+            
         } catch (error) {
             setError('Failed to create Doctor Account.');
         }
-
+        
         setLoading(false);
+        // window.location.reload();
     }
-
 
     return (
             

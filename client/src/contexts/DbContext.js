@@ -1,6 +1,6 @@
 import React,{ useContext, useState, useEffect } from 'react'
 import { db } from '../config/firebase'
-import { collection, getDocs, addDoc, deleteDoc, doc, query, where } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, doc, query, where, updateDoc } from 'firebase/firestore'
 import { useAuth } from './AuthContext';
 
 const DbContext = React.createContext()
@@ -102,6 +102,14 @@ export default function DbProvider({ children }) {
         await deleteDoc(doc(db, "appointments", id));
     }
 
+    const cancelAppointment = async(id) => {
+        await updateDoc(doc(db, "appointments", id), {
+            status: "canceled by you"
+        });
+
+        // window.location.reload();
+    }
+
 
     // value to return forn useDB();
     const value = {
@@ -114,7 +122,8 @@ export default function DbProvider({ children }) {
         userAppointments,
         doctorAppointments,
         allAppointments,
-        deleteAppointment
+        cancelAppointment,
+        deleteAppointment,
     }
 
     useEffect(() => {

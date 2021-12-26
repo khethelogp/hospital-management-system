@@ -1,20 +1,15 @@
 import React from 'react';
 import { Signup2 } from './components' ;
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Patient from './pages/patient/Patient';
-import Doctor from './pages/doctor/Doctor';
-import Admin from './pages/admin/Admin';
 import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import { Admin, Doctor, Home, NotFound, Patient } from './pages';
+import { AdminRoute, DoctorRoute, PrivateRoute } from './routes';
 
-import { AuthProvider } from './contexts/AuthContext';
-
-import './App.css';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import ForgotPassword from './components/ForgotPassword/ForgotPassword';
-import AdminRoute from './components/PrivateRoute/AdminRoute';
-import DoctorRoute from './components/PrivateRoute/DoctorRoute';
+import AuthProvider from './contexts/AuthContext';
 import DbProvider from './contexts/DbContext';
-import Home from './pages/home/Home';
+
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import './App.css';
 
 const theme = createTheme({
     palette: {
@@ -63,11 +58,8 @@ const App = () => {
                                     <AdminRoute path='/admin' component={Admin} />
                                     <DoctorRoute path='/doctor' component={Doctor}/>
                                     <PrivateRoute path='/patient' component={Patient}/>
-                                    {/* <Route exact path='/' component={Login} /> */}
-                                    {/* <Route path='/login' component={Login} /> */}
-                                    {/* <Route path='/signup' component={Signup} /> */}
-                                    {/* <PrivateRoute path='/admin' component={Admin} /> */}
-                                    {/* <PrivateRoute path='/doctor' component={Doctor}/> */}
+                                    <PrivateRoute path='*' component={NotFound}/>
+                                    {/* <Route path='*' component={NotFound} /> */}
                                 </Switch>
                             </DbProvider>  
                         </AuthProvider>

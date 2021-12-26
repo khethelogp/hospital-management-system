@@ -131,7 +131,7 @@ const Signup2 = () => {
                     >
                     <Paper className={classes.paper} elevation={10} >
                         <Avatar className={classes.avatar}>
-                        <LockOutlined />
+                            <LockOutlined />
                         </Avatar>
                         <Typography component="h1" variant="h4" className={classes.signUpText}>
                             Sign up as a patient

@@ -14,13 +14,17 @@ export default function DbProvider({ children }) {
     const [doctors, setDoctors] = useState([]);
     const { currentUser } = useAuth();
     const [userAppointments, setUserAppointments] = useState([]);
+    const [userPrescriptions, setUserPrescriptions] = useState([]);
     const [doctorAppointments, setDoctorAppointments] = useState([]);
+    const [doctorPrescriptions, setDoctorPrescriptions] = useState([]);
     const [allAppointments, setAllAppointments] = useState([]);
+    const [allPrescriptions, setAllPrescriptions] = useState([]);
 
 
     const usersCollectionRef = collection(db, "users");
     const doctorsCollectionRef = collection(db, "doctors");
     const appointmentsCollectionRef = collection(db, "appointments");
+    const prescriptionsCollectionRef = collection(db, "prescriptions");
     
     const fetchUsers = async() => {
         const data = await getDocs(usersCollectionRef);
@@ -35,6 +39,11 @@ export default function DbProvider({ children }) {
     const fetchAllAppointments = async() => {
         const data = await getDocs(appointmentsCollectionRef);
         setAllAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    }
+
+    const fetchAllPrescriptions = async() => {
+        const data = await getDocs(prescriptionsCollectionRef);
+        setAllPrescriptions(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
 
     // create new user in the DB
@@ -73,19 +82,33 @@ export default function DbProvider({ children }) {
         });
     }
 
+    // creating a new prescription
+    const createNewPrescription = async(drName, pName, aDate, pID, dID, sickness, meds) => {
+        await addDoc(prescriptionsCollectionRef, {
+            doctorName: drName,
+            patientName: pName,
+            appointmentDate: aDate,
+            patientID: pID,
+            doctorID: dID,
+            disease: sickness,
+            medication: meds
+        });
+    }
 
     // deleteing a doctor
     const deleteDoctor = (id) => {
         return deleteDoc(doc(db, "doctors", id));
     }
 
-    //console.log(doctors);
-    
-    // !queries to DB
-    // const q = query(appointmentsCollectionRef, where("doctorID", "==", `${currentUser && currentUser.uid }`));
+    // Fetching data from DB
     const fetchUserAppointments = async() => {
         const data = await getDocs(query(appointmentsCollectionRef, where("patientID", "==", `${currentUser && currentUser.uid }`)));
         setUserAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    }
+
+    const fetchUserPrescriptions = async() => {
+        const data = await getDocs(query(prescriptionsCollectionRef, where("patientID", "==", `${currentUser && currentUser.uid }`)));
+        setUserPrescriptions(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
 
     const fetchDoctorAppointments = async() => {
@@ -93,16 +116,30 @@ export default function DbProvider({ children }) {
         setDoctorAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
 
+    const fetchDoctorPrescriptions = async() => {
+        const data = await getDocs(query(prescriptionsCollectionRef, where("doctorID", "==", `${currentUser && currentUser.uid}`)));
+        setDoctorPrescriptions(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    }
+
+
+    // delete appointment
     const deleteAppointment = async(id) => {
         await deleteDoc(doc(db, "appointments", id));
     }
 
+    // cancel appointment
     const cancelAppointment = async(id, name) => {
         await updateDoc(doc(db, "appointments", id), {
             status: `canceled by ${name}`
         });
     }
 
+    //  prescribe meds
+    const prescribeMeds = async(id, name) => {
+        await updateDoc(doc(db, "appointments", id), {
+            status: `attended to by ${name}`
+        });
+    }
 
     // value to return forn useDB();
     const value = {
@@ -113,16 +150,22 @@ export default function DbProvider({ children }) {
         deleteDoctor,
         createNewAppointment,
         userAppointments,
+        userPrescriptions,
         doctorAppointments,
+        doctorPrescriptions,
         allAppointments,
+        allPrescriptions,
         cancelAppointment,
         deleteAppointment,
+        prescribeMeds,
+        createNewPrescription
     }
 
     useEffect(() => {
         fetchUsers();
         fetchDoctors();
         fetchAllAppointments();
+        fetchAllPrescriptions();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -130,7 +173,9 @@ export default function DbProvider({ children }) {
     // use effect for when use changes
     useEffect(() => {
         fetchUserAppointments();
+        fetchUserPrescriptions();
         fetchDoctorAppointments();
+        fetchDoctorPrescriptions();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser]) 

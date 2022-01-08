@@ -44,28 +44,27 @@ const App = () => {
 
     // TODO add theme and theme provider
     return (
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <div className="App">       
-                    <Router>
-                        <AuthProvider>
-                            <DbProvider>
-                                <Switch>
-                                    <Route exact path='/' component={Home} />
-                                    <Route path='/login' component={Home} />
-                                    <Route path='/signup' component={Signup2} />
-                                    <Route path='/forgot-password' component={ForgotPassword} />
-                                    <AdminRoute path='/admin' component={Admin} />
-                                    <DoctorRoute path='/doctor' component={Doctor}/>
-                                    <PrivateRoute path='/patient' component={Patient}/>
-                                    <PrivateRoute path='*' component={NotFound}/>
-                                    {/* <Route path='*' component={NotFound} /> */}
-                                </Switch>
-                            </DbProvider>  
-                        </AuthProvider>
-                    </Router>    
-                </div>
-            </ThemeProvider>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <div className="App">       
+                <Router>
+                    <AuthProvider>
+                        <DbProvider>
+                            <Switch>
+                                <Route exact path='/' component={Home} />
+                                <Route path='/login' component={Home} />
+                                <Route path='/signup' component={Signup2} />
+                                <Route path='/forgot-password' component={ForgotPassword} />
+                                <AdminRoute path='/admin' component={Admin} />
+                                <DoctorRoute path='/doctor' component={Doctor}/>
+                                <PrivateRoute path='/patient' component={Patient}/>
+                                <PrivateRoute path='*' component={NotFound}/>
+                            </Switch>
+                        </DbProvider>  
+                    </AuthProvider>
+                </Router>    
+            </div>
+        </ThemeProvider>
     )
 }
 

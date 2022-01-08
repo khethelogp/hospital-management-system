@@ -9,6 +9,7 @@ import AdminAppointments from './AdminAppointments';
 import AdminPrescriptionsList from './AdminPrescriptionsList';
 import AdminAddDoctor from './AdminAddDoctor';
 import AdminDeleteDoctor from './AdminDeleteDoctor';
+import { NotFound } from '../';
 
 
 const title = "Admin Dashboard";
@@ -83,6 +84,7 @@ const Admin = () => {
                         />
                     </Route>
 
+                    <Route path='*' component={NotFound} />
                 </Switch>
             </Router>
             

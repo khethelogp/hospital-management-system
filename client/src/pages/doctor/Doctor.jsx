@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { NotFound } from '../';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import DoctorAppointments from './DoctorAppointments';
 import DoctorDashboard from './DoctorDashboard';
@@ -43,7 +44,8 @@ const Doctor = () => {
                             mainListItems={mainListItems} 
                         />
                     </Route>
-
+                    
+                    <Route path='*' component={NotFound} />
                 </Switch>
             </Router>
             

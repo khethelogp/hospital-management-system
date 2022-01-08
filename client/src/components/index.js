@@ -9,3 +9,4 @@ export { default as Dashboard } from './Dashboard/Dashboard';
 export { default as DatePickerField } from './Controls/Pickers/DatePicker';
 export { default as TimePickerField } from './Controls/Pickers/TimePicker';
 export { default as DateTimePickerField } from './Controls/Pickers/DateTimePicker';
+export { default as Prescription } from './Prescription/Prescription';

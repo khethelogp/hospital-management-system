@@ -6,6 +6,7 @@ import PatientAppointments from './PatientAppointments';
 import { mainListItems } from './PatientListItems';
 import PatientAppointmentHistory from './PatientAppointmentHistory';
 import PatientPrescriptions from './PatientPrescriptions';
+import { NotFound } from '../';
 
 const Patient = () => {
     return (
@@ -49,6 +50,7 @@ const Patient = () => {
                         />
                     </Route>
                     
+                    <Route path='*' component={NotFound} />
                 </Switch>
             </Router>
             

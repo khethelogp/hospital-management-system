@@ -13,7 +13,7 @@ import * as MdIcons from 'react-icons/md';
 import * as FcIcons from 'react-icons/fc';
 import { useDB } from '../../contexts/DbContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { ConfirmDialog } from '../../components';
+import { ConfirmDialog, Popup, Prescription } from '../../components';
 
 
 import useStyles from './styles';
@@ -24,14 +24,13 @@ export default function StickyHeadTable(props) {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
     const [error, setError] = React.useState('');
     const [loading, setLoading] = React.useState(false);
-
-
     const { currentUser } = useAuth();
     const { cancelAppointment } = useDB();
     const [confirmDialog, setConfirmDialog] = React.useState({isOpen: false, title: '', subTitle: ''});
+    const [openPopup, setOpenPopup] = React.useState(false);
+    const [appointment, setAppointment] = React.useState({});
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -119,7 +118,7 @@ return (
                                     ?   <Tooltip title="Cancel Appointment">
                                             <Button 
                                                 color="secondary" 
-                                                onClick={() => {handleCancel(row.id)}}
+                                                onClick={() => handleCancel(row.id)}
                                             >
                                                 <FcIcons.FcCancel className="reactIcon"/>
                                             </Button>
@@ -132,7 +131,12 @@ return (
                                 {
                                     row.status === "active"
                                     ?   <Tooltip title="Attend to patient">
-                                            <Button color="primary" disabled={loading}>
+                                            <Button color="primary" disabled={loading}
+                                            onClick={() => {
+                                                setOpenPopup(true);
+                                                setAppointment(row);
+                                            }}
+                                            >
                                                 { loading 
                                                     ? 'loading...' 
                                                     : <MdIcons.MdHealing className="reactIcon"/>
@@ -141,7 +145,6 @@ return (
                                         </Tooltip>
                                     :   "" 
                                 }
-                                
                             </TableCell>
                         </TableRow>
                         );
@@ -164,6 +167,12 @@ return (
                 confirmDialog={confirmDialog}
                 setConfirmDialog={setConfirmDialog}
             />
+
+            <Popup title="Make a prescription" openPopup={openPopup} setOpenPopup={setOpenPopup}>
+                <div>
+                    <Prescription appointment={appointment} />
+                </div>            
+            </Popup>
         </>
     );
 }

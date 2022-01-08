@@ -251,7 +251,7 @@ const Signup = () => {
                 <Box mt={5}>
                     <Copyright />
                 </Box>
-                </Container>          
+            </Container>          
         </>
     )
 }

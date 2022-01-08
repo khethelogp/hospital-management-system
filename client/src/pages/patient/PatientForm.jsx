@@ -34,7 +34,7 @@ const PatientForm = () => {
     const initialValues = {
         specialization: '',
         doctor: '',
-        appointmentDateTime: ''
+        appointmentDateTime: Date.now()
     }
 
     const [room, setRoom] = useState(0);
@@ -44,7 +44,6 @@ const PatientForm = () => {
     const [loading, setLoading] = useState(false);
     const status = 'active';
     const [message, setMessage] = useState('');
-    // const updatedDocs = [... new Set(doctors)];
 
     const validationSchema = Yup.object().shape({
         specialization: Yup.string().required("Please select a specialization"),
@@ -52,30 +51,24 @@ const PatientForm = () => {
         appointmentDateTime: Yup.date().required('Please choose a date and a time'),   
     })
     
-    // setPatientID(currentUser.uid);
-    
     const handleSubmit = (values, props) => {
         setTimeout(() => {
             props.resetForm();
             props.setSubmitting(false);
         }, 2000);
-
-        console.log(values);
         
         try {
             setError('');
             setLoading(true);
             createNewAppointment(values.doctor, room,`${currentUser.displayName || currentUser.email}`,convertToDate(values.appointmentDateTime), convertToTime(values.appointmentDateTime), currentUser.uid, doctorID, status);
-            setMessage('Appointment successfuly booked.');
-            
+            setMessage('Appointment successfuly booked.');       
         } catch (error) {
             setError('Failed to create Doctor Account.');
         }
         
         setLoading(false);
-        // window.location.reload();
     }
-
+    
     return (
             
             <Formik
@@ -167,39 +160,13 @@ const PatientForm = () => {
                             </Grid>
                             
                             <Grid item xs={12} sm={12} md={6} lg={6}>
-                                {/*  <Field 
-                                    component={DatePickerField}
-                                    name="appointmentDate" 
-                                    // label="Date"
-                                    id="appointmentDate"
-                                    variant="inline"
-                                    // variant="outlined"
-                                    inputVariant="outlined" 
-                                    // helperText={<ErrorMessage name="appointmentDate"/>}
-                                    renderInput={(params) => <TextField {...params} helperText={<ErrorMessage name="appointmentTime"/> } />}
-                                />
-
-                                <Field 
-                                    component={TimePickerField}
-                                    name="appointmentTime" 
-                                    id="appointmentTime"
-                                    variant="inline"
-                                    // variant="outlined"
-                                    inputVariant="outlined"
-                                    placeholder="08:00 AM" 
-                                    helperText={<ErrorMessage name="appointmentTime"/>}
-                                /> */}
-
                                 <Field 
                                     component={DateTimePickerField}
                                     name="appointmentDateTime" 
                                     id="appointmentDateTime"
-                                    // variant="inline"
                                     variant="outlined"
                                     inputVariant="outlined"
                                 />
-
-                                
                             </Grid>
 
                             <Grid item xs={12} sm={12} md={6} lg={6}>

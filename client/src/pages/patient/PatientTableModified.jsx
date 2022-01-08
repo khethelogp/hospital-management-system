@@ -11,6 +11,7 @@ import Alert from '@mui/material/Alert';
 import useStyles from './styles';
 import { Button } from '@material-ui/core';
 import { useDB } from '../../contexts/DbContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { ConfirmDialog } from '../../components';
 
 
@@ -24,8 +25,8 @@ export default function StickyHeadTable(props) {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const { cancelAppointment } = useDB();
     const [confirmDialog, setConfirmDialog] = React.useState({isOpen: false, title: '', subTitle: ''});
-
-    
+    const { currentUser } = useAuth();
+        
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -53,7 +54,7 @@ export default function StickyHeadTable(props) {
         try {
             setError('');
             setLoading(false);
-            await cancelAppointment(id);
+            await cancelAppointment(id, currentUser.displayName || 'you');
         } catch (error) {
             setError('Failed to Cancel appointment');
             
@@ -62,19 +63,6 @@ export default function StickyHeadTable(props) {
         setLoading(false);
     }
 
-
-
-/*     const handleDelete = (id) => {
-        try {
-            setError('');
-            setLoading(true);
-            deleteAppointment(id);
-        } catch (error) {
-            setError('Failed to delete Appointment');
-        }
-
-        setLoading(false);
-    } */
 
 return (
         <>
@@ -128,13 +116,6 @@ return (
                                             </Button>
                                         :  ""
                                     }
-                                    {/* <Button 
-                                        color="secondary" variant="contained" 
-                                        disabled={loading}
-                                        onClick={() => {handleCancel(row.id)}}
-                                    >
-                                        {loading ? "Loading..." : "Cancel"}    
-                                    </Button> */}
                                 </TableCell>
                             </TableRow>
                             );

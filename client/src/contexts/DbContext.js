@@ -92,22 +92,15 @@ export default function DbProvider({ children }) {
         const data = await getDocs(query(appointmentsCollectionRef, where("doctorID", "==", `${currentUser && currentUser.uid}`)));
         setDoctorAppointments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
-    
-    // console.log(userAppointments);
-    // console.log(doctorAppointments);
-    // console.log(allAppointments);
-     // deleteing a doctor
 
     const deleteAppointment = async(id) => {
         await deleteDoc(doc(db, "appointments", id));
     }
 
-    const cancelAppointment = async(id) => {
+    const cancelAppointment = async(id, name) => {
         await updateDoc(doc(db, "appointments", id), {
-            status: "canceled by you"
+            status: `canceled by ${name}`
         });
-
-        // window.location.reload();
     }
 
 

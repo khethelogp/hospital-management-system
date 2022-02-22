@@ -31,10 +31,13 @@ Link to demo ----> [Hospital management system](https://hospital-management-sys.
 
  ***A typcial FullStack Application React & Firebase Project***
  
-    **It covers the following**
-      *React*
-      *Google Firebase*
-
+    It covers the following:
+      React
+      React Context
+      React Routing & Protected Routes
+      Google Firebase
+      Authentication
+      Cloud FireStore
 
 ---
 
@@ -42,9 +45,7 @@ Link to demo ----> [Hospital management system](https://hospital-management-sys.
 
 - [Visual Studio Code](https://code.visualstudio.com/) - A source code editor developed by Microsoft for Windows, Linux and macOS. It includes support for debugging, embedded Git control, syntax highlighting, intelligent code completion, snippets, and code refactoring.
 - [React](https://reactjs.org/) - A javascript library for building user interfaces.
-- [Mongo](https://www.mongodb.com/) - A source-available cross-platform document-oriented database program.
-- [Express.js](https://expressjs.com) -  A back end web application framework for Node.js
-- [Node.js](https://nodejs.org) - An open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser. 
+- [Firebase](https://firebase.google.com/) - A platform developed by Google for creating mobile and web applications.
 
 ---
 
@@ -70,19 +71,19 @@ npm -v
 
 Follow the following steps to get development environment running.
 
-- Clone _'survey'_ repository from GitHub
+- Clone _'hospital-management-system'_ repository from GitHub
 
   ```bash
-  git clone https://github.com/khethelogp/survey
+  git clone https://github.com/khethelogp/hospital-management-system
   ```
 
   _OR USING SSH_
 
   ```bash
-  git clone git@github.com:khethelogp/survey.git
+  git clone git@github.com:khethelogp/hospital-management-system.git
   ```
 
-  - Install node modules (FrontEnd)
+  - Install node modules (Client)
 
   ```bash
   cd survey
@@ -90,21 +91,13 @@ Follow the following steps to get development environment running.
   npm install
   ```
   
-  - Install node modules (BackEnd)
-
-  ```bash
-  cd survey
-  cd server
-  npm install
-  ```
-
 Before continuing, the following steps are required:
 
 1. Get API keys
 
-   - Have a Database on Mongo Db
+   - Have an app on FireBase
 
-     Have a look at [Mongo](https://www.mongodb.com/basics/create-database)
+     Have a look at [Firebase](https://console.firebase.google.com/)
 
 ### Build
 
@@ -126,29 +119,19 @@ Before continuing, the following steps are required:
   npm run build:watch
   ```
 
-  ### Run ESlint
-
 ### Run
 
 - Run start
-
-  This will run the _'serve'_ npm task
+     
+  This will run the _'hospital-management-system'_ npm task
 
   ```bash
   npm start
   ```
-
-- Alternatively run live-server (simple development http server with live reload capability)
-
-  ```bash
-  cd client
-  npm run serve
-  ```
-
 ---
 
 ## References
 
-https://github.com/khethelogp/survey
+https://github.com/khethelogp/hospital-management-system
 
 Made with :heart: by KhetheloGP

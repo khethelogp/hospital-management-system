@@ -6,7 +6,7 @@ Try hospital management system with the Netlify demo<br>
 Link to demo ----> [Hospital management system](https://hospital-management-sys.netlify.app/)<br>
 
 
-***The survey application is composed of the following user roles:***
+***The HMS application is composed of the following user roles:***
 
 1. **Admin** 
       * Has full control over the app
@@ -25,8 +25,8 @@ Link to demo ----> [Hospital management system](https://hospital-management-sys.
       * Can book appointment
       * Can cancel appointments
       * Can view appointment history
-      * Can receive prescriptions from docots
-
+      * Can receive prescriptions from doctors
+   
 ## This project demonstrates:
 
  ***A typcial FullStack Application React & Firebase Project***
@@ -98,6 +98,10 @@ Before continuing, the following steps are required:
    - Have an app on FireBase
 
      Have a look at [Firebase](https://console.firebase.google.com/)
+     
+2. Firebase collections/tables
+
+    <img src="https://i.ibb.co/hWMQPD9/Screenshot-2022-03-31-at-09-50-38.png" alt="collections">
 
 ### Build
 

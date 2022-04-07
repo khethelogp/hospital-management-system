@@ -83,10 +83,15 @@ Follow the following steps to get development environment running.
   git clone git@github.com:khethelogp/hospital-management-system.git
   ```
 
+  - Install node modules
+
+  ```bash
+  npm install
+  ```
+
   - Install node modules (Client)
 
   ```bash
-  cd survey
   cd client
   npm install
   ```
@@ -99,9 +104,14 @@ Before continuing, the following steps are required:
 
      Have a look at [Firebase](https://console.firebase.google.com/)
      
+   - Inside your client directory client/ have a .env file 
+     
+     <img src="https://i.ibb.co/9NLxt4F/Screenshot-2022-04-07-at-11-07-01.png" alt="env file">
+     
 2. Firebase collections/tables
 
     <img src="https://i.ibb.co/hWMQPD9/Screenshot-2022-03-31-at-09-50-38.png" alt="collections">
+
 
 ### Build
 
@@ -112,15 +122,6 @@ Before continuing, the following steps are required:
   ```bash
   cd client
   npm run build
-  ```
-
-- Build application and start watching for changes
-
-  This command will also run ESLint as part of build process.
-
-  ```bash
-  cd client
-  npm run build:watch
   ```
 
 ### Run

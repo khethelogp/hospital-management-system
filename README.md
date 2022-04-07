@@ -104,7 +104,7 @@ Before continuing, the following steps are required:
 
      Have a look at [Firebase](https://console.firebase.google.com/)
      
-   - Inside your client directory client/ have a .env file 
+   - Inside your client directory "/client" have a .env file 
      
      <img src="https://i.ibb.co/9NLxt4F/Screenshot-2022-04-07-at-11-07-01.png" alt="env file">
      
